@@ -10,7 +10,7 @@
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
@@ -24,6 +24,7 @@
                 android:text="联系人："/>
             <TextView
                 android:id="@+id/khTV"
+
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_toRightOf="@id/af_khTV"
@@ -38,9 +39,12 @@
                 android:layout_marginLeft="60dp"
                 android:gravity="center"
                 android:textSize="16sp"
+                android:text="国税报到"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
                 android:textColor="@color/colorBlue"/>
 
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -90,6 +94,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
         android:gravity="center"
+        android:text="是个好师"
         android:textColor="@android:color/darker_gray"
         android:textSize="16sp"/>
 
