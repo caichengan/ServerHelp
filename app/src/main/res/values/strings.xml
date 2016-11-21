@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">客服助手</string>
+    <string name="radio_group_1_sy">首页</string>
+    <string name="radio_group_1_txl">通讯录</string>
+    <string name="radio_group_1_my">我的</string>
+    <string name="bzz_str">办证中</string>
+    <string name="rwc_str">任务池</string>
+    <string name="yj_str">预警</string>
+    <string name="grjx_str">个人绩效</string>
+    <string name="bzzn_str">办证指南</string>
+
+    <string name="pull_to_refresh">下拉可以刷新</string>
+    <string name="release_to_refresh">释放立即刷新</string>
+    <string name="refreshing">正在刷新…</string>
+    <string name="not_updated_yet">暂未更新过</string>
+    <string name="updated_at">上次更新于%1$s前</string>
+    <string name="updated_just_now">刚刚更新</string>
+    <string name="time_error">时间有问题</string>
+    <string name="hello_blank_fragment">hello_blank_fragment</string>
+
+
+    <string name="shoujihao">手机号：</string>
+    <string name="zhanghao">账号：</string>
+    <string name="mima">密　码：</string>
+    <string name="denglu">登 录</string>
+    <string name="zhuce_bt_str">注册</string>
+    <string name="next_zhuce">确 定</string>
+    <string name="yanzheng_word">验证码：</string>
+    <string name="get_yanzhen">发送验证码</string>
+    <string name="tip_input_pnum">请输入手机号</string>
+    <string name="waitting_verification">正在获取验证码...</string>
+    <string name="wrong_verification">出错，请重新获取</string>
+    <string name="tip_input_password">请输入密码</string>
+    <string name="tip_input_yanzheng">请输入验证码</string>
+    <string name="zhengzai_zhuce">正在注册...</string>
+    <string name="zhengzai_login">正在登录...</string>
+    <string name="success_login">登录成功</string>
+    <string name="fotget_mm_bt_str">忘记密码？</string>
+    <string name="login_changhu">登录账户</string>
+    <string name="user_zhuce">用户注册</string>
+</resources>

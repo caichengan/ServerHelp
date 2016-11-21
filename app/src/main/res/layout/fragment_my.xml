@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/white">
+        <ImageView android:id="@+id/head_img"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="12dp"
+            android:layout_gravity="center_vertical"
+            android:background="@mipmap/p_head"/>
+        <LinearLayout android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:id="@+id/fragm_my_ll1"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp">
+            <TextView android:id="@+id/aName"
+                android:layout_width="wrap_content"
+
+                android:layout_marginLeft="35dp"
+                android:layout_height="25dp"
+                />
+            <TextView android:id="@+id/aPhoneNum"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:drawableLeft="@mipmap/phone_sym_img"
+                android:drawablePadding="3dp"
+                android:text="请先登录"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+        <ImageView android:id="@+id/erweima"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="12dp"
+            />
+        <!--android:background="@mipmap/erweima_pic"-->
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/fragm_my_ll2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+        <TextView
+            android:id="@+id/change_mima"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+        android:gravity="center_vertical"
+            android:text="修改密码"
+            android:textSize="18sp"
+
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:id="@+id/view" />
+
+    <RelativeLayout
+        android:id="@+id/fragm_my_ll3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/white">
+        <TextView
+            android:id="@+id/banben"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="版本："
+            android:gravity="center_horizontal"
+            android:textSize="15sp"
+            android:layout_gravity="center_vertical"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

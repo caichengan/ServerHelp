@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_rwxq"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.xht.android.serverhelp.RwxqActivity"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:layout_height="80dp">
+        <HorizontalScrollView
+            android:id="@+id/chengyuan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <LinearLayout
+                android:id="@+id/containLLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </RelativeLayout>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        android:id="@+id/switch_tabs"
+        android:background="@android:color/white"
+        android:checkedButton="@+id/tab1"
+        android:orientation="horizontal">
+        <RadioButton android:id="@id/tab1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/radio_outline2_sel"
+            android:button="@null"
+            android:text="进度"
+            android:textSize="18sp"/>
+        <RadioButton android:id="@+id/tab2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/radio_outline2_sel"
+            android:button="@null"
+            android:clickable="false"
+            android:text="跟进"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="18sp"/>
+        <RadioButton android:id="@+id/tab3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/radio_outline2_sel"
+            android:button="@null"
+            android:clickable="false"
+            android:text="详细"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="18sp"/>
+    </RadioGroup>
+    <FrameLayout
+        android:id="@+id/fragment_contain"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </FrameLayout>
+</LinearLayout>

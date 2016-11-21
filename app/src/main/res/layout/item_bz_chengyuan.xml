@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/listitem_sel">
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/touxiang"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@mipmap/p_head"/>
+    <TextView
+        android:id="@+id/chengyuanName"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@id/touxiang"
+        android:layout_below="@id/touxiang"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="人名"/>
+    <View
+        android:layout_width="1dp"
+        android:layout_height="80dp"
+        android:layout_toRightOf="@id/touxiang"
+        android:background="@android:color/holo_orange_light"/>
+</RelativeLayout>

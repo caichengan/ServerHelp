@@ -1,0 +1,179 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.xht.android.serverhelp.DetailFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        android:layout_marginTop="1dp"
+        android:padding="10dp"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="80dp"
+            android:text="编辑"
+            android:background="@drawable/btn1_sel"
+            android:layout_height="20dp" />
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="80dp"
+            android:text="保存"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/btn1_sel"
+            android:layout_height="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="1dp"
+        android:padding="10dp"
+        android:background="@android:color/white"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="公司名称： "
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textComName"
+            android:layout_width="wrap_content"
+            android:text=" 破天之恋"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="wrap_content"
+            android:hint="破天之恋"
+            android:visibility="gone"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="1dp"
+        android:padding="10dp"
+        android:background="@android:color/white"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="客户名称： "
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textClientName"
+            android:layout_width="wrap_content"
+            android:text=" 破天之恋"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/editClientName"
+            android:layout_width="wrap_content"
+            android:hint="破天之恋"
+            android:visibility="gone"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        android:layout_marginTop="1dp"
+        android:padding="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="客户手机： "
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textPhone"
+            android:layout_width="wrap_content"
+            android:text=" 13531829360"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/editPhone"
+            android:layout_width="wrap_content"
+            android:hint="13531829360"
+            android:phoneNumber="true"
+            android:visibility="gone"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white"
+        android:padding="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="性别： "
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textSex"
+            android:layout_width="wrap_content"
+            android:text=" 男"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/editSex"
+            android:layout_width="wrap_content"
+            android:hint="男"
+            android:visibility="gone"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        android:layout_marginTop="1dp"
+        android:padding="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="注册资金： "
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textMoney"
+            android:layout_width="wrap_content"
+            android:text="   "
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/editMoney"
+            android:layout_width="wrap_content"
+            android:hint="万"
+            android:visibility="gone"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="     万"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="1dp"
+        android:padding="10dp"
+        android:background="@android:color/white"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="股份比例： "
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textGufeng"
+
+            android:layout_width="wrap_content"
+            android:text=" 0"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/editGufeng"
+            android:layout_width="50dp"
+            android:hint="0"
+            android:visibility="gone"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="    %"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txl_name"
+            android:layout_width="match_parent"
+            android:text="姓名:"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txl_tel"
+            android:layout_width="match_parent"
+            android:text="电话号码:"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:background="@android:color/darker_gray"
+        android:layout_height="0.01dp"/>
+
+</LinearLayout>

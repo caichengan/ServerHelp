@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="任务目标："
+                android:textSize="16sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/mTaskName"
+                android:layout_width="wrap_content"
+                android:text="公司注册"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="任务发布人："
+                android:layout_marginLeft="20dp"
+                android:textSize="16sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/mName"
+                android:layout_width="wrap_content"
+                android:text="滴滴哈哈"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="公司名称："
+                android:textSize="16sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/mComName"
+                android:layout_width="wrap_content"
+                android:text="中山中正公司"
+                android:layout_height="wrap_content" />
+
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:src="@mipmap/phone_img"
+                android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/mPhone"
+                android:layout_width="wrap_content"
+                android:text="13531829360"
+                android:layout_marginLeft="15dp"
+                android:textColor="@android:color/black"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="任务地址："
+                android:textSize="16sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/mTaskAddress"
+                android:layout_width="wrap_content"
+                android:text="南区"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="起始步骤："
+                android:textSize="16sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/mProcedure"
+                android:layout_width="wrap_content"
+                android:text="企业名称预先核准"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="任务期限："
+                android:textSize="16sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/mTaskTime"
+                android:layout_width="wrap_content"
+                android:text="15个工作日"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="奖励："
+                android:textSize="16sp"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="30dp"
+                   android:src="@mipmap/zhu_zi_n"
+                    android:layout_height="30dp" />
+                <TextView
+                    android:id="@+id/mAwardMoney"
+                    android:layout_width="wrap_content"
+                    android:text="2000元"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="惩罚："
+                android:textSize="16sp"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:src="@mipmap/zhu_zi_n"
+                    android:layout_height="30dp" />
+                <TextView
+                    android:id="@+id/mPunishment"
+                    android:layout_width="wrap_content"
+                    android:text="每超过一天，扣20元，累计扣至100元，则回收任务.获取奖励金额=80*N（完成步骤数）-罚款"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/mRefuse"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_marginRight="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="拒绝任务"
+                android:textColor="@android:color/white"
+                android:background="@drawable/btn_taskbar"/>
+
+            <Button
+                android:id="@+id/mAccept"
+                android:layout_toRightOf="@id/mRefuse"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_marginRight="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="接受任务"
+                android:textColor="@android:color/white"
+                android:background="@drawable/btn_taskbar"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

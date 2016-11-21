@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+       android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/blue_stroke"
+        android:layout_marginRight="30dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/mCollectContacts"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="收藏"
+            android:visibility="gone"
+            android:clickable="true"
+            android:textColor="@android:color/white"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/mClientContacts"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:text="客户"
+
+            android:textColor="@android:color/white"
+            android:background="@drawable/btn_background_circle"
+            android:gravity="center"
+            android:layout_height="25dp" />
+        <TextView
+            android:id="@+id/mInsideContacts"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="内部"
+            android:clickable="true"
+            android:textColor="@android:color/darker_gray"
+            android:gravity="center"
+            android:layout_height="25dp" />
+    </LinearLayout>
+    <com.xht.android.serverhelp.view.ClearEditText
+        android:id="@+id/mClientEdit"
+        android:layout_marginTop="5dip"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/green_stroke"
+        android:drawableLeft="@drawable/sorlistview_search_bar_icon_normal"
+        android:hint="请输入关键字"
+        android:singleLine="true"
+        android:textSize="15.0dip" />
+
+
+    <ListView
+        android:id="@+id/mClientList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </ListView>
+</LinearLayout>
