@@ -266,7 +266,6 @@ public class JinDuFragment extends Fragment {
         public Object getItem(int position) {
             return mProsItem.get(position);
         }
-
         @Override
         public long getItemId(int position) {
             return mProsItem.size();
