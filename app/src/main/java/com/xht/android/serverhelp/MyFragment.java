@@ -157,6 +157,14 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 				}
 				break;
 			case R.id.head_img:
+
+				IntentUtils.startActivityInfo(getActivity(),LoadPersonImageView.class);
+
+				/*if (mChoosePicDialog == null) {
+					mChoosePicDialog = new ChoosePicDialog(PersonalActivity.this, this);
+				}
+				mChoosePicDialog.show();*/
+
 				break;
 		}
 	}

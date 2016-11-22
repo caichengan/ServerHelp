@@ -2,6 +2,8 @@ package com.xht.android.serverhelp;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import com.xht.android.serverhelp.model.UserInfo;
 import com.xht.android.serverhelp.net.APIListener;
 import com.xht.android.serverhelp.net.VolleyHelpApi;
+import com.xht.android.serverhelp.util.IntentUtils;
 import com.xht.android.serverhelp.util.LogHelper;
 
 import org.json.JSONObject;
@@ -46,6 +49,9 @@ public class PersonalActivity extends Activity implements View.OnClickListener {
     private TextView mPropertyTaxesNum;//地税报到
     private LinearLayout mTabLay06;
 
+    private ProgressDialog mProgressDialog;
+    private ChoosePicDialog mChoosePicDialog;
+    private Uri mCurFromCamare;
 
     //访问网络拿到的数据
     private String mName;//姓名
@@ -69,6 +75,7 @@ private MainActivity mMainActivity;
     private UserInfo instance;
     private long phoneNum;
     private String userName;
+    private String mTempStrUR1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +147,8 @@ private MainActivity mMainActivity;
         mTabLay04.setOnClickListener(this);
         mTabLay05.setOnClickListener(this);
         mTabLay06.setOnClickListener(this);
+
+        mPersonImg.setOnClickListener(this);
     }
 
 
@@ -212,6 +221,8 @@ private MainActivity mMainActivity;
     public void onClick(View v) {
 
         switch(v.getId()){
+
+
             case R.id.mTabLay01://企业核名
 
                 break;
@@ -230,7 +241,11 @@ private MainActivity mMainActivity;
             case R.id.mTabLay06://地税报到
 
                 break;
+
         }
 
+
     }
+
+
 }

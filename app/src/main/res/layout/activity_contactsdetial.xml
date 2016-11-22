@@ -51,6 +51,7 @@
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:src="@mipmap/phone"
+            android:visibility="gone"
             android:layout_marginRight="20dp"
             android:layout_height="match_parent" />
         <RelativeLayout
@@ -79,5 +80,13 @@
         </RelativeLayout>
 
 
+
     </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/linCompanyName"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+    </LinearLayout>
 </LinearLayout>

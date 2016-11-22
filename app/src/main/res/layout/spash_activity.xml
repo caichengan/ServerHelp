@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:background="@android:color/white"
     android:layout_height="match_parent"
+    android:id="@+id/lin"
     android:gravity="center">
 
     <ImageView
         android:id="@+id/spash_img"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_margin="30dp"
         android:src="@mipmap/spashlogo"/>
 

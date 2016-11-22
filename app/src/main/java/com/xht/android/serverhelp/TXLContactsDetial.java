@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class TXLContactsDetial extends Activity implements View.OnClickListener 
     private TextView mCallPhone;
     private ImageView call;
     private RelativeLayout relayoutcall;
+    private LinearLayout linCompanyName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,6 @@ public class TXLContactsDetial extends Activity implements View.OnClickListener 
         phoneNum = bundle.getString("mContactsPhone");
 
         LogHelper.i(TAG,"----"+name+phoneNum);
-
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
         mCustomView.setText("返回");
@@ -54,13 +55,12 @@ public class TXLContactsDetial extends Activity implements View.OnClickListener 
         initialize();
 
         initData();
+
     }
 
     private void initData() {
         mCallName.setText(name);
         mCallPhone.setText(phoneNum);
-
-
     }
 
     @Override
@@ -132,7 +132,7 @@ public class TXLContactsDetial extends Activity implements View.OnClickListener 
         mCallPhone = (TextView) findViewById(R.id.mCallPhone);//电话号码
         call = (ImageView) findViewById(R.id.call);//点击打电话
         relayoutcall = (RelativeLayout) findViewById(R.id.relayout_call);//点击打电话
-
+        linCompanyName = (LinearLayout) findViewById(R.id.linCompanyName);//添加公司信息
 
         relayoutcall.setOnClickListener(this);
         call.setOnClickListener(this);
