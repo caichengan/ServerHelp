@@ -50,8 +50,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-
 /**
  * UJinDuFragment
  * <p>
@@ -720,6 +718,8 @@ public class JinDuFragment extends Fragment {
 
             if (uid==0){
                 App.getInstance().showToast("服务器繁忙,请稍后再试...");
+                dismissProgressDialog();
+
             }else {
                 VolleyHelpApi.getInstance().postRefleshPro(obj
                         , new APIListener() {//"employeeId":4,"serviceId":95
@@ -734,7 +734,7 @@ public class JinDuFragment extends Fragment {
                             @Override
                             public void onError(Object e) {
                                 dismissProgressDialog();
-                                App.getInstance().showToast("提交失败，请重新提交");
+                                App.getInstance().showToast(e.toString());
                                 holder.mSubmitgx1.setText("提交审核");
                             }
                         });
@@ -860,9 +860,7 @@ public class JinDuFragment extends Fragment {
             resultPaths.add(mTempStrUR6);
             new UploadPicTask().execute(mTempStrUR6);
         }
-        JinDuFragment.this.flag11 = true;
-        edit.putBoolean("flag11", JinDuFragment.this.flag11);
-        edit.commit();
+
     }
 
     private void MethodLoadFile(String status) {
@@ -898,9 +896,7 @@ public class JinDuFragment extends Fragment {
             filePaths.add(mTempStrUR3);
             new UploadPicTask().execute(mTempStrUR3);
         }
-        JinDuFragment.this.flag1 = true;
-        edit.putBoolean("flag1", JinDuFragment.this.flag1);
-        edit.commit();
+
     }
 
     private void setTrue() {
@@ -937,6 +933,7 @@ public class JinDuFragment extends Fragment {
         LogHelper.i(TAG, "-------------------------" + object.toString());
         if (uid==0){
             App.getInstance().showToast("服务器繁忙，请稍后再试....");
+
         }else {
             VolleyHelpApi.getInstance().postCancelTask(object, new APIListener() {
                 @Override
@@ -1090,6 +1087,7 @@ public class JinDuFragment extends Fragment {
         createProgressDialogTitle("正在转交任务");
         if (uid==0){
             App.getInstance().showToast("服务器繁忙，请稍后再试....");
+            dismissProgressDialog();
         }else {
 
 
@@ -1142,6 +1140,7 @@ public class JinDuFragment extends Fragment {
         createProgressDialogTitle("正在请求继续任务。。。");
         if (uid==0){
             App.getInstance().showToast("服务器繁忙，请稍后再试....");
+            dismissProgressDialog();
         }else {
             VolleyHelpApi.getInstance().postContinusTask(jsonObject, new APIListener() {
                 @Override

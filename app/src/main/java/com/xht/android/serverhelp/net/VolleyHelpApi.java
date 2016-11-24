@@ -530,7 +530,7 @@ public class VolleyHelpApi extends BaseApi{
 					default:
 						LogHelper.i(TAG, "未知错误");
 				}
-				apiListener.onError("提交订单出错");
+				apiListener.onError("服务器繁忙,请稍后再试...");
 			}
 		}) {
 

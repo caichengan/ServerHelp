@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -95,13 +94,14 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
         switch (v.getId()) {
             case R.id.loadImg:
                 LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR1);
-                createProgressDialogTitle("正在上传");
+                //createProgressDialogTitle("正在上传");
                 LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR1);
-                if (!TextUtils.isEmpty(mTempStrUR1)) {
-
+                if (mTempStrUR1!=null||mTempStrUR1!="") {
+                    App.getInstance().showToast("请选择照片");
+                }else{
+                    LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR1);
                     new UploadPicTask().execute(mTempStrUR1);
                 }
-
                 break;
             case R.id.personImg:
                 if (mChoosePicDialog == null) {
@@ -111,7 +111,6 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
                 break;
             case R.id.goToAlbum://相册选择照片
                 LogHelper.i(TAG, "------相册选择照片");
-
                 dismissmChooseIconDialog();
                 selectPicFromAlbum();
                 break;
@@ -135,8 +134,6 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
             String url = params[0];
            // String ImageUrl = BitmapUtils.compressImage(url, url, 90);
             boolean temp = uploadPicFile(url);
-
-
             LogHelper.i(TAG, "------temp-------" + url);
             LogHelper.i(TAG, "------temp" + url);
             return temp;
@@ -289,17 +286,14 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == -1) {
             if (requestCode == 3) {//相册返回
-
                 Bitmap thumbnail =null;
                 Uri fullPhotoUri = data.getData();//content://media/external/images/media/3844
-
                 //真实路径
                 String realFilePath = BitmapUtils.getRealFilePath(this, fullPhotoUri);
 
                 mCurFromCamare = Uri.parse("file://" + Constants.BZ_CAM_PATH + "/"
                         + "bzzbz_"
                         + "e"+uid +"_"+System.currentTimeMillis()+ ".jpg");
-
 
                 String path = mCurFromCamare.getPath();
                 LogHelper.i(TAG,"-------path---"+path);
@@ -335,7 +329,6 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
             }
         }
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -396,8 +389,4 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
             mProgressDialog = null;
         }
     }
-
-
-
-
 }
