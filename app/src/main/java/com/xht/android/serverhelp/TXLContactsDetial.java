@@ -11,10 +11,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.xht.android.serverhelp.model.ContactsAdapter;
+import com.xht.android.serverhelp.model.ContactsBean;
+import com.xht.android.serverhelp.net.APIListener;
+import com.xht.android.serverhelp.net.VolleyHelpApi;
 import com.xht.android.serverhelp.util.LogHelper;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016-11-1.
@@ -31,6 +43,13 @@ public class TXLContactsDetial extends Activity implements View.OnClickListener 
     private ImageView call;
     private RelativeLayout relayoutcall;
     private LinearLayout linCompanyName;
+    private String mId;
+    private TextView tvCompany;
+    private ListView mListCompanyName;
+    private List<ContactsBean> mDataList;
+    private ContactsAdapter mConAdapter;
+    private String style;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +58,11 @@ public class TXLContactsDetial extends Activity implements View.OnClickListener 
 
         Bundle bundle = getIntent().getBundleExtra("bundle");
         name = bundle.getString("mContactName");
-        phoneNum = bundle.getString("mContactsPhone");
+        phoneNum = bundle.getString("mContactsPhone");//  bundle.putString("mId",mId);
+        mId = bundle.getString("mId");
+        style = bundle.getString("style");
 
-        LogHelper.i(TAG,"----"+name+phoneNum);
+        LogHelper.i(TAG,"----"+name+phoneNum+mId);
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
         mCustomView.setText("返回");
@@ -56,10 +77,82 @@ public class TXLContactsDetial extends Activity implements View.OnClickListener 
 
         initData();
 
+        if (style.equals("1")) {
+            getCompanyName(mId);
+            mListCompanyName.setVisibility(View.VISIBLE);
+        }else{
+            mListCompanyName.setVisibility(View.GONE);
+        }
+
+    }
+
+    private void getCompanyName(String mId) {
+
+        VolleyHelpApi.getInstance().getCompanyName(mId, new APIListener() {
+            @Override
+            public void onResult(Object result) {
+
+                //{"message":"公司加载成功","result":"success",
+                // "entity":[{"userid":14,"companyName":"春天","companyId":60},{"userid":14,"companyName":"平湖","companyId":61}
+
+                JSONObject object1= (JSONObject) result;
+                String code = object1.optString("code");
+                if (code.equals("0")){
+                    return;
+                }
+                JSONArray jobArray=object1.optJSONArray("entity");
+                LogHelper.i(TAG,"------gngsi---"+jobArray.toString());
+                //{"message":"没有公司","result":"error","entity":null,"code":"0"}
+
+
+                int length = jobArray.length();
+                for (int i=0;i<length;i++){
+                    ContactsBean item=new ContactsBean();
+                    try {
+                        JSONObject object= (JSONObject) jobArray.get(i);
+                        String userid = object.getString("userid");
+                        String companyName = object.getString("companyName");
+                        String companyId = object.getString("companyId");
+
+                        item.setUserId(userid);
+                        item.setCompanyId(companyId);
+                        item.setCompanyName(companyName);
+                        LogHelper.i(TAG,"---------"+userid+companyId+companyName);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    mDataList.add(item);
+
+                }
+
+                udpateListView();
+            }
+
+            @Override
+            public void onError(Object e) {
+
+            }
+        });
+
+    }
+
+    private void udpateListView() {
+
+        mConAdapter = new ContactsAdapter(mDataList,this);
+
+        mListCompanyName.setAdapter(mConAdapter);
+
     }
 
     private void initData() {
-        mCallName.setText(name);
+        mDataList = new ArrayList<ContactsBean>();
+        if (name==null||name==""||name.equals("null")){
+         mCallName.setText(phoneNum);
+        }else {
+            mCallName.setText(name);
+        }
         mCallPhone.setText(phoneNum);
     }
 
@@ -133,6 +226,9 @@ public class TXLContactsDetial extends Activity implements View.OnClickListener 
         call = (ImageView) findViewById(R.id.call);//点击打电话
         relayoutcall = (RelativeLayout) findViewById(R.id.relayout_call);//点击打电话
         linCompanyName = (LinearLayout) findViewById(R.id.linCompanyName);//添加公司信息
+        tvCompany = (TextView) findViewById(R.id.tvCompany);
+
+        mListCompanyName = (ListView) findViewById(R.id.tvCompany1);
 
         relayoutcall.setOnClickListener(this);
         call.setOnClickListener(this);

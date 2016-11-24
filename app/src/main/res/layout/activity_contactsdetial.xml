@@ -65,6 +65,7 @@
                 android:id="@+id/mCallPhone"
                 android:layout_width="wrap_content"
                 android:text="电话号码"
+                android:textSize="15sp"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_height="match_parent" />
@@ -86,7 +87,23 @@
         android:id="@+id/linCompanyName"
         android:layout_width="match_parent"
         android:orientation="vertical"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white"
         android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvCompany"
+            android:text="公司："
+            android:textSize="15sp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ListView
+            android:id="@+id/tvCompany1"
+            android:textSize="15sp"
+            android:layout_marginLeft="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </LinearLayout>

@@ -33,6 +33,12 @@ public class ChoosePicDialog extends Dialog {
 
         RelativeLayout goToCamera = (RelativeLayout)findViewById(R.id.goToCamera);
         RelativeLayout goToAlbum = (RelativeLayout)findViewById(R.id.goToAlbum);
+       /*goToCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });*/
         goToCamera.setOnClickListener(myListener);
         goToAlbum.setOnClickListener(myListener);
     }

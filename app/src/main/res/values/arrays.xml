@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="areas">
-        <item>无</item>
+        <item>全部</item>
         <item>石岐区</item>
         <item>东区</item>
         <item>西区</item>
@@ -26,6 +26,11 @@
         <item>板芙镇</item>
         <item>三乡镇</item>
         <item>神湾镇</item>
+    </string-array>
+    <string-array name="style">
+
+        <item>公司</item>
+        <item>类型</item>
     </string-array>
 
     <string-array name="fwkb_months">

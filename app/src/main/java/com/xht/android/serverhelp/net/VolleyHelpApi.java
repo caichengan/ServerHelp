@@ -643,18 +643,14 @@ public class VolleyHelpApi extends BaseApi{
 	}
 
 	/**
-	 *  获取任务池中的数据
+	 *  搜索功能获取任务池中的数据
 	 * @param apiListener
 	 */
-	public void getTaskAddData(final String address, final String value, final APIListener apiListener) {
-		String urlString = MakeURL(URL_ADDBar, new LinkedHashMap<String, Object>() {{
-			put("value", value);
-			//put("address", address);
-		}});
-		JsonObjectRequest req = new JsonObjectRequest(urlString, null, new Response.Listener<JSONObject>() {
+
+	public void getTaskAddData( JSONObject jsonObject, final APIListener apiListener) {
+		JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, URL_ADDBar, jsonObject, new Response.Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
-
 				LogHelper.i(TAG, "-----message-----"+response.toString());
 				apiListener.onResult(response);
 
@@ -907,4 +903,48 @@ public class VolleyHelpApi extends BaseApi{
 		App.getInstance().addToRequestQueue(req, TAG);
 	}
 
+	/**
+	 * 访问公司名称
+	 * @param mId
+     */
+	public void getCompanyName(final String mId, final APIListener apiListener) {
+		String urlString = MakeURL(COMPANY_GONGSI_URL, new LinkedHashMap<String, Object>() {{
+		put("userid", mId);
+
+	}});
+		JsonObjectRequest req = new JsonObjectRequest(urlString, null, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+
+
+					LogHelper.i(TAG, "----的所有信息--" + response.toString());
+
+
+					apiListener.onResult(response);
+
+
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("服务器繁忙，稍后再试...");
+			}
+		});
+		App.getInstance().addToRequestQueue(req, TAG);
+	}
 }

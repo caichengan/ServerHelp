@@ -183,12 +183,8 @@ public class WarningActivity extends Activity{
         }
         return super.onOptionsItemSelected(item);
     }
-
-
     //listview的适配器
     class  WarningAdapter extends ArrayAdapter<WaringItemBean>{
-
-
         public WarningAdapter(ArrayList<WaringItemBean> item) {
             super(WarningActivity.this, 0, item);
         }
@@ -219,8 +215,6 @@ public class WarningActivity extends Activity{
             holder.mTextTime.setText(itemBean.getmTime());
             holder.mTextName.setText(itemBean.getmName());
             holder.mTextCompany.setText(itemBean.getComName());
-
-
             int day = itemBean.getmDaty();
             if (day<2){
                 holder.mTextDay.setBackgroundColor(0Xff99cc00);
@@ -231,10 +225,8 @@ public class WarningActivity extends Activity{
             if (day>9){
                 holder.mTextDay.setBackgroundColor(0Xffff4444);
             }
-
             holder.mTextDay.setText(day+"");
             holder.mTextAddress.setText(itemBean.getmAddress());
-
             return convertView;
         }
     }

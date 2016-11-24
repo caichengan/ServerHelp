@@ -9,33 +9,46 @@
         android:orientation="horizontal"
         android:layout_marginTop="1dp"
         android:background="@android:color/white"
-        android:layout_height="50dp">
+        android:layout_height="30dp">
 
         <TextView
             android:id="@+id/company_name"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="3"
+            android:layout_width="wrap_content"
             android:text="公司名称"
             android:layout_marginLeft="10dp"
-            android:textSize="17sp"
-            android:gravity="center"
-            android:layout_height="40dp" />
-        <TextView
-            android:id="@+id/operation_name"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="办理业务"
-            android:textSize="17sp"
-            android:gravity="center"
-            android:layout_height="40dp" />
-        <TextView
-            android:id="@+id/address_name"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="地区"
-            android:textSize="17sp"
+            android:textSize="15sp"
             android:gravity="center"
             android:layout_height="40dp" />
 
+        <TextView
+            android:layout_weight="1.5"
+            android:id="@+id/operation_name"
+            android:layout_width="0dp"
+            android:text="办理业务"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:layout_marginRight="15dp"
+
+            android:layout_height="40dp" />
+
+
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/address_name"
+            android:layout_width="wrap_content"
+            android:padding="1dp"
+            android:text="地区"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginRight="40dp"
+            android:layout_height="25dp" />
+    </RelativeLayout>
+
 </LinearLayout>

@@ -39,6 +39,15 @@ public class IntentUtils {
 		context.startActivityForResult(intent,20);
 	}
 
+
+	/**
+	 * 返回数据
+	 */
+	public static void startActivityNumberForResult(int intData,Activity context, Class<?>cls){
+		Intent intent=new Intent(context,cls);
+		context.startActivityForResult(intent,intData);
+	}
+
 	/**
 	 * 进入一个界面并结束自己
 	 */

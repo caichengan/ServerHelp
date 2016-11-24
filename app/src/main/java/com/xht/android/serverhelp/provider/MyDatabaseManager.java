@@ -25,7 +25,8 @@ public class MyDatabaseManager implements AbsManager {
 		 * Name
 		 */
 		public static final String NAME = "name";
-		
+		public static final String URL = "url";
+
 		public static final String PHONE = "phone";
 		
 		public static final String DEFAULT_SORT_ORDER = UID + " desc";// ASC
@@ -39,7 +40,8 @@ public class MyDatabaseManager implements AbsManager {
 		stringBuilder.append(MyDbColumns._ID + " INTEGER PRIMARY KEY,");
 		stringBuilder.append(MyDbColumns.UID + " INTEGER,");
 		stringBuilder.append(MyDbColumns.NAME + " TEXT,");
-		stringBuilder.append(MyDbColumns.PHONE + " INTEGER");
+		stringBuilder.append(MyDbColumns.PHONE + " INTEGER,");
+		stringBuilder.append(MyDbColumns.URL + " CHAR");
 		stringBuilder.append(")");
 		CREATE_SQL = stringBuilder.toString();
 	}
@@ -83,10 +85,11 @@ public class MyDatabaseManager implements AbsManager {
 		return count;
 	}
 	
-	public static void saveMytable(Context context, int id, String name, int phoneNum) {
+	public static void saveMytable(Context context, int id, String name,String url, int phoneNum) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(MyDbColumns.UID, id);
 		contentValues.put(MyDbColumns.NAME, name);
+		contentValues.put(MyDbColumns.URL, url);
 		contentValues.put(MyDbColumns.PHONE, phoneNum);
 		String whereClause = MyDbColumns.UID + " = ?";
 		String[] whereArgs = new String[] { ""+id };

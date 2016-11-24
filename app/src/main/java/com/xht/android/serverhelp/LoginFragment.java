@@ -117,20 +117,26 @@ public class LoginFragment extends Fragment {
 				dismissProgressDialog();
 
 				JSONObject json= (JSONObject) result;
-				try {
+				try {//{"employeeId":4,
+					// "empheadportrait":"http:\/\/www.xiaohoutai.com.cn:8888\/XHT\/empheadportraitController\/downloadEmpheadportrait?fileName=1479872942008bzzbz_e4_1479872416924.jpg",
+					// "employeeName":"蔡成安"}
 					int employeeId = json.getInt("employeeId");
 					String employeeName = json.getString("employeeName");
+					String empheadportrait = json.getString("empheadportrait");
 					long ppomeNum=Long.valueOf(pNum);
 					ContentValues cv = new ContentValues();
 					cv.put(MyDatabaseManager.MyDbColumns.UID, employeeId);
 					cv.put(MyDatabaseManager.MyDbColumns.PHONE, pNum);
 					cv.put(MyDatabaseManager.MyDbColumns.NAME, employeeName);
+					cv.put(MyDatabaseManager.MyDbColumns.URL, empheadportrait);
 					mActivity.getContentResolver().insert(MyDatabaseManager.MyDbColumns.CONTENT_URI, cv);
-					LogHelper.i("------LoginFragment", "phoneNum" +pNum+employeeId+employeeName);
+					LogHelper.i("------LoginFragment", "phoneNum" +pNum+employeeId+employeeName+empheadportrait);
+
 					Intent intent = new Intent(MyFragment.BRO_ACT_S);
 					intent.putExtra(MyFragment.UID_KEY, employeeId);
 					intent.putExtra(MyFragment.PHONENUM_KEY, ppomeNum);
 					intent.putExtra(MyFragment.UNAME_KEY, employeeName);
+					intent.putExtra(MyFragment.UNAME_URL, empheadportrait);
 
 					mActivity.sendBroadcast(intent);
 					startActivity(new Intent(getActivity(), MainActivity.class));

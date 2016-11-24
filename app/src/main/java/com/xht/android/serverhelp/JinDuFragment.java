@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -143,8 +142,8 @@ public class JinDuFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        sharedPreferences = getActivity().getSharedPreferences("progress", Context.MODE_APPEND);
-        edit = sharedPreferences.edit();
+        /*sharedPreferences = getActivity().getSharedPreferences("progress", Context.MODE_APPEND);
+        edit = sharedPreferences.edit();*/
 
       /*  mMainActivity1 = (MainActivity) getActivity();
         UserInfo mUserInfo = mMainActivity1.mUserInfo;
@@ -233,6 +232,8 @@ public class JinDuFragment extends Fragment {
             @Override
             public void onError(Object e) {
                 App.getInstance().showToast(e.toString());
+                dismissProgressDialog();
+                //Activity com.xht.android.serverhelp.RwxqActivity has leaked window com.android.internal.policy.impl.PhoneWindow$DecorView{36ebcc7d V.E..... R......D 0,0-1026,486} that was originally added here
                 getActivity().finish();
             }
         });
@@ -395,6 +396,7 @@ public class JinDuFragment extends Fragment {
                 Bitmap bitmap = imageLoader.loadImage(holder.mImgFile11, imgFile1);
                 holder.mImgFile12.setVisibility(View.VISIBLE);
                 if (bitmap != null) {
+
                     holder.mImgFile11.setImageBitmap(bitmap);
                     holder.mImgFile12.setVisibility(View.VISIBLE);
                     if (!imgFile2.equals("null")){
@@ -412,24 +414,31 @@ public class JinDuFragment extends Fragment {
                                     holder.mImgFile13.setImageDrawable(null);
                                 }
                             }else{
-                                //holder.mImgFile13.setImageDrawable(null);
-                                holder.mImgFile13.setImageResource(R.mipmap.ic_action_add);
+                                holder.mImgFile13.setImageDrawable(null);
+                                //holder.mImgFile13.setImageResource(R.mipmap.ic_action_add);
                             }
                         }else{
-                            holder.mImgFile12.setImageResource(R.mipmap.ic_action_add);
+                            holder.mImgFile12.setImageDrawable(null);
+                            //holder.mImgFile12.setImageResource(R.mipmap.ic_action_add);
                         }
                     }else{
-                        holder.mImgFile12.setImageResource(R.mipmap.ic_action_add);
-                        holder.mImgFile13.setImageResource(R.mipmap.ic_action_add);
+                        holder.mImgFile12.setImageDrawable(null);
+                        holder.mImgFile13.setImageDrawable(null);
+                        //holder.mImgFile12.setImageResource(R.mipmap.ic_action_add);
+                        //holder.mImgFile13.setImageResource(R.mipmap.ic_action_add);
                         // holder.mImgFile13.setVisibility(View.GONE);
                     }
                 }else{
-                    holder.mImgFile11.setImageResource(R.mipmap.ic_action_add);
+                    holder.mImgFile11.setImageDrawable(null);
+                    //holder.mImgFile11.setImageResource(R.mipmap.ic_action_add);
                 }
             }else{
-                holder.mImgFile11.setImageResource(R.mipmap.ic_action_add);
-                holder.mImgFile12.setImageResource(R.mipmap.ic_action_add);
-                holder.mImgFile13.setImageResource(R.mipmap.ic_action_add);
+                holder.mImgFile11.setImageDrawable(null);
+                holder.mImgFile12.setImageDrawable(null);
+                holder.mImgFile13.setImageDrawable(null);
+               // holder.mImgFile11.setImageResource(R.mipmap.ic_action_add);
+               // holder.mImgFile12.setImageResource(R.mipmap.ic_action_add);
+                //holder.mImgFile13.setImageResource(R.mipmap.ic_action_add);
             }
             //结果
             if (!imgResFile1.equals("null")){
@@ -453,27 +462,34 @@ public class JinDuFragment extends Fragment {
                                     holder.mImgResult13.setImageDrawable(null);
                                 }
                             }else{
-                                //holder.mImgFile13.setImageDrawable(null);
-                                holder.mImgResult13.setImageResource(R.mipmap.ic_action_add);
+                                holder.mImgResult13.setImageDrawable(null);
+                                //holder.mImgResult13.setImageResource(R.mipmap.ic_action_add);
                             }
 
                         }else{
-                            holder.mImgResult12.setImageResource(R.mipmap.ic_action_add);
+                            holder.mImgResult12.setImageDrawable(null);
+                            //holder.mImgResult12.setImageResource(R.mipmap.ic_action_add);
 
                         }
                     }else{
-                        holder.mImgResult12.setImageResource(R.mipmap.ic_action_add);
-                        holder.mImgResult13.setImageResource(R.mipmap.ic_action_add);
+                        holder.mImgResult12.setImageDrawable(null);
+                        holder.mImgResult13.setImageDrawable(null);
+                        //holder.mImgResult12.setImageResource(R.mipmap.ic_action_add);
+                      //  holder.mImgResult13.setImageResource(R.mipmap.ic_action_add);
                         // holder.mImgResult13.setVisibility(View.GONE);
                     }
                 }else{
-                    holder.mImgResult11.setImageResource(R.mipmap.ic_action_add);
+                    holder.mImgResult11.setImageDrawable(null);
+                    //holder.mImgResult11.setImageResource(R.mipmap.ic_action_add);
                 }
             }else{
-                holder.mImgResult11.setImageResource(R.mipmap.ic_action_add);
+                holder.mImgResult11.setImageDrawable(null);
+                holder.mImgResult12.setImageDrawable(null);
+                holder.mImgResult13.setImageDrawable(null);
+                //holder.mImgResult11.setImageResource(R.mipmap.ic_action_add);
 
-                holder.mImgResult12.setImageResource(R.mipmap.ic_action_add);
-                holder.mImgResult13.setImageResource(R.mipmap.ic_action_add);
+               // holder.mImgResult12.setImageResource(R.mipmap.ic_action_add);
+                //holder.mImgResult13.setImageResource(R.mipmap.ic_action_add);
             }
 
 
@@ -572,73 +588,11 @@ public class JinDuFragment extends Fragment {
             String status = mProsItems.get(mProsItems.size() - 1).getProgressStatus();
             switch (v.getId()) {
                 case R.id.mUploadfile://文件图片上传
-                    if (status.equals("4")||status.equals("5")){
-                        App.getInstance().showToast("已经上传过照片");
-                        return;
-                    }
-                    // flag1 = sharedPreferences.getBoolean("flag1", false);
-                    if (flag1) {
-                        App.getInstance().showToast("已经上传过照片");
-                        return;
-                    }
-                    LogHelper.i(TAG, "------文件图片上传");
-                    LogHelper.i(TAG, "------要上传照片");
-                    filePaths = new ArrayList<>();
-                    if (TextUtils.isEmpty(mTempStrUR1) && TextUtils.isEmpty(mTempStrUR2) && TextUtils.isEmpty(mTempStrUR3)) {
-                        App.getInstance().showToast("先选择照片");
-                        return;
-                    }
-                    createProgressDialogTitle("正在上传");
-                    LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR1);
-                    if (!TextUtils.isEmpty(mTempStrUR1)) {
-                        filePaths.add(mTempStrUR1);
-                        new UploadPicTask().execute(mTempStrUR1);
-                    }
-                    LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR2);
-                    if (!TextUtils.isEmpty(mTempStrUR2)) {
-                        filePaths.add(mTempStrUR2);
-                        new UploadPicTask().execute(mTempStrUR2);
-                    }
-                    LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR3);
-                    if (!TextUtils.isEmpty(mTempStrUR3)) {
-                        filePaths.add(mTempStrUR3);
-                        new UploadPicTask().execute(mTempStrUR3);
-                    }
-                    JinDuFragment.this.flag1 = true;
-                    edit.putBoolean("flag1", JinDuFragment.this.flag1);
-                    edit.commit();
+                    MethodLoadFile(status);
                     break;
                 case R.id.mResultLoad://结果上传
                     //  flag11 = sharedPreferences.getBoolean("flag11", false);
-                    if (status.equals("4")||status.equals("5")){
-                        App.getInstance().showToast("已经上传过照片");
-                        return;
-                    }
-                    resultPaths = new ArrayList<>();
-
-                    if (TextUtils.isEmpty(mTempStrUR4) && TextUtils.isEmpty(mTempStrUR5) && TextUtils.isEmpty(mTempStrUR6)) {
-                        App.getInstance().showToast("先选择照片");
-                        return;
-                    }
-                    createProgressDialogTitle("正在上传");
-                    LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR4);
-                    if (!TextUtils.isEmpty(mTempStrUR4)) {
-                        resultPaths.add(mTempStrUR4);
-                        new UploadPicTask().execute(mTempStrUR4);
-                    }
-                    LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR5);
-                    if (!TextUtils.isEmpty(mTempStrUR5)) {
-                        resultPaths.add(mTempStrUR5);
-                        new UploadPicTask().execute(mTempStrUR5);
-                    }
-                    LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR6);
-                    if (!TextUtils.isEmpty(mTempStrUR6)) {
-                        resultPaths.add(mTempStrUR6);
-                        new UploadPicTask().execute(mTempStrUR6);
-                    }
-                    JinDuFragment.this.flag11 = true;
-                    edit.putBoolean("flag11", JinDuFragment.this.flag11);
-                    edit.commit();
+                    MethodLoadResult(status);
                     break;
                 case R.id.mImgFile_11://文件图片
                     if (status.equals("4")||status.equals("5")){
@@ -708,43 +662,9 @@ public class JinDuFragment extends Fragment {
                     curIVSelPic = 16;
                     break;
                 case R.id.mSubmit_gx1://提交审核
+                    MethodLoadSubmit(status);
 
-                    //String status = mProsItems.get(mProsItems.size() - 1).getProgressStatus();
-                    if (status.equals("4")) {
-                        App.getInstance().showToast("请先等审核通过再继续下一步");
-                        return;
-                    }
-                    if (status.equals("5")) {
-                        App.getInstance().showToast("已经完成整个流程");
-                        return;
-                    }
-                    LogHelper.i(TAG, "------提交审核");
-                    createProgressDialogTitle("进度更新");
-                    JSONObject obj = new JSONObject();
-                    try {
-                        obj.put("employeeId", uid + "");
-                        obj.put("orderId", mRwxqActivity.mOrderId);
-                        LogHelper.i(TAG, "------提交审核-----" + uid + "---" + mProsItems.get(mProsItems.size() - 1).getOrderId());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    VolleyHelpApi.getInstance().postRefleshPro(obj
-                            , new APIListener() {//"employeeId":4,"serviceId":95
-                                @Override
-                                public void onResult(Object result) {
-                                    LogHelper.i(TAG, "------提交审核------" + result.toString());
-                                    holder.mSubmitgx1.setVisibility(View.VISIBLE);
-                                    holder.mSubmitgx1.setText("审核中");
-                                    dismissProgressDialog();
-                                }
-                                @Override
-                                public void onError(Object e) {
-                                    dismissProgressDialog();
-                                    App.getInstance().showToast("提交失败，请重新提交");
-                                    holder.mSubmitgx1.setText("提交审核");
-                                }
-                            });
-                    progressAdapter.notifyDataSetChanged();
+
                     break;
                 case R.id.mContinue_rw1://继续任务
                     LogHelper.i(TAG, "------继续任务");
@@ -770,82 +690,55 @@ public class JinDuFragment extends Fragment {
                     break;
                 case R.id.goToCamera://相机选择拍照
                     LogHelper.i(TAG, "------相机选择拍照");
+                    MethodCamera();
 
-
-                /*
-                图片名称格式（filename的值）：（如o100_s120_e10_f11.jpg，o100：表示订单编号为100，s120：表示服务编号为120，
-                e10：表示员工编号为10，f11：表示流程编号为11。中间的下划线（"_"）不能少。顺序必须是：订单编号、服务编号、员工编号、流程编号）
-                图片的表单名（即Content-Disposition: form-data; name=\"img\"中的name值）：必须是“img”
-                请求方式：POST
-                返回结果：成功返回｛"code":"1","result":"success","message":"文件上传成功","entity":{"fileId","文件编号"}｝
-                失败返回｛"code":"0","result":"error","message":"系统错误","entity":null｝
-                 */
-                    dismissmChooseIconDialog();
-
-               /* mCurFromCamare = Uri.parse("file://" + Constants.BZ_PIC_PATH + "/"
-                        + "bzzbz_" + curIVSelPic + "id_" + ((RwxqActivity) getActivity()).mOrderId
-                        + "time_" + System.currentTimeMillis() + ".jpg");*/
-//
-
-
-                    ProsItem item = mProsItems.get(mProsItems.size() - 1);//TODO
-                    LogHelper.i(TAG, "-----ProsItem-相机拍照--" + item.getOrderId() + "--" + item.getServiceId());
-
-
-                  /*  mCurFromCamare = Uri.parse("file://" + Constants.BZ_PIC_PATH + "/"
-                            + "bzzbz_"+ "o"+((RwxqActivity) getActivity()).mOrderId+"_s"+item.getServiceId()//+ item.getOrderId()
-                            +"_e"+uid + "_f" + item.getFlowId() +"_t" +System.currentTimeMillis() +".jpg");*/
-                    switch (curIVSelPic) {
-                        case 11:
-                        case 12:
-                        case 13:
-                            mCurFromCamare = Uri.parse("file://" + Constants.BZ_PIC_PATH + "/"
-                                    + "bzzbz_" + "o" + ((RwxqActivity) getActivity()).mOrderId + "_s" + item.getServiceId()//+ item.getOrderId()
-                                    + "_e" + uid + "_f" + item.getFlowId() + "_t" + System.currentTimeMillis() + "_g" + ".jpg");
-                            break;
-                        case 14:
-                        case 15:
-                        case 16:
-                            mCurFromCamare = Uri.parse("file://" + Constants.BZ_PIC_PATH + "/"
-                                    + "bzzbz_" + "o" + ((RwxqActivity) getActivity()).mOrderId + "_s" + item.getServiceId()//+ item.getOrderId()
-                                    + "_e" + uid + "_f" + item.getFlowId() + "_t" + System.currentTimeMillis() + "_j" + ".jpg");
-                            break;
-                    }
-                    switch (curIVSelPic) {
-                        case 11:
-                            mCurFromCamare1 = mCurFromCamare;
-                            LogHelper.i(TAG, "------相机拍照--1--" + mCurFromCamare1);
-                            //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239384309.jpg
-                            break;
-                        case 12:
-                            mCurFromCamare2 = mCurFromCamare;
-                            LogHelper.i(TAG, "------相机拍照--2--" + mCurFromCamare2);//TODO mCurFromCamare2 File
-                            //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239414869.jpg
-                            break;
-                        case 13:
-                            mCurFromCamare3 = mCurFromCamare;
-                            LogHelper.i(TAG, "------相机拍照--3--" + mCurFromCamare3);
-                            // file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239438180.jpg
-                            break;
-                        case 14:
-                            mCurFromCamare4 = mCurFromCamare;
-                            LogHelper.i(TAG, "------相机拍照--1--" + mCurFromCamare1);
-                            //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239384309.jpg
-                            break;
-                        case 15:
-                            mCurFromCamare5 = mCurFromCamare;
-                            LogHelper.i(TAG, "------相机拍照--2--" + mCurFromCamare2);//TODO mCurFromCamare2 File
-                            //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239414869.jpg
-                            break;
-                        case 16:
-                            mCurFromCamare6 = mCurFromCamare;
-                            LogHelper.i(TAG, "------相机拍照--3--" + mCurFromCamare3);
-                            // file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239438180.jpg
-                            break;
-                    }
-                    getPhotoFromCamera(mCurFromCamare, 2);
                     break;
 
+            }
+        }
+
+        private void MethodLoadSubmit(String status) {
+            //String status = mProsItems.get(mProsItems.size() - 1).getProgressStatus();
+            if (status.equals("4")) {
+                App.getInstance().showToast("请先等审核通过再继续下一步");
+                return;
+            }
+            if (status.equals("5")) {
+                App.getInstance().showToast("已经完成整个流程");
+                return;
+            }
+            LogHelper.i(TAG, "------提交审核");
+            createProgressDialogTitle("进度更新");
+            JSONObject obj = new JSONObject();
+            try {
+                obj.put("employeeId", uid + "");
+                obj.put("orderId", mRwxqActivity.mOrderId);
+                LogHelper.i(TAG, "------提交审核-----" + uid + "---" + mProsItems.get(mProsItems.size() - 1).getOrderId());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            if (uid==0){
+                App.getInstance().showToast("服务器繁忙,请稍后再试...");
+            }else {
+                VolleyHelpApi.getInstance().postRefleshPro(obj
+                        , new APIListener() {//"employeeId":4,"serviceId":95
+                            @Override
+                            public void onResult(Object result) {
+                                LogHelper.i(TAG, "------提交审核------" + result.toString());
+                                holder.mSubmitgx1.setVisibility(View.VISIBLE);
+                                holder.mSubmitgx1.setText("审核中");
+                                dismissProgressDialog();
+                            }
+
+                            @Override
+                            public void onError(Object e) {
+                                dismissProgressDialog();
+                                App.getInstance().showToast("提交失败，请重新提交");
+                                holder.mSubmitgx1.setText("提交审核");
+                            }
+                        });
+                progressAdapter.notifyDataSetChanged();
             }
         }
 
@@ -874,6 +767,140 @@ public class JinDuFragment extends Fragment {
             RelativeLayout shbz1;
         }
 
+    }
+
+    private void MethodCamera() {
+    /*
+    图片名称格式（filename的值）：（如o100_s120_e10_f11.jpg，o100：表示订单编号为100，s120：表示服务编号为120，
+    e10：表示员工编号为10，f11：表示流程编号为11。中间的下划线（"_"）不能少。顺序必须是：订单编号、服务编号、员工编号、流程编号）
+    图片的表单名（即Content-Disposition: form-data; name=\"img\"中的name值）：必须是“img”
+    请求方式：POST
+    返回结果：成功返回｛"code":"1","result":"success","message":"文件上传成功","entity":{"fileId","文件编号"}｝
+    失败返回｛"code":"0","result":"error","message":"系统错误","entity":null｝
+     */
+        dismissmChooseIconDialog();
+
+        ProsItem item = mProsItems.get(mProsItems.size() - 1);//TODO
+        LogHelper.i(TAG, "-----ProsItem-相机拍照--" + item.getOrderId() + "--" + item.getServiceId());
+        switch (curIVSelPic) {
+            case 11:
+            case 12:
+            case 13:
+                mCurFromCamare = Uri.parse("file://" + Constants.BZ_PIC_PATH + "/"
+                        + "bzzbz_" + "o" + ((RwxqActivity) getActivity()).mOrderId + "_s" + item.getServiceId()//+ item.getOrderId()
+                        + "_e" + uid + "_f" + item.getFlowId() + "_t" + System.currentTimeMillis() + "_g" + ".jpg");
+                break;
+            case 14:
+            case 15:
+            case 16:
+                mCurFromCamare = Uri.parse("file://" + Constants.BZ_PIC_PATH + "/"
+                        + "bzzbz_" + "o" + ((RwxqActivity) getActivity()).mOrderId + "_s" + item.getServiceId()//+ item.getOrderId()
+                        + "_e" + uid + "_f" + item.getFlowId() + "_t" + System.currentTimeMillis() + "_j" + ".jpg");
+                break;
+        }
+        switch (curIVSelPic) {
+            case 11:
+                mCurFromCamare1 = mCurFromCamare;
+                LogHelper.i(TAG, "------相机拍照--1--" + mCurFromCamare1);
+                //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239384309.jpg
+                break;
+            case 12:
+                mCurFromCamare2 = mCurFromCamare;
+                LogHelper.i(TAG, "------相机拍照--2--" + mCurFromCamare2);//TODO mCurFromCamare2 File
+                //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239414869.jpg
+                break;
+            case 13:
+                mCurFromCamare3 = mCurFromCamare;
+                LogHelper.i(TAG, "------相机拍照--3--" + mCurFromCamare3);
+                // file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239438180.jpg
+                break;
+            case 14:
+                mCurFromCamare4 = mCurFromCamare;
+                LogHelper.i(TAG, "------相机拍照--1--" + mCurFromCamare1);
+                //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239384309.jpg
+                break;
+            case 15:
+                mCurFromCamare5 = mCurFromCamare;
+                LogHelper.i(TAG, "------相机拍照--2--" + mCurFromCamare2);//TODO mCurFromCamare2 File
+                //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239414869.jpg
+                break;
+            case 16:
+                mCurFromCamare6 = mCurFromCamare;
+                LogHelper.i(TAG, "------相机拍照--3--" + mCurFromCamare3);
+                // file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239438180.jpg
+                break;
+        }
+        getPhotoFromCamera(mCurFromCamare, 2);
+    }
+
+    private void MethodLoadResult(String status) {
+        if (status.equals("4")||status.equals("5")){
+            App.getInstance().showToast("已经上传过照片");
+            return;
+        }
+        resultPaths = new ArrayList<>();
+
+        if (TextUtils.isEmpty(mTempStrUR4) && TextUtils.isEmpty(mTempStrUR5) && TextUtils.isEmpty(mTempStrUR6)) {
+            App.getInstance().showToast("先选择照片");
+            return;
+        }
+        createProgressDialogTitle("正在上传");
+        LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR4);
+        if (!TextUtils.isEmpty(mTempStrUR4)) {
+            resultPaths.add(mTempStrUR4);
+            new UploadPicTask().execute(mTempStrUR4);
+        }
+        LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR5);
+        if (!TextUtils.isEmpty(mTempStrUR5)) {
+            resultPaths.add(mTempStrUR5);
+            new UploadPicTask().execute(mTempStrUR5);
+        }
+        LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR6);
+        if (!TextUtils.isEmpty(mTempStrUR6)) {
+            resultPaths.add(mTempStrUR6);
+            new UploadPicTask().execute(mTempStrUR6);
+        }
+        JinDuFragment.this.flag11 = true;
+        edit.putBoolean("flag11", JinDuFragment.this.flag11);
+        edit.commit();
+    }
+
+    private void MethodLoadFile(String status) {
+        if (status.equals("4")||status.equals("5")){
+            App.getInstance().showToast("已经上传过照片");
+            return;
+        }
+        // flag1 = sharedPreferences.getBoolean("flag1", false);
+        if (flag1) {
+            App.getInstance().showToast("已经上传过照片");
+            return;
+        }
+        LogHelper.i(TAG, "------文件图片上传");
+        LogHelper.i(TAG, "------要上传照片");
+        filePaths = new ArrayList<>();
+        if (TextUtils.isEmpty(mTempStrUR1) && TextUtils.isEmpty(mTempStrUR2) && TextUtils.isEmpty(mTempStrUR3)) {
+            App.getInstance().showToast("先选择照片");
+            return;
+        }
+        createProgressDialogTitle("正在上传");
+        LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR1);
+        if (!TextUtils.isEmpty(mTempStrUR1)) {
+            filePaths.add(mTempStrUR1);
+            new UploadPicTask().execute(mTempStrUR1);
+        }
+        LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR2);
+        if (!TextUtils.isEmpty(mTempStrUR2)) {
+            filePaths.add(mTempStrUR2);
+            new UploadPicTask().execute(mTempStrUR2);
+        }
+        LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR3);
+        if (!TextUtils.isEmpty(mTempStrUR3)) {
+            filePaths.add(mTempStrUR3);
+            new UploadPicTask().execute(mTempStrUR3);
+        }
+        JinDuFragment.this.flag1 = true;
+        edit.putBoolean("flag1", JinDuFragment.this.flag1);
+        edit.commit();
     }
 
     private void setTrue() {
@@ -1200,6 +1227,7 @@ public class JinDuFragment extends Fragment {
                     case 11:
                     case 12:
                     case 13:
+                        //("/sdcard/image.jpg")
                         mCurFromCamare = Uri.parse("file://" + Constants.BZ_CAM_PATH + "/"
                                 + "bzzbz_" + "o" + ((RwxqActivity) getActivity()).mOrderId + "_s" + item.getServiceId()//+ item.getOrderId()
                                 + "_e" + uid + "_f" + item.getFlowId() + "_t" + System.currentTimeMillis() + "_g" + ".jpg");
@@ -1213,15 +1241,15 @@ public class JinDuFragment extends Fragment {
                         break;
                 }
                 String path = mCurFromCamare.getPath();
-                LogHelper.i(TAG,"-------path---"+path);
-                LogHelper.i(TAG,"-------realFilePath---"+realFilePath);
+
 
                 //压缩新的路径
-                String ImageUrl = BitmapUtils.compressImage(realFilePath, path, 80);
+                String ImageUrl = BitmapUtils.compressImage(realFilePath, path, 90);
 
-
+                LogHelper.i(TAG,"-------fullPhotoUri---"+fullPhotoUri.toString());
+                LogHelper.i(TAG,"-------realFilePath---"+realFilePath);
                 String size = BitmapUtils.getAutoFileOrFilesSize(ImageUrl);
-                LogHelper.i(TAG,"---------size---"+size);
+                LogHelper.i(TAG,"---------大小---"+size);
 
                 LogHelper.i(TAG,"-------ImageUrl---"+ImageUrl);
                 LogHelper.i(TAG, "--------fullPhotoUri----" + fullPhotoUri.toString() + "------>>>>>" + realFilePath + "------>>>>>" + ImageUrl);
@@ -1235,6 +1263,7 @@ public class JinDuFragment extends Fragment {
                         thumbnail = BitmapHelper.getThumbnail(getActivity(), fullPhotoUri,
                                 60 * (int) Constants.DENSITY, 60 * (int) Constants.DENSITY);
 
+                        //holder.mImgFile11.setImageBitmap(thumbnail);
                         holder.mImgFile11.setBackgroundDrawable(new BitmapDrawable(thumbnail));
                         holder.mImgFile12.setVisibility(View.VISIBLE);
                         mTempStrUR1 = ImageUrl;
@@ -1246,7 +1275,8 @@ public class JinDuFragment extends Fragment {
                         //mTempBitmap = BitmapFactory.decodeFile(imgPath);
                         thumbnail = BitmapHelper.getThumbnail(getActivity(), fullPhotoUri,
                                 60 * (int) Constants.DENSITY, 60 * (int) Constants.DENSITY);
-                        holder.mImgFile12.setBackgroundDrawable(new BitmapDrawable(thumbnail));
+                        //holder.mImgFile12.setImageBitmap(thumbnail);
+                       holder.mImgFile12.setBackgroundDrawable(new BitmapDrawable(thumbnail));
                         holder.mImgFile13.setVisibility(View.VISIBLE);
                         mTempStrUR2 = ImageUrl;
 
@@ -1256,6 +1286,7 @@ public class JinDuFragment extends Fragment {
                         //mTempBitmap = BitmapFactory.decodeFile(imgPath);
                         thumbnail = BitmapHelper.getThumbnail(getActivity(), fullPhotoUri,
                                 60 * (int) Constants.DENSITY, 60 * (int) Constants.DENSITY);
+                       // holder.mImgFile13.setImageBitmap(thumbnail);
                         holder.mImgFile13.setBackgroundDrawable(new BitmapDrawable(thumbnail));
 
                         mTempStrUR3 = ImageUrl;
@@ -1267,6 +1298,7 @@ public class JinDuFragment extends Fragment {
                         thumbnail = BitmapHelper.getThumbnail(getActivity(), fullPhotoUri,
                                 60 * (int) Constants.DENSITY, 60 * (int) Constants.DENSITY);
 
+                        //holder.mImgResult11.setImageBitmap(thumbnail);
                         holder.mImgResult11.setBackgroundDrawable(new BitmapDrawable(thumbnail));
                         holder.mImgResult12.setVisibility(View.VISIBLE);
                         mTempStrUR4 = ImageUrl;
@@ -1277,6 +1309,7 @@ public class JinDuFragment extends Fragment {
                         thumbnail = BitmapHelper.getThumbnail(getActivity(), fullPhotoUri,
                                 60 * (int) Constants.DENSITY, 60 * (int) Constants.DENSITY);
 
+                        //holder.mImgResult12.setImageBitmap(thumbnail);
                         holder.mImgResult12.setBackgroundDrawable(new BitmapDrawable(thumbnail));
                         holder.mImgResult13.setVisibility(View.VISIBLE);
                         mTempStrUR5 = ImageUrl;
@@ -1287,6 +1320,7 @@ public class JinDuFragment extends Fragment {
                         thumbnail = BitmapHelper.getThumbnail(getActivity(), fullPhotoUri,
                                 60 * (int) Constants.DENSITY, 60 * (int) Constants.DENSITY);
 
+                        //holder.mImgResult13.setImageBitmap(thumbnail);
                         holder.mImgResult13.setBackgroundDrawable(new BitmapDrawable(thumbnail));
                         mTempStrUR6 = ImageUrl;
                         progressAdapter.notifyDataSetChanged();
@@ -1298,27 +1332,29 @@ public class JinDuFragment extends Fragment {
                 Bitmap thumbnail ;
                 mTempStrURL = mCurFromCamare.getPath();
 
+                LogHelper.i(TAG,"-----照相-----------mTempStrURL-"+mTempStrURL+"--");//
                 String autoFileOrFilesSize = BitmapUtils.getAutoFileOrFilesSize(mTempStrURL);
 
                 LogHelper.i(TAG,"-----daxiao--"+autoFileOrFilesSize);//       ---2.38 M
 
                 //压缩文件 KB
-                String imageUrl = BitmapUtils.compressImage(mTempStrURL, mTempStrURL, 60);
+                String imageUrl = BitmapUtils.compressImage(mTempStrURL, mTempStrURL, 90);
 
                 String FilesSize = BitmapUtils.getAutoFileOrFilesSize(imageUrl);
                 String FilesSize1 = BitmapUtils.getAutoFileOrFilesSize(mTempStrURL);
                 LogHelper.i(TAG,"-----daxiao--"+FilesSize+"--"+FilesSize1);//
+                LogHelper.i(TAG,"-----照相--mTempStrURL"+"--"+mTempStrURL);//
 
                 LogHelper.i(TAG, "--------照相返回------" + mTempStrURL + "-----");//string   /storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f1_t1478759682811.jpg
                 switch (curIVSelPic) {
                     case 11:
                         //mTempBitmap = BitmapFactory.decodeFile(imgPath);
 
-
                         thumbnail = BitmapHelper.getThumbnail(getActivity(), mCurFromCamare,
-                                60 * (int) Constants.DENSITY, 60 * (int) Constants.DENSITY);
+                               60 * (int) Constants.DENSITY, 60 * (int) Constants.DENSITY);
 
-                        long bitmapsize = BitmapHelper.getBitmapsize(thumbnail);
+
+                       long bitmapsize = BitmapHelper.getBitmapsize(thumbnail);
                         int byteCount = thumbnail.getByteCount();
                         LogHelper.i(TAG, "-----大小-thumbnail-" + byteCount+"----"+bitmapsize);
 
@@ -1605,7 +1641,6 @@ public class JinDuFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return sdf.format(date);
     }
-
 
 }
 

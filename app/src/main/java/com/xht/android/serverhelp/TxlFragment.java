@@ -56,6 +56,8 @@ public class TxlFragment extends Fragment implements View.OnClickListener {
     private List<SortModel> mClientListOther=new ArrayList<>();
     private String mContactName;
     private String mContactsPhone;
+    private String mId;
+    private String style="1";
 
     /** 根据拼音来排列ListView里面的数据类
      **/
@@ -80,9 +82,7 @@ public class TxlFragment extends Fragment implements View.OnClickListener {
 
         mClientEdit = (ClearEditText) view.findViewById(R.id.mClientEdit);
         mClientListView = (ListView) view.findViewById(R.id.mClientList);
-
         mClientListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
@@ -100,18 +100,25 @@ public class TxlFragment extends Fragment implements View.OnClickListener {
                         mContactName = subname;
                     }else{
                         mContactsPhone = subname;
-
+                       String ids[]=mContactsPhone.split("[0-9]{11}");
+                         mId="";
+                        for (int i=0;i<ids.length;i++){
+                            mId=mId+ids[i];
+                        }
+                        LogHelper.i(TAG,"-------mid--"+mId);
+                       /* string v = "123456789";
+                        string s = v.Substring(0,v.length-4);*/
+                        mContactsPhone= mContactsPhone.substring(0,mContactsPhone.length()-mId.length());
+                        LogHelper.i(TAG,"-------mContactsPhone--"+mContactsPhone);
                     }
-
-                    LogHelper.i(TAG,"-------"+ mContactName +"---"+mContactsPhone);
                 }
-
                 Bundle bundle=new Bundle();
                 bundle.putString("mContactName",mContactName);
+                bundle.putString("mId",mId);
+                bundle.putString("style",style);
                 bundle.putString("mContactsPhone",mContactsPhone);
                 LogHelper.i(TAG,"------"+position+";;;;"+mContactName+mContactsPhone);
                 IntentUtils.startActivityNumber(mActivity,bundle,TXLContactsDetial.class);
-
                 //Toast.makeText(getActivity(), position+"--"+name , Toast.LENGTH_SHORT).show();
             }
         });
@@ -167,9 +174,11 @@ public class TxlFragment extends Fragment implements View.OnClickListener {
             case R.id.mClientContacts:
                 selectText(1);
                 LogHelper.i(TAG,"----ClientContacts");
+                style = "1";
                 break;
             case R.id.mInsideContacts:
                 selectText(2);
+                 style ="2";
                 LogHelper.i(TAG,"----InsideContacts");
                 break;
         }
@@ -226,10 +235,12 @@ public class TxlFragment extends Fragment implements View.OnClickListener {
                     for (int i=0;i<JsonArryLenth;i++){
                         SortModel item=new SortModel();
                         JSONObject JsonItem = (JSONObject) JsonAy.get(i);
+                        String id = JsonItem.optString("id");
                         String contactName = JsonItem.optString("contactName");
                         String telephone = JsonItem.optString("telephone");//起始步骤
                         item.setName(contactName);
                         item.setPhoneNum(telephone);
+                        item.setId(id);
 
                         mClientList.add(item);
                         mClientListOther.add(item);
@@ -260,13 +271,15 @@ public class TxlFragment extends Fragment implements View.OnClickListener {
                 try {
                     JsonAy = ((JSONObject) result).getJSONArray("entity");
                     int JsonArryLenth=JsonAy.length();
-                    for (int i=0;i<JsonArryLenth;i++){
+                    for (int i=0;i<JsonArryLenth;i++){//[{"id":1,"telephone":"13531833516","contactName":"韦继胜"}
                         SortModel item=new SortModel();
                         JSONObject JsonItem = (JSONObject) JsonAy.get(i);
+                        String id = JsonItem.optString("id");
                         String employeeName = JsonItem.optString("employeeName");
                         String telephone = JsonItem.optString("telephone");//起始步骤
                         item.setName(employeeName);
                         item.setPhoneNum(telephone);
+                        item.setId(id);
                         mClientList.add(item);
                         mClientListOther.add(item);
 
@@ -292,7 +305,10 @@ public class TxlFragment extends Fragment implements View.OnClickListener {
             String[] date = new String[len];
             Log.i(TAG, "----len-" + len);
             for (int i = 0; i < len; i++) {
-                date[i] = mClientList.get(i).getName()+mClientList.get(i).getPhoneNum();
+                date[i] = mClientList.get(i).getName()+mClientList.get(i).getPhoneNum()+mClientList.get(i).getId();
+
+                LogHelper.i(TAG,"--------"+i+"--"+mClientList.get(i).getId());
+                LogHelper.i(TAG,"-------date-"+i+"--"+date[i].toString());
             }
 
 
@@ -316,12 +332,10 @@ public class TxlFragment extends Fragment implements View.OnClickListener {
         for(int i=0; i<date.length; i++) {
             SortModel sortModel = new SortModel();
             sortModel.setName(date[i]);
-
             LogHelper.i(TAG,"---"+date.length);
             //汉字转换成拼音
             String pinyin = characterParser.getSelling(date[i]);
             String sortString = pinyin.substring(0, 1).toUpperCase();
-
             // 正则表达式，判断首字母是否是英文字母
             if (sortString.matches("[A-Z]")) {
                 sortModel.setSortLetters(sortString.toUpperCase());
@@ -337,7 +351,6 @@ public class TxlFragment extends Fragment implements View.OnClickListener {
     /* * 根据输入框中的值来过滤数据并更新ListView
      * @param filterStr
      **/
-
     private void filterData(String filterStr){
         List<SortModel> filterDateList = new ArrayList<SortModel>();
             if (TextUtils.isEmpty(filterStr)) {

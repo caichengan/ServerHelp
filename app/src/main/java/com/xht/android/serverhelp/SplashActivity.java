@@ -177,9 +177,11 @@ public class SplashActivity extends Activity {
             int uidIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.UID);
             int userNameIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.NAME);
             int phoneIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.PHONE);
+            int urlIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.URL);
             mUserInfo.setUid(cursor.getInt(uidIndex));
             mUserInfo.setUserName(cursor.getString(userNameIndex));
             mUserInfo.setPhoneNum(cursor.getLong(phoneIndex));
+            mUserInfo.setmContactUrl(cursor.getString(urlIndex));
 
         }
         LogHelper.i(TAG, "----------mUserInfo.getName() == " + mUserInfo.getUserName() + "----------mUserInfo.getUid() == " + mUserInfo.getUid() + "mUserInfo.getPhoneNum() == " + mUserInfo.getPhoneNum());

@@ -20,16 +20,20 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.xht.android.serverhelp.model.Constants;
+import com.xht.android.serverhelp.model.UserInfo;
 import com.xht.android.serverhelp.net.VolleyHelpApi;
 import com.xht.android.serverhelp.util.BitmapHelper;
 import com.xht.android.serverhelp.util.BitmapUtils;
 import com.xht.android.serverhelp.util.LogHelper;
 import com.xht.android.serverhelp.view.RoundImageView;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -48,6 +52,10 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
     private String mTempStrT;
     private RoundImageView personImg;
 
+    private UserInfo mUserInfo;
+    private int uid;
+    private String savePath="";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +71,10 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
                 new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         int change = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM;
         aBar.setDisplayOptions(change);
+
+        mUserInfo=MainActivity.mUserInfo;
+        uid = mUserInfo.getUid();
+        LogHelper.i(TAG,"--------uid-"+uid);
 
         initialize();
         personImg.setOnClickListener(this);
@@ -108,8 +120,9 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
                 dismissmChooseIconDialog();
                 mCurFromCamare = Uri.parse("file://" + Constants.BZ_CAM_PATH + "/"
                         + "bzzbz_"
-                        + "_tou" + ".jpg");
+                        + "e"+uid +"_"+System.currentTimeMillis()+ ".jpg");
                 getPhotoFromCamera(mCurFromCamare, 4);
+                LogHelper.i(TAG,"-----"+mCurFromCamare.toString());
 
                 break;
         }
@@ -120,7 +133,10 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
         protected Boolean doInBackground(String... params) {
             //   boolean temp = uploadPicFile(mTempStrURL);
             String url = params[0];
+           // String ImageUrl = BitmapUtils.compressImage(url, url, 90);
             boolean temp = uploadPicFile(url);
+
+
             LogHelper.i(TAG, "------temp-------" + url);
             LogHelper.i(TAG, "------temp" + url);
             return temp;
@@ -133,7 +149,7 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
             if (param) {
                 dismissProgressDialog();//取消
                 showDialog("上传成功");
-                finish();
+
                 LogHelper.i(TAG, "------上传成功");
             } else {
                 dismissProgressDialog();//取消
@@ -157,7 +173,7 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
         String twoHyphens = "--";
         String boundary = "*****";
         try {
-            URL url = new URL(VolleyHelpApi.BZ_PIC_UPLOAD_Url);
+            URL url = new URL(VolleyHelpApi.BZ_TOU_UPLOAD_Url);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
           /* 允许Input、Output，不使用Cache */
             con.setReadTimeout(10 * 1000000);
@@ -177,7 +193,7 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
                     new DataOutputStream(con.getOutputStream());
             ds.writeBytes(twoHyphens + boundary + end);
             ds.writeBytes("Content-Disposition: form-data; " +
-                    "name=\"img\";filename=\"" +
+                    "name=\"hport\";filename=\"" +
                     newName + "\"" + end);
             ds.writeBytes("Content-Type: application/octet-stream; charset=utf-8" + end);
             ds.writeBytes(end);
@@ -202,16 +218,25 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
             fStream.close();
             ds.flush();
           /* 取得Response内容 */
-            InputStream is = con.getInputStream();
-            int ch;
-            StringBuffer b = new StringBuffer();
-            while ((ch = is.read()) != -1) {
-                b.append((char) ch);
+            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(),"utf-8"));
+            String line = null;
+            StringBuilder strb = new StringBuilder();
+            while((line = br.readLine()) != null){
+                strb.append(line);
             }
+
+//{"message":"头像上传成功","result":"success","entity":{"savePath":"http://www.xiaohoutai.com.cn:8888/XHT/empheadportraitController/downloadEmpheadportrait?fileName=1479891737903bzzbz_e4_1479891725889.jpg"},"code":"1"}
+            JSONObject json=new JSONObject(strb.toString());
+            String entity = json.optString("entity");
+            LogHelper.i(TAG,"-------en--"+entity.toString());
+            JSONObject jsonObject=new JSONObject(entity);
+            savePath = jsonObject.optString("savePath");
+
+            mUserInfo.setmContactUrl(savePath);
+
           /* 将Response显示于Dialog */
             //showDialog("上传成功"+b.toString().trim());
           /* 关闭DataOutputStream */
-
 
             ds.close();
             return true;
@@ -271,17 +296,18 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
                 //真实路径
                 String realFilePath = BitmapUtils.getRealFilePath(this, fullPhotoUri);
 
-                mCurFromCamare = Uri.parse("file://" + Constants.BZ_PIC_PATH + "/"
+                mCurFromCamare = Uri.parse("file://" + Constants.BZ_CAM_PATH + "/"
                         + "bzzbz_"
-                        + "_tou" + ".jpg");
+                        + "e"+uid +"_"+System.currentTimeMillis()+ ".jpg");
+
 
                 String path = mCurFromCamare.getPath();
                 LogHelper.i(TAG,"-------path---"+path);
                 LogHelper.i(TAG,"-------realFilePath---"+realFilePath);
                 //压缩新的路径
-                String ImageUrl = BitmapUtils.compressImage(realFilePath, path, 80);
+                String ImageUrl = BitmapUtils.compressImage(realFilePath, path,60);
                 String size = BitmapUtils.getAutoFileOrFilesSize(ImageUrl);
-                LogHelper.i(TAG,"-------ImageUrl---"+ImageUrl);
+                LogHelper.i(TAG,"-------size---"+size);
                 LogHelper.i(TAG, "--------fullPhotoUri----" + fullPhotoUri.toString() + "------>>>>>" + realFilePath + "------>>>>>" + ImageUrl);
 
                 thumbnail = BitmapHelper.getThumbnail(this, fullPhotoUri,
@@ -291,6 +317,7 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
             }
             if (requestCode == 4) {      //照相
                 Bitmap thumbnail ;
+
                 mTempStrUR1 = mCurFromCamare.getPath();
                 String autoFileOrFilesSize = BitmapUtils.getAutoFileOrFilesSize(mTempStrUR1);
                 LogHelper.i(TAG,"-----daxiao--"+autoFileOrFilesSize);//       ---2.38 M
@@ -350,11 +377,17 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
         new AlertDialog.Builder(this).setTitle("Message").setMessage(mess)
                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
+                        Intent intent=new Intent();
+                        intent.putExtra("url",mTempStrUR1);
+                        intent.putExtra("url1",savePath);
+                        setResult(31,intent);
+                        finish();
                     }
                 }).show();
     }
-    /**
+    /**Error:Execution failed for task ':app:buildInfoDebugLoader'.
+     > Exception while doing past iteration backup : Source D:\xht\ServerHelp\app\build\intermediates\builds\debug\33123457965597\classes.dex and destination
+     D:\xht\ServerHelp\app\build\intermediates\builds\debug\33123457965597\classes.dex must be different
      * 隐藏mProgressDialog
      */
     private void dismissProgressDialog() {

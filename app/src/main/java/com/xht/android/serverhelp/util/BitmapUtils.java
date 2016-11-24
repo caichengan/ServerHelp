@@ -37,6 +37,26 @@ import static android.content.ComponentCallbacks2.TRIM_MEMORY_COMPLETE;
 public class BitmapUtils {
 
 
+	/**
+	 *
+	 * @param mContext
+	 * @param uri
+	 * @param reqWidth
+	 * @param reqHeight
+     * @return
+	 * 图片的绝对路径获取bitmap
+	 *
+	 */
+
+
+	/* File f = new File(filePath);
+	if (f.exists()) { //产生Bitmap对象，并放入mImageView中
+	Bitmap bm = BitmapFactory.decodeFile(filePath);
+	mImageView.setImageBitmap(bm);
+} else {
+		toast("文件不存在");
+		}*/
+
 
 
 
@@ -204,7 +224,7 @@ public class BitmapUtils {
 
 
 	/**
-	 * 对图片进行压缩命名存储到指定的路径path
+	 * 对图片进行压缩命名存储到指定的路径targetPath
 	 * @param filePath
 	 * @param targetPath
 	 * @param quality

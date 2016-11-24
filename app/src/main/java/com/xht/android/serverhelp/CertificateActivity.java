@@ -61,10 +61,14 @@ public class CertificateActivity extends Activity implements AdapterView.OnItemC
     private TaskBarAdapter mTaskBarAdapter;
     private TaskAddAdapter mTaskAddAdapter;
     private int mAreaSelect;
+    private int mStyleSelect;
     private String address;
     private String autoString;
     private RefreshableView refreshableview;
     private ProgressDialog mProgDoal;
+    private Spinner mSpinner;
+    private String style;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,21 +90,34 @@ public class CertificateActivity extends Activity implements AdapterView.OnItemC
 
         initialize();//初始化控件
 
-
         initData(); //初始化数据
        getTaskBarData();//TODO 访问网络数据
-
 
     }
 
     //初始化数据
     private void initData() {
 
+        final ArrayAdapter<CharSequence> mAdapter = ArrayAdapter.createFromResource(this, R.array.style, android.R.layout.simple_spinner_item);
+        mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(mAdapter);
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                style = mSpinner.getSelectedItem().toString();
+                LogHelper.i("-------style", style);
+                mStyleSelect = position + 1;
+                LogHelper.i(TAG,"----选中-"+mStyleSelect);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         final ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this, R.array.areas, android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinsel.setAdapter(arrayAdapter);
-
-
         spinsel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -110,6 +127,7 @@ public class CertificateActivity extends Activity implements AdapterView.OnItemC
                 mAreaSelect = position + 1;
                 LogHelper.i(TAG,"----选中-"+mAreaSelect);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // TODO Auto-generated method stub
@@ -120,8 +138,8 @@ public class CertificateActivity extends Activity implements AdapterView.OnItemC
         refreshbut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //RefreshMethod2();
-                RefreshMethod();
+                RefreshMethod2();
+                //RefreshMethod();
             }
         });
 
@@ -139,8 +157,8 @@ public class CertificateActivity extends Activity implements AdapterView.OnItemC
                         layout.setRefreshing(false);
                         //getTaskBarData();
                         // 刷新3秒完成
-                        //RefreshMethod2();
-                        RefreshMethod();
+                        RefreshMethod2();
+                        //RefreshMethod();
                         App.getInstance().showToast("刷新完成");
                     }
                 }, 3000);
@@ -157,22 +175,31 @@ public class CertificateActivity extends Activity implements AdapterView.OnItemC
         mTaskAdd.clear();
         autoString = autoText.getText().toString();
 
+        LogHelper.i(TAG,"----输入的公司名"+autoString,style);
         LogHelper.i(TAG,"----输入的公司名"+autoString,address);
 
+        JSONObject jsonObject=new JSONObject();
+        try {
+            jsonObject.put("value",autoString);
+            jsonObject.put("style",mStyleSelect);
+            jsonObject.put("address",address);
 
-        VolleyHelpApi.getInstance().getTaskAddData(address,autoString,new APIListener() {
+
+            LogHelper.i(TAG,"-------style-"+jsonObject.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        VolleyHelpApi.getInstance().getTaskAddData(jsonObject,new APIListener() {
             @Override
             public void onResult(Object result) {
                 LogHelper.i(TAG, "---------getTaskAddData----所有信息--" + result.toString());
-                //{"message":"没有任务池信息123","result":"error","entity":null,"code":"0"}
-                //[{"countyName":"石岐区","startStepName":"企业核名","contactName":"山头","companyName":"中山第一办证有限公司","flowName":"企业核名","telephone":"13392924040","orderId":31},
-                // {"countyName":"石岐区","startStepName":"企业核名","contactName":"近距离","companyName":"天魔斩","flowName":"企业核名","telephone":"15886688888899","orderId":36},
-                // {"countyName":"石岐区","startStepName":"企业核名","contactName":"墨鱼想","companyName":"注册公司测试1","flowName":"企业核名","telephone":"18675009880","orderId":37}]
+
                 JSONArray JsonAy = null;
 
                 String code = ((JSONObject) result).optString("code");
                 if (code.equals("0")){
                     App.getInstance().showToast("任务池中无数据符合要求");
+                    mTaskAddAdapter.notifyDataSetChanged();
                     dismissProgressDialog();
                     return;
 
@@ -236,7 +263,7 @@ public class CertificateActivity extends Activity implements AdapterView.OnItemC
             String comName = bean.getmComName();
             String styleName = bean.getmStyleName();
 
-            if (address.equals("无")){
+            if (address.equals("全部")){
                 if (comName.equals(autoString) ) {
                     mTaskAdd.add(bean);
                     LogHelper.i(TAG, "----公司输入1111" + comName);
@@ -246,7 +273,7 @@ public class CertificateActivity extends Activity implements AdapterView.OnItemC
                     LogHelper.i(TAG, "----业务输入222" + styleName);
                 }
             }
-            if (TextUtils.isEmpty(autoString)&&address.equals("无")){
+            if (TextUtils.isEmpty(autoString)&&address.equals("全部")){
                 mTaskAdd.add(bean);
             }
             if (TextUtils.isEmpty(autoString)) {
@@ -353,6 +380,7 @@ public class CertificateActivity extends Activity implements AdapterView.OnItemC
         spinsel = (Spinner) findViewById(R.id.spin_sel);
         refreshbut = (Button) findViewById(R.id.refresh_but);
         rwlistview = (ListView) findViewById(R.id.rw_listview);
+        mSpinner = (Spinner) findViewById(R.id.spinner_style);
         rwlistview.setOnItemClickListener(this);
         mTaskBarAdapter=new TaskBarAdapter();
         mTaskAddAdapter=new TaskAddAdapter();

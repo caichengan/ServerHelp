@@ -186,9 +186,11 @@ public class MainFragment extends Fragment implements View.OnClickListener{
 			cursor.moveToFirst();
 			int uidIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.UID);
 			int userNameIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.NAME);
+			int urlIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.URL);
 			int phoneIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.PHONE);
 			userInfo.setUid(cursor.getInt(uidIndex));
 			userInfo.setUserName(cursor.getString(userNameIndex));
+			userInfo.setmContactUrl(cursor.getString(urlIndex));
 			userInfo.setPhoneNum(cursor.getLong(phoneIndex));
 		}
 		LogHelper.i(TAG, "----------mUserInfo.getUid() == " + userInfo.getUid() + "mUserInfo.getPhoneNum() == " + userInfo.getPhoneNum());

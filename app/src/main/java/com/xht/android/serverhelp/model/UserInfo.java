@@ -5,7 +5,16 @@ public class UserInfo {
 	private int mUid;
 	private long mPhoneNum;
 	private String mUserName;
-	
+	private String mContactUrl;
+
+	public String getmContactUrl() {
+		return mContactUrl;
+	}
+
+	public void setmContactUrl(String mContactUrl) {
+		this.mContactUrl = mContactUrl;
+	}
+
 	public UserInfo() {
 		
 	}

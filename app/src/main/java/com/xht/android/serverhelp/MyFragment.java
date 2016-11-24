@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import com.xht.android.serverhelp.model.UserInfo;
 import com.xht.android.serverhelp.provider.MyDatabaseManager;
 import com.xht.android.serverhelp.util.AppInfoUtils;
+import com.xht.android.serverhelp.util.AsyncImageLoader;
 import com.xht.android.serverhelp.util.IntentUtils;
 import com.xht.android.serverhelp.util.LogHelper;
 
@@ -25,19 +28,24 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 	private static final String TAG = "MyFragment";
 	public static final String BRO_ACT_S = "com.xht.android.serverhelp.bro_act";
 	public static final String BRO_ACT_S2 = "com.xht.android.serverhelp.bro_act_s2";
+
 	public static final String PHONENUM_KEY = "phone_key";
 	public static final String UID_KEY = "userId_key";
 	public static final String UNAME_KEY = "userName_key";
+	public static final String UNAME_URL= "userName_url";
 	private MainActivity mActivity;
 	private ImageView headimg;
 	private TextView aName;
 	private TextView aPhoneNum;
 	private ImageView erweima;
+
 	private LinearLayout fragmmyll1;
 	private TextView changemima;
 	private TextView banben;
 	private LinearLayout fragmmyll2;
 	private UserInfo mUserInfo;
+
+	private AsyncImageLoader imageLoader;
 
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 
@@ -46,13 +54,15 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 			int uId = intent.getIntExtra(UID_KEY, 0);
 			long phoneNum = intent.getLongExtra(PHONENUM_KEY, 0);
 			String uName = intent.getStringExtra(UNAME_KEY);
+			String contactUrl = intent.getStringExtra(UNAME_URL);
 			LogHelper.i(TAG,"--------收到广播-");
 			mUserInfo.setUid(uId);
 
-			LogHelper.i(TAG, "-----uName=" + uId+"---phoneNum"+phoneNum+uName);
+			LogHelper.i(TAG, "-----uName=" + uId+"---phoneNum"+phoneNum+uName+"------"+contactUrl);
 			mUserInfo.setPhoneNum(phoneNum);
 
 			mUserInfo.setUserName(uName);
+			mUserInfo.setmContactUrl(contactUrl);
 
 			refleshUI();
 		}
@@ -96,6 +106,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 		getActivity().registerReceiver(mClearUserReceiver, intentFilter2);
 		mUserInfo = ((MainActivity) mActivity).mUserInfo;
 
+		imageLoader = new AsyncImageLoader(getActivity());
 
 	}
 	
@@ -156,16 +167,34 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 					IntentUtils.startActivityInfo(mActivity,LoginActivity.class);
 				}
 				break;
-			case R.id.head_img:
+			case R.id.head_img://头像
 
-				IntentUtils.startActivityInfo(getActivity(),LoadPersonImageView.class);
-
-				/*if (mChoosePicDialog == null) {
-					mChoosePicDialog = new ChoosePicDialog(PersonalActivity.this, this);
-				}
-				mChoosePicDialog.show();*/
+				IntentUtils.startActivityNumberForResult(30,getActivity(),LoadPersonImageView.class);
 
 				break;
+		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (resultCode == -1) {
+			if (requestCode == 30) {//相册返回
+				String url1 = data.getStringExtra("url1");
+
+				LogHelper.i(TAG, "------url1" + url1);
+				if (TextUtils.isEmpty(url1)) {
+
+
+
+					Bitmap bitmap = imageLoader.loadImage(headimg, url1);
+					if (bitmap != null) {
+						headimg.setImageBitmap(bitmap);
+					}
+				}
+			}
+
 		}
 	}
 
@@ -179,15 +208,24 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 			int uidIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.UID);
 			int userNameIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.NAME);
 			int phoneIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.PHONE);
+			int urlIndex = cursor.getColumnIndex(MyDatabaseManager.MyDbColumns.URL);
 			mUserInfo.setUid(cursor.getInt(uidIndex));
 			mUserInfo.setUserName(cursor.getString(userNameIndex));
 			mUserInfo.setPhoneNum(cursor.getLong(phoneIndex));
+			mUserInfo.setmContactUrl(cursor.getString(urlIndex));
 
 		}
 		LogHelper.i(TAG,  "----------mUserInfo.getName() == " + mUserInfo.getUserName()+"----------mUserInfo.getUid() == " + mUserInfo.getUid() + "mUserInfo.getPhoneNum() == " + mUserInfo.getPhoneNum());
+		LogHelper.i(TAG,  "----------mUserInfo.getmContactUrl() == " + mUserInfo.getmContactUrl());
 		aPhoneNum.setText("" + mUserInfo.getPhoneNum());
 		aName.setText(mUserInfo.getUserName());
-		return true;
+
+
+		Bitmap bitmap = imageLoader.loadImage(headimg, mUserInfo.getmContactUrl());
+		if (bitmap != null) {
+			headimg.setImageBitmap(bitmap);
+		}
+		return  true;
 
 	}
 }

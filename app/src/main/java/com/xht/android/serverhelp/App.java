@@ -56,7 +56,7 @@ public class App extends Application {
 					tv.data, getResources().getDisplayMetrics());
 		}		
 		Constants.STATUSBAR_HEIGHT = getStatusBarHeight();
-		LogHelper.d(TAG, "width:" + Constants.DESIRED_WIDTH + ",height:" + Constants.DESIRED_HEIGHT
+		LogHelper.d(TAG, "-----width:" + Constants.DESIRED_WIDTH + ",height:" + Constants.DESIRED_HEIGHT
 				+ ",actionBarHeight:" + Constants.ACTIONBAR_HEIGHT +
 				",statusBarheight:" + Constants.STATUSBAR_HEIGHT
 				+ ",density:" + Constants.DENSITY +
