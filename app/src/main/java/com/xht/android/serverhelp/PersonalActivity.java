@@ -2,6 +2,8 @@ package com.xht.android.serverhelp;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -22,6 +24,8 @@ import com.xht.android.serverhelp.util.BitmapUtils;
 import com.xht.android.serverhelp.util.LogHelper;
 
 import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2016-10-13.
@@ -135,6 +139,7 @@ public class PersonalActivity extends Activity implements View.OnClickListener {
 
     private LinearLayout mTabLay20;
     private LinearLayout mTabLay21;
+    private int mCurrentStep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -282,64 +287,100 @@ public class PersonalActivity extends Activity implements View.OnClickListener {
 
         switch(v.getId()){
 
-
-            case R.id.mTabLay01://企业核名
-
-                break;
-            case R.id.mTabLay02://工商注册
+            case R.id.mTabLay01://资料交接
+                mCurrentStep = 1;
 
                 break;
-            case R.id.mTabLay03://雕刻印章
+            case R.id.mTabLay02://工商核名
+                mCurrentStep = 2;
+                break;
+            case R.id.mTabLay03://注册文件
+
+                mCurrentStep = 3;
+                break;
+            case R.id.mTabLay04://雕刻印章
+
+                mCurrentStep = 4;
+                break;
+            case R.id.mTabLay05://公安拿章
+
+                mCurrentStep = 5;
 
                 break;
-            case R.id.mTabLay04://银行开户
-
+            case R.id.mTabLay06://银行开户
+                mCurrentStep = 6;
                 break;
-            case R.id.mTabLay05://国税报到
+            case R.id.mTabLay07://银行委托
 
+                mCurrentStep = 7;
                 break;
-            case R.id.mTabLay06://地税报到
+            case R.id.mTabLay08://国税核税
 
+                mCurrentStep = 8;
                 break;
-            case R.id.mTabLay07://企业核名
+            case R.id.mTabLay09://数字证书
 
+                mCurrentStep = 9;
                 break;
-            case R.id.mTabLay08://工商注册
+            case R.id.mTabLay10://金税盘
 
+                mCurrentStep = 10;
                 break;
-            case R.id.mTabLay09://雕刻印章
+            case R.id.mTabLay11://电子发票
 
+                mCurrentStep = 11;
                 break;
-            case R.id.mTabLay10://银行开户
+            case R.id.mTabLay12://地税核税
 
-                break;
-            case R.id.mTabLay11://国税报到
-
-                break;
-            case R.id.mTabLay12://地税报到
-
+                mCurrentStep = 12;
                 break;
 
-            case R.id.mTabLay13://企业核名
+            case R.id.mTabLay13://租苈备案
 
+                mCurrentStep = 13;
                 break;
-            case R.id.mTabLay14://工商注册
+            case R.id.mTabLay14://移交会记
 
+                mCurrentStep = 14;
                 break;
-            case R.id.mTabLay15://雕刻印章
+            case R.id.mTabLay15://移交客户
 
+                mCurrentStep = 15;
                 break;
-            case R.id.mTabLay16://银行开户
+            case R.id.mTabLay16://办证回访
 
+                mCurrentStep = 16;
                 break;
-            case R.id.mTabLay17://国税报到
+            case R.id.mTabLay17://发朋友圈
 
+                mCurrentStep = 17;
                 break;
-            case R.id.mTabLay18://地税报到
+            case R.id.mTabLay18://后台开讲
 
+                mCurrentStep = 18;
+                break;
+            case R.id.mTabLay19://口碑传播
+
+                mCurrentStep = 19;
                 break;
 
         }
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        DialogFragment newFragment = CompNDialogFragment.newInstance(mCurrentStep);
+        newFragment.show(ft, "cn_dialog");
+
+
+
+
+    }
+
+
+
+
+
+    private void showDialogForStep(List<String> mStepList) {
+
 
 
     }

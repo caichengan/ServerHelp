@@ -763,6 +763,50 @@ public class VolleyHelpApi extends BaseApi{
 		App.getInstance().addToRequestQueue(req, TAG);
 	}
 
+
+
+	public void getStepData(final int step, final APIListener apiListener) {
+		String urlString = MakeURL(STEPDATA_GET_URL, new LinkedHashMap<String, Object>() {{
+			put("step", step);
+
+		}});
+		JsonObjectRequest req = new JsonObjectRequest(urlString, null, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+
+					LogHelper.i(TAG, "----个人绩效--" + response.toString());
+					apiListener.onResult(response);
+
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("服务器繁忙，稍后再试...");
+			}
+		});
+		App.getInstance().addToRequestQueue(req, TAG);
+	}
+
 	/**
 	 * 访问预警数据
 	 * @param apiListener

@@ -31,8 +31,11 @@ public class App extends Application {
 	private RequestQueue mRequestQueue;
 	private ImageLoader mImageLoader;
 	private LruCacheManager mLruCacheManager;
+	private static  PushAgent mPushAgent;
 
-
+	public static PushAgent getPushAgent(){
+		return mPushAgent;
+	}
 
 	public static App getInstance() {
 		return sAppInstance;
@@ -45,7 +48,8 @@ public class App extends Application {
 		LogHelper.i(TAG,"--------");
 		mLruCacheManager = LruCacheManager.getInstance(getApplicationContext());
 
-		PushAgent mPushAgent = PushAgent.getInstance(this);
+		mPushAgent = PushAgent.getInstance(this);
+		mPushAgent.setDebugMode(false);
 		//注册推送服务，每次调用register方法都会回调该接口
 		mPushAgent.register(new IUmengRegisterCallback() {
 
@@ -61,8 +65,8 @@ public class App extends Application {
 			}
 		});
 
-		init();
 
+		init();
 
 	}
 

@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.umeng.message.PushAgent;
+import com.umeng.message.common.inter.ITagManager;
+import com.umeng.message.tag.TagManager;
 import com.xht.android.serverhelp.model.UserInfo;
 import com.xht.android.serverhelp.net.APIListener;
 import com.xht.android.serverhelp.net.VolleyHelpApi;
@@ -38,6 +41,9 @@ public class MainFragment extends Fragment implements View.OnClickListener{
 	private View view;
 	private int[] mCompIds;
 	private UserInfo userInfo;
+	private PushAgent pushAgent;
+
+	public  static String ALIAS_TYPE_XHT="com.xht.android.serverhelp";
 
 	/*@Override
 	public void onAttach(Activity activity) {
@@ -52,6 +58,28 @@ public class MainFragment extends Fragment implements View.OnClickListener{
 		super.onCreate(savedInstanceState);
 		mActivity= (MainActivity) getActivity();
 		userInfo = MainActivity.getInstance();
+
+		uid=userInfo.getUid();
+		pushAgent = App.getPushAgent();
+
+		//添加bu部分
+			pushAgent.getTagManager().add(new TagManager.TCallBack() {
+			@Override
+			public void onMessage(final boolean isSuccess, final ITagManager.Result result) {
+				//isSuccess表示操作是否成功
+				LogHelper.i(TAG,"----isSuccess---"+isSuccess+"---uid-"+uid);
+			}
+		}, uid+"");
+
+
+		/*pushAgent.removeAlias(uid+"", ALIAS_TYPE_XHT, new UTrack.ICallBack() {
+			@Override
+			public void onMessage(boolean isSuccess, String message) {
+
+				LogHelper.i(TAG,"----addAlias---"+isSuccess+"---message-"+message);
+			}
+		});*/
+
 		getMainData();
 	}
 
