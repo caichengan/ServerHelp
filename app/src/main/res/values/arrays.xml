@@ -30,7 +30,7 @@
     <string-array name="style">
 
         <item>公司</item>
-        <item>类型</item>
+        <item>任务</item>
     </string-array>
 
     <string-array name="fwkb_months">

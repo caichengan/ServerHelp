@@ -60,7 +60,7 @@ public class TaskItemActivity extends Activity{
 
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
-        mCustomView.setText("返回");
+        mCustomView.setText("抢单");
         mCustomView.setTextSize(18);
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,

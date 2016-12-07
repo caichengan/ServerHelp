@@ -3,7 +3,7 @@ package com.xht.android.serverhelp.net;
 public class BaseApi {
 
     //检查更新
-	public static final String CHECK_VERSION_URL = "";
+	public static final String CHECK_VERSION_URL = "http://www.xiaohoutai.com.cn:8888/XHT/business/apkcustomerserviceController/updateApkVersion";
 
     //办证中列表数据
 	public static final String BZ_ITEMS_URL = "http://www.xiaohoutai.com.cn:8888/XHT/homeOrderDetailController/LoadCertificateDetail";

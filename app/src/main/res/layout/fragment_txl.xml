@@ -9,7 +9,7 @@
        android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:layout_marginLeft="30dp"
-        android:background="@drawable/blue_stroke"
+        android:background="@drawable/while_stroke"
         android:layout_marginRight="30dp"
         android:layout_height="wrap_content">
         <TextView
@@ -48,7 +48,7 @@
         android:layout_marginTop="5dip"
         android:layout_width="fill_parent"
         android:layout_height="30dp"
-        android:background="@drawable/green_stroke"
+        android:background="@drawable/while_stroke"
         android:drawableLeft="@drawable/sorlistview_search_bar_icon_normal"
         android:hint="请输入关键字"
         android:singleLine="true"

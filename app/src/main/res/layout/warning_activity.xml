@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-
+        android:layout_marginTop="1dp"
         android:background="@android:color/white"
         android:layout_height="100dp">
 
@@ -26,12 +26,34 @@
             android:layout_margin="5dp"
             android:layout_marginLeft="15dp"
             android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/warning_com"
+            android:layout_below="@id/warning_task"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="公司："
+                android:textSize="16sp"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/warning_mCompany"
+                android:layout_width="wrap_content"
+                android:text="大斧头哥到"
+                android:textSize="16sp"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/warning_kehu"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@id/warning_task"
+            android:layout_below="@id/warning_com"
             android:layout_height="wrap_content">
             <TextView
 
@@ -49,26 +71,7 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@id/warning_kehu"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:text="公司名："
-                android:textSize="16sp"
-                android:layout_margin="5dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/warning_mCompany"
-                android:layout_width="wrap_content"
-                android:text="大斧头哥到"
-                android:textSize="16sp"
-                android:layout_margin="5dp"
-                android:layout_height="wrap_content" />
 
-        </LinearLayout>
 
         <TextView
             android:id="@+id/warning_mDay"
@@ -77,22 +80,19 @@
             android:layout_margin="10dp"
             android:text="10天"
             android:gravity="center"
-            android:background="@android:color/holo_red_light"
+            android:textColor="@android:color/white"
+            android:background="@drawable/red_stroke"
             android:layout_height="50dp" />
         <TextView
             android:id="@+id/warning_mAddress"
             android:layout_below="@id/warning_mDay"
             android:layout_width="wrap_content"
-            android:layout_alignParentRight="true"
             android:text="东区"
             android:drawableLeft="@mipmap/company_address"
-            android:layout_marginRight="40dp"
+            android:layout_alignLeft="@id/warning_mDay"
             android:layout_height="wrap_content"
             android:gravity="center"/>
 
     </RelativeLayout>
-    <View
-        android:layout_width="match_parent"
-        android:background="@android:color/darker_gray"
-        android:layout_height="8dp"/>
+
 </LinearLayout>

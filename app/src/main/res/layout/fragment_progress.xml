@@ -5,10 +5,6 @@
     tools:context="com.xht.android.serverhelp.JinDuFragment"
     android:orientation="vertical"
     android:background="@android:color/transparent">
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
 
 
     <ListView

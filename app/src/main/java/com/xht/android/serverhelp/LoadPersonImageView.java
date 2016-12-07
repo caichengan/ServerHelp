@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -44,7 +45,8 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
     private static final String TAG = "LoadPersonImageView";
     private ProgressDialog mProgressDialog;
     private ChoosePicDialog mChoosePicDialog;
-    private Uri mCurFromCamare;
+    private Uri mCurFromCamare;//
+    private SharedPreferences mSharedPreferences;
 
     private Button loadImg;
     private String mTempStrUR1;
@@ -63,7 +65,7 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
         setContentView(R.layout.activity_picture);
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
-        mCustomView.setText("返回");
+        mCustomView.setText("头像");
         mCustomView.setTextSize(18);
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,
@@ -71,6 +73,7 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
         int change = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM;
         aBar.setDisplayOptions(change);
 
+        mSharedPreferences=getSharedPreferences("tou",MODE_APPEND);
         mUserInfo=MainActivity.mUserInfo;
         uid = mUserInfo.getUid();
         LogHelper.i(TAG,"--------uid-"+uid);
@@ -93,15 +96,20 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.loadImg:
-                LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR1);
-                //createProgressDialogTitle("正在上传");
-                LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR1);
-                if (mTempStrUR1!=null||mTempStrUR1!="") {
-                    App.getInstance().showToast("请选择照片");
-                }else{
-                    LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR1);
+                createProgressDialogTitle("正在上传");
+
+
+                if (mTempStrUR1!=null&&mTempStrUR1!="") {
+
+                    LogHelper.i(TAG, "-----mTemp-----" + mTempStrUR1);
+
                     new UploadPicTask().execute(mTempStrUR1);
+                }else{
+                    App.getInstance().showToast("请先选择照片");
+                    dismissProgressDialog();
                 }
+
+
                 break;
             case R.id.personImg:
                 if (mChoosePicDialog == null) {
@@ -136,6 +144,13 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
             boolean temp = uploadPicFile(url);
             LogHelper.i(TAG, "------temp-------" + url);
             LogHelper.i(TAG, "------temp" + url);
+
+            if (temp){
+                // TODO
+                SharedPreferences.Editor edit = mSharedPreferences.edit();
+                edit.putString("url",url);
+                edit.commit();
+            }
             return temp;
         }
 
@@ -367,7 +382,7 @@ public class LoadPersonImageView extends Activity implements View.OnClickListene
      *  显示Dialog的method
      *  */
     private void showDialog(String mess) {
-        new AlertDialog.Builder(this).setTitle("Message").setMessage(mess)
+        new AlertDialog.Builder(this).setTitle("Message").setMessage(mess).setCancelable(false)
                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent=new Intent();

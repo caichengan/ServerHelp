@@ -364,6 +364,7 @@ public class CertificateActivity extends Activity implements AdapterView.OnItemC
                 }
             });
         }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

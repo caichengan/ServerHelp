@@ -48,6 +48,7 @@ public class SplashActivity extends Activity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private File file;
 
     public static UserInfo getInstance() {
         return mUserInfo;
@@ -57,8 +58,6 @@ public class SplashActivity extends Activity {
         @Override
         public String getMessageName(Message message) {
             return super.getMessageName(message);
-
-
         }
     };
     @Override
@@ -92,8 +91,6 @@ public class SplashActivity extends Activity {
             public void onAnimationRepeat(Animation animation) {
             }
         });
-
-
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -113,29 +110,42 @@ public class SplashActivity extends Activity {
     }
 
     private void checkVersion() {
+        LogHelper.i(TAG, "--------版本更新的所有信息--" );
         VolleyHelpApi.getInstance().getCheckVersion(new APIListener() {
 
             @Override
             public void onResult(Object result) {
+
+                //{"message":"没有最新版本","result":"error","entity":null,"code":"0"}
+
+                String code = ((JSONObject) result).optString("code");
+                if (code.equals("0")){
+                    LogHelper.i(TAG,"-------无最新数据---");
+                    return;
+                }
+                JSONObject mJsonVersion = ((JSONObject)result).optJSONObject("entity");
+                LogHelper.i(TAG, "--------版本更新的所有信息--------" );
                 LogHelper.i(TAG, "---版本更新的所有信息--" + result.toString());
 
+                //"entity":{"downloadurl":"http:\/\/www.xiaohoutai.com.cn:8888\/XHT\/business\/apkcustomerserviceController\/downloadApk?fileName=1480303305698app-release.apk",
+                // "version":"10"}
                 //获取当前版本号
                 String appInfoName = AppInfoUtils.getAppInfoName(SplashActivity.this);
                 int appInfoNumber = AppInfoUtils.getAppInfoNumber(SplashActivity.this);
                 LogHelper.i(TAG, "---有新版本，下载更新" + appInfoName + "-" + appInfoNumber);
 
 
-                JSONObject mJsonVersion = (JSONObject) result;
                 String versionNum = mJsonVersion.optString("version");
                 //服务器中的版本号
                 Double versionNew = Double.parseDouble(versionNum);
-                String downloadUrl = mJsonVersion.optString("downloadUrl");
-
+                String downloadurl = mJsonVersion.optString("downloadurl");
+                LogHelper.i(TAG, "-----前versionNum：=" + versionNew + "---" + downloadurl);
+                LogHelper.i(TAG, "-----appInfoNumber：=" + appInfoNumber + "---" );
                 if (versionNew > appInfoNumber) {
                     versionNew = versionNew / 10.0;
-                    LogHelper.i(TAG, "---versionNum：=" + versionNew + "---" + downloadUrl);
+                    LogHelper.i(TAG, "-------后--versionNum：=" + versionNew + "---" + downloadurl);
                     LogHelper.i(TAG, "---有新版本，下载更新");
-                    showDialogUpdate(versionNew + "", "新的版本，修复文章bug", downloadUrl);
+                    showDialogUpdate(versionNew + "", "新的版本，修复文章bug", downloadurl);
                 } else {
 
                     if (isUserLogin()) {
@@ -146,7 +156,6 @@ public class SplashActivity extends Activity {
                         startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                         LogHelper.i(TAG, "---------11111---------");
                     }
-
 
                     finish();
                 }
@@ -203,25 +212,27 @@ public class SplashActivity extends Activity {
                 App.getInstance().showToast("请稍等片刻...");
                 //开源项目断点下载xUtils
                 HttpUtils http = new HttpUtils();
-                final File file = new File(Environment.getExternalStorageDirectory(), "xiaohoutaifuwu.apk");
+                file = new File(Environment.getExternalStorageDirectory(), "xiaokufu.apk");
+
                 http.download(downLoadUrl, file.getAbsolutePath(), true, new RequestCallBack<File>() {
                     //下载失败
                     @Override
                     public void onFailure(HttpException arg0, String arg1) {
-
 
                     }
 
                     //下载成功
                     @Override
                     public void onSuccess(ResponseInfo arg0) {
+
                         //下载成功，替换安装
                         App.getInstance().showToast("下载成功");
-                        Intent intent = new Intent();
-                        intent.setAction("android.intent.action.VIEW");
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.addCategory("android.intent.category.DEFAULT");
                         intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-                        startActivity(intent);
+                        SplashActivity.this.startActivity(intent);
+
 
                     }
                 });
@@ -242,6 +253,34 @@ public class SplashActivity extends Activity {
         });
         builder.setCancelable(false);
         builder.show();
+    }
+
+    /**
+     *  显示Dialog的method
+     *  */
+    private void showDialog(String mess) {
+        new AlertDialog.Builder(this).setTitle("Message").setMessage(mess)
+                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addCategory("android.intent.category.DEFAULT");
+                        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+
+                        startActivity(intent);
+                    }
+                }).show();
+    }
+
+    private void uninstall() {
+        Uri uri = Uri.parse("package:com.xht.android.serverhelp");//获取删除包名的URI
+        Intent intent = new Intent(Intent.ACTION_DELETE, uri);
+        startActivity(intent);
+
+
+
     }
 
     /**

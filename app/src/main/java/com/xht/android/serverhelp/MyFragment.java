@@ -1,11 +1,14 @@
 package com.xht.android.serverhelp;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -21,8 +24,11 @@ import com.xht.android.serverhelp.model.UserInfo;
 import com.xht.android.serverhelp.provider.MyDatabaseManager;
 import com.xht.android.serverhelp.util.AppInfoUtils;
 import com.xht.android.serverhelp.util.AsyncImageLoader;
+import com.xht.android.serverhelp.util.BitmapUtils;
 import com.xht.android.serverhelp.util.IntentUtils;
 import com.xht.android.serverhelp.util.LogHelper;
+
+import static android.content.Context.MODE_APPEND;
 
 public class MyFragment extends Fragment implements View.OnClickListener {
 	private static final String TAG = "MyFragment";
@@ -39,6 +45,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 	private TextView aPhoneNum;
 	private ImageView erweima;
 
+	private SharedPreferences mSHaredPreference;
 	private LinearLayout fragmmyll1;
 	private TextView changemima;
 	private TextView banben;
@@ -79,6 +86,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 			refleshUI2();
 		}
 	};
+	private String url;
 
 	private void refleshUI() {
 		aPhoneNum.setText("" + mUserInfo.getPhoneNum());
@@ -102,9 +110,15 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 		super.onCreate(savedInstanceState);
 		IntentFilter intentFilter = new IntentFilter(BRO_ACT_S);
 		getActivity().registerReceiver(mReceiver, intentFilter);
+
 		IntentFilter intentFilter2 = new IntentFilter(BRO_ACT_S2);
 		getActivity().registerReceiver(mClearUserReceiver, intentFilter2);
+
 		mUserInfo = ((MainActivity) mActivity).mUserInfo;
+		mSHaredPreference=getActivity().getSharedPreferences("tou",MODE_APPEND);
+
+
+
 
 		imageLoader = new AsyncImageLoader(getActivity());
 
@@ -129,12 +143,39 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 		headimg.setOnClickListener(this);//头像上传
 
 		banben.setText("版本："+AppInfoUtils.getAppInfoName(getActivity()));
+
+		url = mSHaredPreference.getString("url", "null");
+
+		LogHelper.i(TAG,"------"+ url);
+		if (!url.equals("null")){
+			LogHelper.i(TAG,"----11--"+ url);
+			Bitmap smallBitmap = BitmapUtils.getSmallBitmap(url);
+			headimg.setImageBitmap(smallBitmap);
+			// BitmapUtils.loadImgageUrl(url,mPersonImg);
+		}
+
+
 		return view;
 	}
 	@Override
 	public void onResume() {
 		super.onResume();
 		isUserLogin();
+
+		 url = mSHaredPreference.getString("url", "null");
+
+		LogHelper.i(TAG,"------"+url);
+		if (!url.equals("null")){
+			LogHelper.i(TAG,"----11--"+url);
+			Bitmap smallBitmap = BitmapUtils.getSmallBitmap(url);
+			headimg.setImageBitmap(smallBitmap);
+			// BitmapUtils.loadImgageUrl(url,mPersonImg);
+		}else{
+			if (mUserInfo.getmContactUrl()!=null||mUserInfo.getmContactUrl()!=""||mUserInfo.getmContactUrl().equals("null")) {
+				Bitmap smallBitmap = BitmapUtils.getSmallBitmap(mUserInfo.getmContactUrl());
+				headimg.setImageBitmap(smallBitmap);
+			}
+		}
 	}
 	
 	@Override
@@ -150,6 +191,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 		switch (v.getId()){
 			case R.id.fragm_my_ll1:
 				if (isUserLogin()) {//已经登录，可进行其他操作
+
+					FragmentTransaction ft = getFragmentManager().beginTransaction();
+					DialogFragment newFragment = SwitchUserDialogFragment.newInstance(mUserInfo.getUid(), 0);
+					newFragment.show(ft, "sw_u_dialog");
 
 				} else {
 					IntentUtils.startActivityInfo(mActivity,LoginActivity.class);
@@ -185,12 +230,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
 				LogHelper.i(TAG, "------url1" + url1);
 				if (TextUtils.isEmpty(url1)) {
-
-
-
 					Bitmap bitmap = imageLoader.loadImage(headimg, url1);
 					if (bitmap != null) {
 						headimg.setImageBitmap(bitmap);
+
 					}
 				}
 			}
@@ -220,11 +263,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 		aPhoneNum.setText("" + mUserInfo.getPhoneNum());
 		aName.setText(mUserInfo.getUserName());
 
-
-		Bitmap bitmap = imageLoader.loadImage(headimg, mUserInfo.getmContactUrl());
-		if (bitmap != null) {
-			headimg.setImageBitmap(bitmap);
-		}
 		return  true;
 
 	}

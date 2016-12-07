@@ -34,6 +34,7 @@
             android:layout_width="100dp"
             android:text="上传"
             android:layout_marginTop="10dp"
+            android:textColor="@android:color/white"
             android:background="@drawable/btn_background_circle"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_height="35dp"/>

@@ -7,12 +7,15 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -22,6 +25,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.xht.android.serverhelp.model.PersonBzzxq;
 import com.xht.android.serverhelp.net.APIListener;
 import com.xht.android.serverhelp.net.VolleyHelpApi;
+import com.xht.android.serverhelp.util.BitmapUtils;
 import com.xht.android.serverhelp.util.LogHelper;
 
 import org.json.JSONObject;
@@ -46,12 +50,18 @@ public class RwxqActivity extends Activity {
     private String employeeName;
     private TextView textName;
 
+    private SharedPreferences mSHaredPreference;
+    private ImageView textImg;
+    private String companyName;
+
     @Override
     protected void onResume() {
         super.onResume();
 
         mUid=MainActivity.mUserInfo.getUid();
+        mOrderId = getIntent().getIntExtra("ordId", 0);
         LogHelper.i(TAG,"-----mUid----------"+mUid+"----mOrderId"+mOrderId);
+        new JinDuFragment().newInstance("",null);
     }
 
     @Override
@@ -59,17 +69,19 @@ public class RwxqActivity extends Activity {
         super.onCreate(savedInstanceState);
         mOrderId = getIntent().getIntExtra("ordId", 0);
         mUid = getIntent().getIntExtra("mUid", 0);
+        companyName = getIntent().getStringExtra("mCompanyName");
         LogHelper.i(TAG,"-----mUid"+mUid+"----mOrderId"+mOrderId);
 
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
-        mCustomView.setText("返回");
+        mCustomView.setText(companyName);
         mCustomView.setTextSize(18);
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,
                 new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         int change = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM;
         aBar.setDisplayOptions(change);
+
 
 
         setContentView(R.layout.activity_rwxq);
@@ -82,12 +94,9 @@ public class RwxqActivity extends Activity {
         //-----------------------------测试-----------------------------------------------
         View view = this.getLayoutInflater().inflate(R.layout.item_bz_chengyuan, null);
         textName = (TextView) view.findViewById(R.id.chengyuanName);
-
+        textImg = (ImageView) view.findViewById(R.id.touxiang);
         mLLayout.addView(view);
-
-
         //-----------------------------测试end-----------------------------------------------
-
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         mFragment1 = fm.findFragmentByTag("f1");
@@ -95,6 +104,18 @@ public class RwxqActivity extends Activity {
             mFragment1 = JinDuFragment.newInstance("", null);
             //mFragment1 = ProgressFragment.newInstance("", null);
         }
+
+        mSHaredPreference = getSharedPreferences("tou",MODE_APPEND);
+
+        String url = mSHaredPreference.getString("url", "null");
+        LogHelper.i(TAG,"------"+url);
+        if (!url.equals("null")){
+            LogHelper.i(TAG,"----11--"+url);
+            Bitmap smallBitmap = BitmapUtils.getSmallBitmap(url);
+            textImg.setImageBitmap(smallBitmap);
+            // BitmapUtils.loadImgageUrl(url,mPersonImg);
+        }
+
         ft.add(R.id.fragment_contain, mFragment1, "f1");
         mFragment2 = fm.findFragmentByTag("f2");
         if (mFragment2 == null) {
@@ -108,6 +129,9 @@ public class RwxqActivity extends Activity {
         }
         ft.add(R.id.fragment_contain, mFragment3, "f3");
         ft.commit();
+
+
+
 
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
               @Override

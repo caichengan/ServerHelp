@@ -14,7 +14,6 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
 import com.android.volley.Response;
@@ -32,8 +31,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 
-import static android.content.ComponentCallbacks2.TRIM_MEMORY_COMPLETE;
-
 public class BitmapUtils {
 
 
@@ -47,6 +44,8 @@ public class BitmapUtils {
 	 * 图片的绝对路径获取bitmap
 	 *
 	 */
+
+
 
 
 	/* File f = new File(filePath);
@@ -97,23 +96,23 @@ public class BitmapUtils {
 		}
 	}
 
+
 	/**
 	 * 加载网络图片
-	 * @param request
 	 * @param imgFile
 	 * @param mImgFile
      */
-	public static void loadImgageUrl(ImageRequest request, String imgFile, final ImageView mImgFile) {
+	public static void loadImgageUrl( String imgFile, final ImageView mImgFile) {
 
 
-		request = new ImageRequest(imgFile, new Response.Listener<Bitmap>() {
+		ImageRequest request = new ImageRequest(imgFile, new Response.Listener<Bitmap>() {
 
 			@Override
 			public void onResponse(Bitmap arg0) {
-				ScaleAnimation scaleAnimation=new ScaleAnimation(0.3f, 1.0f ,0.3f, 1.0f);
+			/*	ScaleAnimation scaleAnimation=new ScaleAnimation(0.3f, 1.0f ,0.3f, 1.0f);
 				scaleAnimation.setRepeatMode(TRIM_MEMORY_COMPLETE);
 				scaleAnimation.setDuration(500);
-				mImgFile.startAnimation(scaleAnimation);
+				mImgFile.startAnimation(scaleAnimation);*/
 				mImgFile.setImageBitmap(arg0);
 
 			}
@@ -121,12 +120,15 @@ public class BitmapUtils {
 
 			@Override
 			public void onErrorResponse(VolleyError arg0) {
-				mImgFile.setImageResource(R.mipmap.ic_launcher);
+				mImgFile.setImageDrawable(null);
+				//mImgFile.setImageResource(R.mipmap.ic_action_add);
 			}
 		});
 		//存储到队列中
 		App.getInstance().getRequestQueue().add(request);
 	}
+
+
 
 
 	/**

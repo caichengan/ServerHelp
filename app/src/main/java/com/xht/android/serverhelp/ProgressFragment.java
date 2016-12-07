@@ -1,4 +1,3 @@
-/*
 package com.xht.android.serverhelp;
 
 
@@ -6,11 +5,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -51,27 +50,22 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-
-*/
 /**
  * UJinDuFragment
  * <p>
  * 办证中列表项的详细
- *//*
-
+ */
 public class ProgressFragment extends Fragment {
-    private static final String TAG = "ProgressFragment";
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
 
+    private static final String TAG = "JinDuFragment";
     private SharedPreferences sharedPreferences;
     ProgressAdapter.ViewHolder holder;
     private ProgressDialog mProgressDialog;
-
 
     //提交更新进度后，出现的对任务进行的三个操作的Layout
     private LinearLayout mRwZzSel1, mRwZzSel2;
@@ -85,7 +79,6 @@ public class ProgressFragment extends Fragment {
     private String mTempStrUR4 = null; //将要上传的图片的路径
     private String mTempStrUR5 = null; //将要上传的图片的路径
     private String mTempStrUR6 = null; //将要上传的图片的路径
-
 
     //由于相册返回的照片路径不是想要的路径，所以临时又声明一个路径
     private String mTempStrT;
@@ -122,13 +115,11 @@ public class ProgressFragment extends Fragment {
         // Required empty public constructor
     }
 
-    */
-/**
+    /**
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
      * @return A new instance of fragment JinDuFragment.
-     *//*
-
+     */
     // TODO: Rename and change types and number of parameters
     public static ProgressFragment newInstance(String param1, String param2) {
         ProgressFragment fragment = new ProgressFragment();
@@ -149,20 +140,16 @@ public class ProgressFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        sharedPreferences = getActivity().getSharedPreferences("progress", Context.MODE_APPEND);
-        edit = sharedPreferences.edit();
+        /*sharedPreferences = getActivity().getSharedPreferences("progress", Context.MODE_APPEND);
+        edit = sharedPreferences.edit();*/
 
-      */
-/*  mMainActivity1 = (MainActivity) getActivity();
+      /*  mMainActivity1 = (MainActivity) getActivity();
         UserInfo mUserInfo = mMainActivity1.mUserInfo;
-        uid = mUserInfo.getUid();*//*
-
+        uid = mUserInfo.getUid();*/
 
         uid = MainActivity.getInstance().getUid();
         mRwxqActivity = (RwxqActivity) getActivity();
         LogHelper.i(TAG, "---------MainActivity---uid------" + uid);
-
-
     }
 
     @Override
@@ -177,7 +164,7 @@ public class ProgressFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
 
-        mProgressListView = (ListView) view.findViewById(R.id.mProgressListView);
+        //mProgressListView = (ListView) view.findViewById(R.id.mProgressListView);
         getDataInit();
         return view;
     }
@@ -241,6 +228,8 @@ public class ProgressFragment extends Fragment {
             @Override
             public void onError(Object e) {
                 App.getInstance().showToast(e.toString());
+                dismissProgressDialog();
+                //Activity com.xht.android.serverhelp.RwxqActivity has leaked window com.android.internal.policy.impl.PhoneWindow$DecorView{36ebcc7d V.E..... R......D 0,0-1026,486} that was originally added here
                 getActivity().finish();
             }
         });
@@ -274,7 +263,6 @@ public class ProgressFragment extends Fragment {
         public Object getItem(int position) {
             return mProsItem.get(position);
         }
-
         @Override
         public long getItemId(int position) {
             return mProsItem.size();
@@ -292,8 +280,8 @@ public class ProgressFragment extends Fragment {
                 holder.mStartTime = (TextView) convertView.findViewById(R.id.mStartTime);
                 holder.jssj1 = (TextView) convertView.findViewById(R.id.jssj1);
                 holder.mEndTime = (TextView) convertView.findViewById(R.id.mEndTime);
-                holder.mUploadfile = (Button) convertView.findViewById(R.id.mUploadfile);
-                holder.mResultLoad = (Button) convertView.findViewById(R.id.mResultLoad);
+                holder.mUploadfile = (TextView) convertView.findViewById(R.id.mUploadfile);
+                holder.mResultLoad = (TextView) convertView.findViewById(R.id.mResultLoad);
                 holder.mOfficeStyle = (TextView) convertView.findViewById(R.id.mOfficeStyle);
                 holder.mImgFile11 = (ImageView) convertView.findViewById(R.id.mImgFile_11);
                 holder.mImgFile12 = (ImageView) convertView.findViewById(R.id.mImgFile_12);
@@ -303,7 +291,7 @@ public class ProgressFragment extends Fragment {
                 holder.mImgResult13 = (ImageView) convertView.findViewById(R.id.mImgResult13);
                 holder.mFollowPeople = (TextView) convertView.findViewById(R.id.mFollowPeople);
                 holder.mFollowName = (TextView) convertView.findViewById(R.id.mFollowName);
-                holder.mSubmitgx1 = (TextView) convertView.findViewById(R.id.mSubmit_gx1);
+                holder.mSubmitgx1 = (Button) convertView.findViewById(R.id.mSubmit_gx1);
                 holder.mCancelrw1 = (TextView) convertView.findViewById(R.id.mCancel_rw1);
                 holder.mContinuerw1 = (TextView) convertView.findViewById(R.id.mContinue_rw1);
                 holder.mConverrw1 = (TextView) convertView.findViewById(R.id.mConver_rw1);
@@ -319,17 +307,30 @@ public class ProgressFragment extends Fragment {
             String flowId = mProsItem.get(mProsItem.size() - 1).getFlowId();
             LogHelper.i(TAG, "------------------" + flowId + "-==========");
 
+            holder.mImgFile11.setOnClickListener(this);
+            holder.mImgFile12.setOnClickListener(this);
+            holder.mImgFile13.setOnClickListener(this);
+
+            holder.mImgResult11.setOnClickListener(this);
+            holder.mImgResult12.setOnClickListener(this);
+            holder.mImgResult13.setOnClickListener(this);
+
+            holder.mSubmitgx1.setOnClickListener(this);
+            holder.mResultLoad.setOnClickListener(this);
+            holder.mUploadfile.setOnClickListener(this);
+
+            holder.mCancelrw1.setOnClickListener(this);
+            holder.mContinuerw1.setOnClickListener(this);
+            holder.mConverrw1.setOnClickListener(this);
 
             ProsItem item = mProsItem.get(position);
             LogHelper.i(TAG, "-------position-----" + position);
 
-   */
-/*  case "1"://审核中
+   /*  case "1"://审核中
         case "2":// 驳回
         case "3"://终止z  //TODO
         case "4"://审核中
-        case "5"://审核通过*//*
-
+        case "5"://审核通过*/
 
             String serviceId = item.getServiceId();//服务id
             String name = item.getFlowName();//步骤流程名称 如企业核名
@@ -352,33 +353,31 @@ public class ProgressFragment extends Fragment {
             String gengjinP = item.getGengjinP();//跟进任务的人名
             String orderId = item.getOrderId();//订单id
 
-            */
-/**
+            /**
              * 加载网络图片 TODO
-             *//*
+             */
 
-
-            String imgFile1 = item.getImgFile1();
-           // item.setmImgTag1(imgFile1);
+            final String imgFile1 = item.getImgFile1();
+            // item.setmImgTag1(imgFile1);
             holder.mImgFile11.setTag(imgFile1);
 
-            String imgFile2 = item.getImgFile2();
-           // item.setmImgTag2(imgFile2);
+            final String imgFile2 = item.getImgFile2();
+            // item.setmImgTag2(imgFile2);
             holder.mImgFile12.setTag(imgFile2);
 
-            String imgFile3 = item.getImgFile3();
+            final String imgFile3 = item.getImgFile3();
             //item.setmImgTag3(imgFile3);
             holder.mImgFile13.setTag(imgFile3);
 
-            String imgResFile1 = item.getImgResFile1();
-           // item.setmImgTag4(imgResFile1);
+            final String imgResFile1 = item.getImgResFile1();
+            // item.setmImgTag4(imgResFile1);
             holder.mImgResult11.setTag(imgResFile1);
 
-            String imgResFile2 = item.getImgResFile2();
+            final String imgResFile2 = item.getImgResFile2();
             //item.setmImgTag5(imgResFile2);
             holder.mImgResult12.setTag(imgResFile2);
 
-            String imgResFile3 = item.getImgResFile3();
+            final String imgResFile3 = item.getImgResFile3();
             //item.setmImgTag6(imgResFile3);
             holder.mImgResult13.setTag(imgResFile3);
 
@@ -386,13 +385,14 @@ public class ProgressFragment extends Fragment {
 
             //final String imgUrl = list[position];
             // 给 ImageView 设置一个 tag
-           // holder.mImgFile11.setTag(imgFile1);
+            // holder.mImgFile11.setTag(imgFile1);
             // 预设一个图片
 
             if (!imgFile1.equals("null")){
                 Bitmap bitmap = imageLoader.loadImage(holder.mImgFile11, imgFile1);
                 holder.mImgFile12.setVisibility(View.VISIBLE);
                 if (bitmap != null) {
+
                     holder.mImgFile11.setImageBitmap(bitmap);
                     holder.mImgFile12.setVisibility(View.VISIBLE);
                     if (!imgFile2.equals("null")){
@@ -410,24 +410,31 @@ public class ProgressFragment extends Fragment {
                                     holder.mImgFile13.setImageDrawable(null);
                                 }
                             }else{
-                                //holder.mImgFile13.setImageDrawable(null);
-                                holder.mImgFile13.setImageResource(R.mipmap.ic_action_add);
+                                holder.mImgFile13.setImageDrawable(null);
+                                //holder.mImgFile13.setImageResource(R.mipmap.ic_action_add);
                             }
                         }else{
-                            holder.mImgFile12.setImageResource(R.mipmap.ic_action_add);
+                            holder.mImgFile12.setImageDrawable(null);
+                            //holder.mImgFile12.setImageResource(R.mipmap.ic_action_add);
                         }
                     }else{
-                        holder.mImgFile12.setImageResource(R.mipmap.ic_action_add);
-                        holder.mImgFile13.setImageResource(R.mipmap.ic_action_add);
-                       // holder.mImgFile13.setVisibility(View.GONE);
+                        holder.mImgFile12.setImageDrawable(null);
+                        holder.mImgFile13.setImageDrawable(null);
+                        //holder.mImgFile12.setImageResource(R.mipmap.ic_action_add);
+                        //holder.mImgFile13.setImageResource(R.mipmap.ic_action_add);
+                        // holder.mImgFile13.setVisibility(View.GONE);
                     }
                 }else{
-                    holder.mImgFile11.setImageResource(R.mipmap.ic_action_add);
+                    holder.mImgFile11.setImageDrawable(null);
+                    //holder.mImgFile11.setImageResource(R.mipmap.ic_action_add);
                 }
             }else{
-                holder.mImgFile11.setImageResource(R.mipmap.ic_action_add);
-                holder.mImgFile12.setImageResource(R.mipmap.ic_action_add);
-               holder.mImgFile13.setImageResource(R.mipmap.ic_action_add);
+                holder.mImgFile11.setImageDrawable(null);
+                holder.mImgFile12.setImageDrawable(null);
+                holder.mImgFile13.setImageDrawable(null);
+                // holder.mImgFile11.setImageResource(R.mipmap.ic_action_add);
+                // holder.mImgFile12.setImageResource(R.mipmap.ic_action_add);
+                //holder.mImgFile13.setImageResource(R.mipmap.ic_action_add);
             }
             //结果
             if (!imgResFile1.equals("null")){
@@ -451,134 +458,38 @@ public class ProgressFragment extends Fragment {
                                     holder.mImgResult13.setImageDrawable(null);
                                 }
                             }else{
-                                //holder.mImgFile13.setImageDrawable(null);
-                                holder.mImgResult13.setImageResource(R.mipmap.ic_action_add);
+                                holder.mImgResult13.setImageDrawable(null);
+                                //holder.mImgResult13.setImageResource(R.mipmap.ic_action_add);
                             }
 
                         }else{
-                            holder.mImgResult12.setImageResource(R.mipmap.ic_action_add);
+                            holder.mImgResult12.setImageDrawable(null);
+                            //holder.mImgResult12.setImageResource(R.mipmap.ic_action_add);
 
                         }
                     }else{
-                        holder.mImgResult12.setImageResource(R.mipmap.ic_action_add);
-                        holder.mImgResult13.setImageResource(R.mipmap.ic_action_add);
-                       // holder.mImgResult13.setVisibility(View.GONE);
+                        holder.mImgResult12.setImageDrawable(null);
+                        holder.mImgResult13.setImageDrawable(null);
+                        //holder.mImgResult12.setImageResource(R.mipmap.ic_action_add);
+                        //  holder.mImgResult13.setImageResource(R.mipmap.ic_action_add);
+                        // holder.mImgResult13.setVisibility(View.GONE);
                     }
                 }else{
-                    holder.mImgResult11.setImageResource(R.mipmap.ic_action_add);
+                    holder.mImgResult11.setImageDrawable(null);
+                    //holder.mImgResult11.setImageResource(R.mipmap.ic_action_add);
                 }
             }else{
-                holder.mImgResult11.setImageResource(R.mipmap.ic_action_add);
+                holder.mImgResult11.setImageDrawable(null);
+                holder.mImgResult12.setImageDrawable(null);
+                holder.mImgResult13.setImageDrawable(null);
+                //holder.mImgResult11.setImageResource(R.mipmap.ic_action_add);
 
-               holder.mImgResult12.setImageResource(R.mipmap.ic_action_add);
-                holder.mImgResult13.setImageResource(R.mipmap.ic_action_add);
+                // holder.mImgResult12.setImageResource(R.mipmap.ic_action_add);
+                //holder.mImgResult13.setImageResource(R.mipmap.ic_action_add);
             }
 
 
-
-
-
-
-
-
-
-
-         */
-/*  //图一
-            if (!imgFile1.equals("null")) {
-                holder.mImgFile12.setVisibility(View.VISIBLE);
-                ImageRequest mRequest = null;
-                String imgTag1 = item.getmImgTag1();
-                loadImgageUrl(imgTag1, mRequest, imgFile1, holder.mImgFile11);
-                LogHelper.i(TAG, "-------if-----" + position + "--" + imgFile1);
-
-            }else{
-                LogHelper.i(TAG, "-------else-----" + position + "--" + imgFile1);
-                holder.mImgFile11.setImageResource(R.mipmap.ic_action_add);
-            }
-
-
-            //图二
-
-            LogHelper.i(TAG, "-------imgFile2-----" + imgFile2);
-           if (!imgFile2.equals("null")) {
-                ImageRequest ImgimgFile2 = null;
-                holder.mImgFile13.setVisibility(View.VISIBLE);
-                String imgTag2 = item.getmImgTag2();
-                loadImgageUrl(imgTag2, ImgimgFile2, imgFile2, holder.mImgFile12);
-                LogHelper.i(TAG, "-------if-----" + position + "--" + imgFile2);
-
-            }else{
-                LogHelper.i(TAG, "-------else-----" + position + "--" + imgFile2);
-                //holder.mImgFile12.setVisibility(View.VISIBLE);
-             /*   holder.mImgFile12.setImageResource(R.mipmap.ic_action_add);
-            }
-
-
-            //图三
-
-            LogHelper.i(TAG, "-------imgFile3-----" + imgFile3);
-           if (!imgFile3.equals("null")) {
-                ImageRequest ImgimgFile3 = null;
-              //  holder.mImgFile13.setVisibility(View.VISIBLE);
-                String imgTag3 = item.getmImgTag3();
-                LogHelper.i(TAG, "-------if-----" + position + "--" + imgFile3);
-                loadImgageUrl(imgTag3,ImgimgFile3,imgFile3, holder.mImgFile13);
-
-            }else{
-               // holder.mImgFile13.setVisibility(View.VISIBLE);
-                LogHelper.i(TAG, "-------else-----" + position + "--" + imgFile3);
-                holder.mImgFile13.setImageResource(R.mipmap.ic_action_add);
-            }*/
-            //结果图片一
-           /* LogHelper.i(TAG, "-------imgResFile1-----" + imgResFile1);
-            // String imgResFile1 = "http://n.sinaimg.cn/news/crawl/20161110/kwxM-fxxsmih9385580.jpg";
-           if (!imgResFile1.equals("null")) {
-                ImageRequest ImgimgResFile1 = null;
-                holder.mImgResult12.setVisibility(View.VISIBLE);
-                String imgTag4 = item.getmImgTag4();
-                loadImgageUrl(imgTag4, ImgimgResFile1,imgResFile1, holder.mImgResult11);
-                LogHelper.i(TAG, "-------if-----" + position + "-imgResFile1-" + imgResFile1);
-            }else{
-                //holder.mImgResult11.setVisibility(View.VISIBLE);
-                LogHelper.i(TAG, "-------else-----" + position + "-imgResFile1-" + imgResFile1);
-                holder.mImgResult11.setBackgroundResource(R.mipmap.ic_action_add);
-            }
-
-            //结果图片二
-
-            LogHelper.i(TAG, "-------imgResFile2-----" + imgResFile2);
-            if (!imgResFile2.equals("null") ) {
-                ImageRequest ImgimgResFile2 = null;
-
-                holder.mImgResult13.setVisibility(View.VISIBLE);
-                String imgTag5 = item.getmImgTag5();
-                loadImgageUrl(imgTag5, ImgimgResFile2, replaceUrl(imgResFile2), holder.mImgResult12);
-                LogHelper.i(TAG, "-------if-----" + position + "-imgResFile2-" + imgResFile2);
-           }else{
-                //holder.mImgResult12.setVisibility(View.VISIBLE);
-                LogHelper.i(TAG, "-------else-----" + position + "-imgResFile2-" + imgResFile2);
-                holder.mImgResult12.setBackgroundResource(R.mipmap.ic_action_add);
-            }
-
-            //结果图片三
-
-            if (!imgResFile3.equals("null")) {
-                ImageRequest ImgimgResFile3 = null;
-                //holder.mImgResult13.setVisibility(View.VISIBLE);
-                LogHelper.i(TAG, "-------if-----" + position + "-imgResFile3-" + imgResFile3);
-                String imgTag6 = item.getmImgTag6();
-                loadImgageUrl(imgTag6, ImgimgResFile3, replaceUrl(imgResFile3), holder.mImgResult13);
-
-            }else{
-                //holder.mImgResult13.setVisibility(View.VISIBLE);
-                LogHelper.i(TAG, "-------else-----" + position + "-imgResFile3-" + imgResFile3);
-                holder.mImgResult13.setBackgroundResource(R.mipmap.ic_action_add);
-            }*//**//*
-
-
-
-            String prestatus = mProsItems.get(position).getProgressStatus();
+            final String prestatus = mProsItems.get(position).getProgressStatus();
 
             setTrue();
             switch (prestatus) {
@@ -586,12 +497,27 @@ public class ProgressFragment extends Fragment {
 
                     holder.mUploadfile.setText("文件上传");
                     holder.mResultLoad.setText("文件上传");
+
                     holder.mSubmitgx1.setVisibility(View.VISIBLE);
                     holder.aftersub1.setVisibility(View.GONE);
                     holder.mSubmitgx1.setText("审核提交");
+
+                    holder.mUploadfile.setTextColor(Color.BLACK);
+                    holder.mResultLoad.setTextColor(Color.BLACK);
+                    holder.mSubmitgx1.setTextColor(Color.BLACK);
+                    holder.mImgFile11.setClickable(true);
+                    holder.mImgFile12.setClickable(true);
+                    holder.mImgFile13.setClickable(true);
+                    holder.mImgResult11.setClickable(true);
+                    holder.mImgResult12.setClickable(true);
+                    holder.mImgResult13.setClickable(true);
+                    holder.mUploadfile.setClickable(true);
+                    holder.mResultLoad.setClickable(true);
                     break;
                 case "4":
                     holder.mUploadfile.setText("已上传");
+                    holder.mUploadfile.setTextColor(Color.GRAY);
+                    holder.mResultLoad.setTextColor(Color.GRAY);
                     holder.mResultLoad.setText("已上传");
                     holder.mSubmitgx1.setVisibility(View.VISIBLE);
                     holder.aftersub1.setVisibility(View.GONE);
@@ -611,7 +537,8 @@ public class ProgressFragment extends Fragment {
 
                     holder.mUploadfile.setText("已上传");
                     holder.mResultLoad.setText("已上传");
-
+                    holder.mUploadfile.setTextColor(Color.GRAY);
+                    holder.mResultLoad.setTextColor(Color.GRAY);
                     holder.mImgFile11.setClickable(false);
                     holder.mImgFile12.setClickable(false);
                     holder.mImgFile13.setClickable(false);
@@ -622,15 +549,14 @@ public class ProgressFragment extends Fragment {
                     holder.mResultLoad.setClickable(false);
 
                     if (position == mProsItems.size() - 1) {
-                       */
-/* holder.mUploadfile.setVisibility(View.VISIBLE);
-                        holder.mResultLoad.setVisibility(View.VISIBLE);*//*
-
+                       /* holder.mUploadfile.setVisibility(View.VISIBLE);
+                        holder.mResultLoad.setVisibility(View.VISIBLE);*/
                         String flowId1 = mProsItems.get(position).getFlowId();
                         if (flowId1.equals("6")) {
                             holder.mSubmitgx1.setVisibility(View.VISIBLE);
                             holder.aftersub1.setVisibility(View.GONE);
                             holder.mSubmitgx1.setText("已完成");
+                            holder.mSubmitgx1.setTextColor(Color.GRAY);
                             holder.mSubmitgx1.setClickable(false);
                             break;
                         }
@@ -639,142 +565,30 @@ public class ProgressFragment extends Fragment {
                     } else {
                         holder.mSubmitgx1.setVisibility(View.VISIBLE);
                         holder.aftersub1.setVisibility(View.GONE);
-                     */
-/*   holder.mUploadfile.setVisibility(View.INVISIBLE);
-                        holder.mResultLoad.setVisibility(View.INVISIBLE);*//*
-
+                     /*   holder.mUploadfile.setVisibility(View.INVISIBLE);
+                        holder.mResultLoad.setVisibility(View.INVISIBLE);*/
                         holder.mSubmitgx1.setText("已完成");
+                        holder.mSubmitgx1.setTextColor(Color.GRAY);
                         holder.mSubmitgx1.setClickable(false);
                     }
                     break;
-
             }
-
-
             holder.mHeMing.setText(name);
             holder.mFollowName.setText(gengjinP);
 
-            holder.mSubmitgx1.setOnClickListener(this);
-            holder.mCancelrw1.setOnClickListener(this);
-            holder.mContinuerw1.setOnClickListener(this);
-            holder.mConverrw1.setOnClickListener(this);
 
-            */
-/*holder.mImgFile11.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String imgFile11 = mProsItem.get(position).getImgFile1();
-                    if (!imgFile11.equals("null")) {
-
-                        App.getInstance().showToast("已上传过图片");
-                        return;
-                    }
-                    if (mChoosePicDialog == null) {
-                        mChoosePicDialog = new ChoosePicDialog(getActivity(), this);
-                    }
-                    mChoosePicDialog.show();
-                    curIVSelPic = 11;
-                }
-            });
-
-            holder.mImgResult11.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String mImgResult11 = mProsItem.get(position).getImgResFile1();
-                    if (!mImgResult11.equals("null")) {
-
-                        App.getInstance().showToast("已上传过图片");
-                        return;
-                    }
-                    if (mChoosePicDialog == null) {
-                        mChoosePicDialog = new ChoosePicDialog(getActivity(), this);
-                    }
-                    mChoosePicDialog.show();
-                    curIVSelPic = 14;
-                }
-            });
-*//*
-
-
-
-            holder.mImgFile11.setOnClickListener(this);
-            holder.mImgFile12.setOnClickListener(this);
-            holder.mImgFile13.setOnClickListener(this);
-
-      /*
-                    createProgressDialogTitle("正在上传");
-                    LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR1);
-                    if (!TextUtils.isEmpty(mTempStrUR1)) {
-                        filePaths.add(mTempStrUR1);
-
-                        new UploadPicTask().execute(mTempStrUR1);
-
-
-                    }
-                    LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR2);
-                    if (!TextUtils.isEmpty(mTempStrUR2)) {
-                        filePaths.add(mTempStrUR2);
-                        new UploadPicTask().execute(mTempStrUR2);
-                    }
-                    LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR3);
-                    if (!TextUtils.isEmpty(mTempStrUR3)) {
-                        filePaths.add(mTempStrUR3);
-                        new UploadPicTask().execute(mTempStrUR3);
-
-                    }
-
-
-                    ProgressFragment.this.flag1 = true;
-
-                    edit.putBoolean("flag1", ProgressFragment.this.flag1);
-                    edit.commit();
-
+            return convertView;
+        }
+        @Override
+        public void onClick(View v) {
+            String status = mProsItems.get(mProsItems.size() - 1).getProgressStatus();
+            switch (v.getId()) {
+                case R.id.mUploadfile://文件图片上传
+                    MethodLoadFile(status);
                     break;
                 case R.id.mResultLoad://结果上传
-
                     //  flag11 = sharedPreferences.getBoolean("flag11", false);
-                    if (status.equals("4")||status.equals("5")){
-                        App.getInstance().showToast("已经上传过照片");
-                        return;
-                    }
-                    if (flag11) {
-                        App.getInstance().showToast("已经上传过照片");
-                        return;
-                    }
-                    resultPaths = new ArrayList<>();
-                   */
-/* if (!ProgressFragment.this.flag1) {
-                        App.getInstance().showToast("先上传过程图片");
-                        return;
-                    }*//*
-
-                    if (TextUtils.isEmpty(mTempStrUR4) && TextUtils.isEmpty(mTempStrUR5) && TextUtils.isEmpty(mTempStrUR6)) {
-                        App.getInstance().showToast("先选择照片");
-                        return;
-                    }
-
-                    createProgressDialogTitle("正在上传");
-                    LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR4);
-                    if (!TextUtils.isEmpty(mTempStrUR4)) {
-                        resultPaths.add(mTempStrUR4);
-                        new UploadPicTask().execute(mTempStrUR4);
-                    }
-                    LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR5);
-                    if (!TextUtils.isEmpty(mTempStrUR5)) {
-                        resultPaths.add(mTempStrUR5);
-                        new UploadPicTask().execute(mTempStrUR5);
-                    }
-                    LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR6);
-                    if (!TextUtils.isEmpty(mTempStrUR6)) {
-                        resultPaths.add(mTempStrUR6);
-                        new UploadPicTask().execute(mTempStrUR6);
-
-                    }
-
-                    ProgressFragment.this.flag11 = true;
-                    edit.putBoolean("flag11", ProgressFragment.this.flag11);
-                    edit.commit();
-
+                    MethodLoadResult(status);
                     break;
                 case R.id.mImgFile_11://文件图片
                     if (status.equals("4")||status.equals("5")){
@@ -792,6 +606,7 @@ public class ProgressFragment extends Fragment {
                         App.getInstance().showToast("已经上传过照片，不可再上传");
                         return;
                     }
+
                     if (mChoosePicDialog == null) {
                         mChoosePicDialog = new ChoosePicDialog(getActivity(), this);
                     }
@@ -843,56 +658,9 @@ public class ProgressFragment extends Fragment {
                     curIVSelPic = 16;
                     break;
                 case R.id.mSubmit_gx1://提交审核
-                   */
-/* if (!flag11) {
-                        App.getInstance().showToast("请先上传结果照片在提交");
-                        return;
-                    }*//*
-
-                    //String status = mProsItems.get(mProsItems.size() - 1).getProgressStatus();
-
-                    if (status.equals("4")) {
-
-                        App.getInstance().showToast("请先等审核通过再继续下一步");
-                        return;
-                    }
-                    if (status.equals("5")) {
-
-                        App.getInstance().showToast("已经完成整个流程");
-                        return;
-                    }
+                    MethodLoadSubmit(status);
 
 
-                    LogHelper.i(TAG, "------提交审核");
-                    createProgressDialogTitle("进度更新");
-                    JSONObject obj = new JSONObject();
-
-                    try {
-                        obj.put("employeeId", uid + "");
-                        obj.put("orderId", mRwxqActivity.mOrderId);
-
-                        LogHelper.i(TAG, "------提交审核-----" + uid + "---" + mProsItems.get(mProsItems.size() - 1).getOrderId());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    VolleyHelpApi.getInstance().postRefleshPro(obj
-                            , new APIListener() {//"employeeId":4,"serviceId":95
-                                @Override
-                                public void onResult(Object result) {
-                                    LogHelper.i(TAG, "------提交审核------" + result.toString());
-                                    holder.mSubmitgx1.setVisibility(View.VISIBLE);
-                                    holder.mSubmitgx1.setText("审核中");
-                                    dismissProgressDialog();
-                                }
-
-                                @Override
-                                public void onError(Object e) {
-                                    dismissProgressDialog();
-                                    App.getInstance().showToast("提交失败，请重新提交");
-                                    holder.mSubmitgx1.setText("提交审核");
-                                }
-                            });
-                    progressAdapter.notifyDataSetChanged();
                     break;
                 case R.id.mContinue_rw1://继续任务
                     LogHelper.i(TAG, "------继续任务");
@@ -918,88 +686,57 @@ public class ProgressFragment extends Fragment {
                     break;
                 case R.id.goToCamera://相机选择拍照
                     LogHelper.i(TAG, "------相机选择拍照");
+                    MethodCamera();
 
-
-                */
-/*
-                图片名称格式（filename的值）：（如o100_s120_e10_f11.jpg，o100：表示订单编号为100，s120：表示服务编号为120，
-                e10：表示员工编号为10，f11：表示流程编号为11。中间的下划线（"_"）不能少。顺序必须是：订单编号、服务编号、员工编号、流程编号）
-                图片的表单名（即Content-Disposition: form-data; name=\"img\"中的name值）：必须是“img”
-                请求方式：POST
-                返回结果：成功返回｛"code":"1","result":"success","message":"文件上传成功","entity":{"fileId","文件编号"}｝
-                失败返回｛"code":"0","result":"error","message":"系统错误","entity":null｝
-                 *//*
-
-                    dismissmChooseIconDialog();
-
-               */
-/* mCurFromCamare = Uri.parse("file://" + Constants.BZ_PIC_PATH + "/"
-                        + "bzzbz_" + curIVSelPic + "id_" + ((RwxqActivity) getActivity()).mOrderId
-                        + "time_" + System.currentTimeMillis() + ".jpg");*//*
-
-//
-
-
-                    ProsItem item = mProsItems.get(mProsItems.size() - 1);//TODO
-                    LogHelper.i(TAG, "-----ProsItem-相机拍照--" + item.getOrderId() + "--" + item.getServiceId());
-
-
-                  */
-/*  mCurFromCamare = Uri.parse("file://" + Constants.BZ_PIC_PATH + "/"
-                            + "bzzbz_"+ "o"+((RwxqActivity) getActivity()).mOrderId+"_s"+item.getServiceId()//+ item.getOrderId()
-                            +"_e"+uid + "_f" + item.getFlowId() +"_t" +System.currentTimeMillis() +".jpg");*//*
-
-                    switch (curIVSelPic) {
-                        case 11:
-                        case 12:
-                        case 13:
-                            mCurFromCamare = Uri.parse("file://" + Constants.BZ_PIC_PATH + "/"
-                                    + "bzzbz_" + "o" + ((RwxqActivity) getActivity()).mOrderId + "_s" + item.getServiceId()//+ item.getOrderId()
-                                    + "_e" + uid + "_f" + item.getFlowId() + "_t" + System.currentTimeMillis() + "_g" + ".jpg");
-                            break;
-                        case 14:
-                        case 15:
-                        case 16:
-                            mCurFromCamare = Uri.parse("file://" + Constants.BZ_PIC_PATH + "/"
-                                    + "bzzbz_" + "o" + ((RwxqActivity) getActivity()).mOrderId + "_s" + item.getServiceId()//+ item.getOrderId()
-                                    + "_e" + uid + "_f" + item.getFlowId() + "_t" + System.currentTimeMillis() + "_j" + ".jpg");
-                            break;
-                    }
-                    switch (curIVSelPic) {
-                        case 11:
-                            mCurFromCamare1 = mCurFromCamare;
-                            LogHelper.i(TAG, "------相机拍照--1--" + mCurFromCamare1);
-                            //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239384309.jpg
-                            break;
-                        case 12:
-                            mCurFromCamare2 = mCurFromCamare;
-                            LogHelper.i(TAG, "------相机拍照--2--" + mCurFromCamare2);//TODO mCurFromCamare2 File
-                            //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239414869.jpg
-                            break;
-                        case 13:
-                            mCurFromCamare3 = mCurFromCamare;
-                            LogHelper.i(TAG, "------相机拍照--3--" + mCurFromCamare3);
-                            // file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239438180.jpg
-                            break;
-                        case 14:
-                            mCurFromCamare4 = mCurFromCamare;
-                            LogHelper.i(TAG, "------相机拍照--1--" + mCurFromCamare1);
-                            //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239384309.jpg
-                            break;
-                        case 15:
-                            mCurFromCamare5 = mCurFromCamare;
-                            LogHelper.i(TAG, "------相机拍照--2--" + mCurFromCamare2);//TODO mCurFromCamare2 File
-                            //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239414869.jpg
-                            break;
-                        case 16:
-                            mCurFromCamare6 = mCurFromCamare;
-                            LogHelper.i(TAG, "------相机拍照--3--" + mCurFromCamare3);
-                            // file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239438180.jpg
-                            break;
-                    }
-                    getPhotoFromCamera(mCurFromCamare, 2);
                     break;
 
+            }
+        }
+
+        private void MethodLoadSubmit(String status) {
+            //String status = mProsItems.get(mProsItems.size() - 1).getProgressStatus();
+            if (status.equals("4")) {
+                App.getInstance().showToast("请先等审核通过再继续下一步");
+                return;
+            }
+            if (status.equals("5")) {
+                App.getInstance().showToast("已经完成整个流程");
+                return;
+            }
+            LogHelper.i(TAG, "------提交审核");
+            createProgressDialogTitle("进度更新");
+            JSONObject obj = new JSONObject();
+            try {
+                obj.put("employeeId", uid + "");
+                obj.put("orderId", mRwxqActivity.mOrderId);
+                LogHelper.i(TAG, "------提交审核-----" + uid + "---" + mProsItems.get(mProsItems.size() - 1).getOrderId());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            if (uid==0){
+                App.getInstance().showToast("服务器繁忙,请稍后再试...");
+                dismissProgressDialog();
+
+            }else {
+                VolleyHelpApi.getInstance().postRefleshPro(obj
+                        , new APIListener() {//"employeeId":4,"serviceId":95
+                            @Override
+                            public void onResult(Object result) {
+                                LogHelper.i(TAG, "------提交审核------" + result.toString());
+                                holder.mSubmitgx1.setVisibility(View.VISIBLE);
+                                holder.mSubmitgx1.setText("审核中");
+                                dismissProgressDialog();
+                            }
+
+                            @Override
+                            public void onError(Object e) {
+                                dismissProgressDialog();
+                                App.getInstance().showToast(e.toString());
+                                holder.mSubmitgx1.setText("提交审核");
+                            }
+                        });
+                progressAdapter.notifyDataSetChanged();
             }
         }
 
@@ -1009,8 +746,8 @@ public class ProgressFragment extends Fragment {
             TextView mStartTime;//开始时间
             TextView jssj1;
             TextView mEndTime;//结束时间
-            Button mUploadfile;//上传图片文件
-            Button mResultLoad;//上传图片结果
+            TextView mUploadfile;//上传图片文件
+            TextView mResultLoad;//上传图片结果
             TextView mOfficeStyle;//类似于工商局的业务类型
             ImageView mImgFile11;//文件图片一
             ImageView mImgFile12;//文件图片二
@@ -1020,12 +757,142 @@ public class ProgressFragment extends Fragment {
             ImageView mImgResult13;//结果图片三
             TextView mFollowPeople;//跟进人
             TextView mFollowName;//跟进人姓名
-            TextView mSubmitgx1;//提交审核
+            Button mSubmitgx1;//提交审核
             TextView mCancelrw1;//取消任务
             TextView mContinuerw1;//继续任务
             TextView mConverrw1;//转交任务
             LinearLayout aftersub1;//提交审核之后显示LinearLayout
             RelativeLayout shbz1;
+        }
+
+    }
+
+    private void MethodCamera() {
+    /*
+    图片名称格式（filename的值）：（如o100_s120_e10_f11.jpg，o100：表示订单编号为100，s120：表示服务编号为120，
+    e10：表示员工编号为10，f11：表示流程编号为11。中间的下划线（"_"）不能少。顺序必须是：订单编号、服务编号、员工编号、流程编号）
+    图片的表单名（即Content-Disposition: form-data; name=\"img\"中的name值）：必须是“img”
+    请求方式：POST
+    返回结果：成功返回｛"code":"1","result":"success","message":"文件上传成功","entity":{"fileId","文件编号"}｝
+    失败返回｛"code":"0","result":"error","message":"系统错误","entity":null｝
+     */
+        dismissmChooseIconDialog();
+
+        ProsItem item = mProsItems.get(mProsItems.size() - 1);//TODO
+        LogHelper.i(TAG, "-----ProsItem-相机拍照--" + item.getOrderId() + "--" + item.getServiceId());
+        switch (curIVSelPic) {
+            case 11:
+            case 12:
+            case 13:
+                mCurFromCamare = Uri.parse("file://" + Constants.BZ_PIC_PATH + "/"
+                        + "bzzbz_" + "o" + ((RwxqActivity) getActivity()).mOrderId + "_s" + item.getServiceId()//+ item.getOrderId()
+                        + "_e" + uid + "_f" + item.getFlowId() + "_t" + System.currentTimeMillis() + "_g" + ".jpg");
+                break;
+            case 14:
+            case 15:
+            case 16:
+                mCurFromCamare = Uri.parse("file://" + Constants.BZ_PIC_PATH + "/"
+                        + "bzzbz_" + "o" + ((RwxqActivity) getActivity()).mOrderId + "_s" + item.getServiceId()//+ item.getOrderId()
+                        + "_e" + uid + "_f" + item.getFlowId() + "_t" + System.currentTimeMillis() + "_j" + ".jpg");
+                break;
+        }
+        switch (curIVSelPic) {
+            case 11:
+                mCurFromCamare1 = mCurFromCamare;
+                LogHelper.i(TAG, "------相机拍照--1--" + mCurFromCamare1);
+                //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239384309.jpg
+                break;
+            case 12:
+                mCurFromCamare2 = mCurFromCamare;
+                LogHelper.i(TAG, "------相机拍照--2--" + mCurFromCamare2);//TODO mCurFromCamare2 File
+                //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239414869.jpg
+                break;
+            case 13:
+                mCurFromCamare3 = mCurFromCamare;
+                LogHelper.i(TAG, "------相机拍照--3--" + mCurFromCamare3);
+                // file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239438180.jpg
+                break;
+            case 14:
+                mCurFromCamare4 = mCurFromCamare;
+                LogHelper.i(TAG, "------相机拍照--1--" + mCurFromCamare1);
+                //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239384309.jpg
+                break;
+            case 15:
+                mCurFromCamare5 = mCurFromCamare;
+                LogHelper.i(TAG, "------相机拍照--2--" + mCurFromCamare2);//TODO mCurFromCamare2 File
+                //file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239414869.jpg
+                break;
+            case 16:
+                mCurFromCamare6 = mCurFromCamare;
+                LogHelper.i(TAG, "------相机拍照--3--" + mCurFromCamare3);
+                // file:///storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f11478239438180.jpg
+                break;
+        }
+        getPhotoFromCamera(mCurFromCamare, 2);
+    }
+
+    private void MethodLoadResult(String status) {
+        if (status.equals("4")||status.equals("5")){
+            App.getInstance().showToast("已经上传过照片");
+            return;
+        }
+        resultPaths = new ArrayList<>();
+
+        if (TextUtils.isEmpty(mTempStrUR4) && TextUtils.isEmpty(mTempStrUR5) && TextUtils.isEmpty(mTempStrUR6)) {
+            App.getInstance().showToast("先选择照片");
+            return;
+        }
+        createProgressDialogTitle("正在上传");
+        LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR4);
+        if (!TextUtils.isEmpty(mTempStrUR4)) {
+            resultPaths.add(mTempStrUR4);
+            new UploadPicTask().execute(mTempStrUR4);
+        }
+        LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR5);
+        if (!TextUtils.isEmpty(mTempStrUR5)) {
+            resultPaths.add(mTempStrUR5);
+            new UploadPicTask().execute(mTempStrUR5);
+        }
+        LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR6);
+        if (!TextUtils.isEmpty(mTempStrUR6)) {
+            resultPaths.add(mTempStrUR6);
+            new UploadPicTask().execute(mTempStrUR6);
+        }
+
+    }
+
+    private void MethodLoadFile(String status) {
+        if (status.equals("4")||status.equals("5")){
+            App.getInstance().showToast("已经上传过照片");
+            return;
+        }
+        // flag1 = sharedPreferences.getBoolean("flag1", false);
+        if (flag1) {
+            App.getInstance().showToast("已经上传过照片");
+            return;
+        }
+        LogHelper.i(TAG, "------文件图片上传");
+        LogHelper.i(TAG, "------要上传照片");
+        filePaths = new ArrayList<>();
+        if (TextUtils.isEmpty(mTempStrUR1) && TextUtils.isEmpty(mTempStrUR2) && TextUtils.isEmpty(mTempStrUR3)) {
+            App.getInstance().showToast("先选择照片");
+            return;
+        }
+        createProgressDialogTitle("正在上传");
+        LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR1);
+        if (!TextUtils.isEmpty(mTempStrUR1)) {
+            filePaths.add(mTempStrUR1);
+            new UploadPicTask().execute(mTempStrUR1);
+        }
+        LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR2);
+        if (!TextUtils.isEmpty(mTempStrUR2)) {
+            filePaths.add(mTempStrUR2);
+            new UploadPicTask().execute(mTempStrUR2);
+        }
+        LogHelper.i(TAG, "-----mTempStrUR1-----" + mTempStrUR3);
+        if (!TextUtils.isEmpty(mTempStrUR3)) {
+            filePaths.add(mTempStrUR3);
+            new UploadPicTask().execute(mTempStrUR3);
         }
 
     }
@@ -1064,6 +931,7 @@ public class ProgressFragment extends Fragment {
         LogHelper.i(TAG, "-------------------------" + object.toString());
         if (uid==0){
             App.getInstance().showToast("服务器繁忙，请稍后再试....");
+
         }else {
             VolleyHelpApi.getInstance().postCancelTask(object, new APIListener() {
                 @Override
@@ -1097,16 +965,14 @@ public class ProgressFragment extends Fragment {
         VolleyHelpApi.getInstance().getForwardTask(new APIListener() {
             @Override
             public void onResult(Object result) {
-            */
-/*  Bundle bundle=new Bundle();
+            /*  Bundle bundle=new Bundle();
 
               bundle.putInt("uid",uid);
               bundle.putInt("orderId",mRwxqActivity.mOrderId);
               bundle.putString("result",result.toString());
 
               IntentUtils.startActivityNumber(getActivity(),bundle,ForwardTask.class);
-*//*
-
+*/
                 mListTask = new ArrayList<TaskPeople>();
                 JSONArray obj = null;
                 try {
@@ -1219,6 +1085,7 @@ public class ProgressFragment extends Fragment {
         createProgressDialogTitle("正在转交任务");
         if (uid==0){
             App.getInstance().showToast("服务器繁忙，请稍后再试....");
+            dismissProgressDialog();
         }else {
 
 
@@ -1271,17 +1138,16 @@ public class ProgressFragment extends Fragment {
         createProgressDialogTitle("正在请求继续任务。。。");
         if (uid==0){
             App.getInstance().showToast("服务器繁忙，请稍后再试....");
+            dismissProgressDialog();
         }else {
             VolleyHelpApi.getInstance().postContinusTask(jsonObject, new APIListener() {
                 @Override
                 public void onResult(Object result) {
-                    */
-/**
+                    /**
                      * [{"employeeId":4,
                      * "progressStatus":1,
                      * "endTime":null,"employeeName":"蔡成安","startTime":"1478860056038","serviceId":139,"flowName":"企业核名","orderId":48,"flowId":1}]
-                     *//*
-
+                     */
                     LogHelper.i(TAG, "------result----" + result.toString());
 
                     JSONObject jsonObject = ((JSONObject) result).optJSONObject("entity");
@@ -1293,8 +1159,7 @@ public class ProgressFragment extends Fragment {
                     }
 
 
-               */
-/* ProsItem item=new ProsItem();
+               /* ProsItem item=new ProsItem();
                 String employeeId = jsonObject.optString("employeeId");
 
                 String endTime = jsonObject.optString("endTime");
@@ -1323,8 +1188,7 @@ public class ProgressFragment extends Fragment {
                 mProsItems.add(item);
 
                 //继续任务更新
-                continusAdd();*//*
-
+                continusAdd();*/
 
 
                 }
@@ -1360,6 +1224,7 @@ public class ProgressFragment extends Fragment {
                     case 11:
                     case 12:
                     case 13:
+                        //("/sdcard/image.jpg")
                         mCurFromCamare = Uri.parse("file://" + Constants.BZ_CAM_PATH + "/"
                                 + "bzzbz_" + "o" + ((RwxqActivity) getActivity()).mOrderId + "_s" + item.getServiceId()//+ item.getOrderId()
                                 + "_e" + uid + "_f" + item.getFlowId() + "_t" + System.currentTimeMillis() + "_g" + ".jpg");
@@ -1373,15 +1238,15 @@ public class ProgressFragment extends Fragment {
                         break;
                 }
                 String path = mCurFromCamare.getPath();
-                LogHelper.i(TAG,"-------path---"+path);
-                LogHelper.i(TAG,"-------realFilePath---"+realFilePath);
+
 
                 //压缩新的路径
-                String ImageUrl = BitmapUtils.compressImage(realFilePath, path, 80);
+                String ImageUrl = BitmapUtils.compressImage(realFilePath, path, 90);
 
-
+                LogHelper.i(TAG,"-------fullPhotoUri---"+fullPhotoUri.toString());
+                LogHelper.i(TAG,"-------realFilePath---"+realFilePath);
                 String size = BitmapUtils.getAutoFileOrFilesSize(ImageUrl);
-                LogHelper.i(TAG,"---------size---"+size);
+                LogHelper.i(TAG,"---------大小---"+size);
 
                 LogHelper.i(TAG,"-------ImageUrl---"+ImageUrl);
                 LogHelper.i(TAG, "--------fullPhotoUri----" + fullPhotoUri.toString() + "------>>>>>" + realFilePath + "------>>>>>" + ImageUrl);
@@ -1395,6 +1260,7 @@ public class ProgressFragment extends Fragment {
                         thumbnail = BitmapHelper.getThumbnail(getActivity(), fullPhotoUri,
                                 60 * (int) Constants.DENSITY, 60 * (int) Constants.DENSITY);
 
+                        //holder.mImgFile11.setImageBitmap(thumbnail);
                         holder.mImgFile11.setBackgroundDrawable(new BitmapDrawable(thumbnail));
                         holder.mImgFile12.setVisibility(View.VISIBLE);
                         mTempStrUR1 = ImageUrl;
@@ -1406,6 +1272,7 @@ public class ProgressFragment extends Fragment {
                         //mTempBitmap = BitmapFactory.decodeFile(imgPath);
                         thumbnail = BitmapHelper.getThumbnail(getActivity(), fullPhotoUri,
                                 60 * (int) Constants.DENSITY, 60 * (int) Constants.DENSITY);
+                        //holder.mImgFile12.setImageBitmap(thumbnail);
                         holder.mImgFile12.setBackgroundDrawable(new BitmapDrawable(thumbnail));
                         holder.mImgFile13.setVisibility(View.VISIBLE);
                         mTempStrUR2 = ImageUrl;
@@ -1416,6 +1283,7 @@ public class ProgressFragment extends Fragment {
                         //mTempBitmap = BitmapFactory.decodeFile(imgPath);
                         thumbnail = BitmapHelper.getThumbnail(getActivity(), fullPhotoUri,
                                 60 * (int) Constants.DENSITY, 60 * (int) Constants.DENSITY);
+                        // holder.mImgFile13.setImageBitmap(thumbnail);
                         holder.mImgFile13.setBackgroundDrawable(new BitmapDrawable(thumbnail));
 
                         mTempStrUR3 = ImageUrl;
@@ -1427,6 +1295,7 @@ public class ProgressFragment extends Fragment {
                         thumbnail = BitmapHelper.getThumbnail(getActivity(), fullPhotoUri,
                                 60 * (int) Constants.DENSITY, 60 * (int) Constants.DENSITY);
 
+                        //holder.mImgResult11.setImageBitmap(thumbnail);
                         holder.mImgResult11.setBackgroundDrawable(new BitmapDrawable(thumbnail));
                         holder.mImgResult12.setVisibility(View.VISIBLE);
                         mTempStrUR4 = ImageUrl;
@@ -1437,6 +1306,7 @@ public class ProgressFragment extends Fragment {
                         thumbnail = BitmapHelper.getThumbnail(getActivity(), fullPhotoUri,
                                 60 * (int) Constants.DENSITY, 60 * (int) Constants.DENSITY);
 
+                        //holder.mImgResult12.setImageBitmap(thumbnail);
                         holder.mImgResult12.setBackgroundDrawable(new BitmapDrawable(thumbnail));
                         holder.mImgResult13.setVisibility(View.VISIBLE);
                         mTempStrUR5 = ImageUrl;
@@ -1447,6 +1317,7 @@ public class ProgressFragment extends Fragment {
                         thumbnail = BitmapHelper.getThumbnail(getActivity(), fullPhotoUri,
                                 60 * (int) Constants.DENSITY, 60 * (int) Constants.DENSITY);
 
+                        //holder.mImgResult13.setImageBitmap(thumbnail);
                         holder.mImgResult13.setBackgroundDrawable(new BitmapDrawable(thumbnail));
                         mTempStrUR6 = ImageUrl;
                         progressAdapter.notifyDataSetChanged();
@@ -1458,25 +1329,27 @@ public class ProgressFragment extends Fragment {
                 Bitmap thumbnail ;
                 mTempStrURL = mCurFromCamare.getPath();
 
+                LogHelper.i(TAG,"-----照相-----------mTempStrURL-"+mTempStrURL+"--");//
                 String autoFileOrFilesSize = BitmapUtils.getAutoFileOrFilesSize(mTempStrURL);
 
                 LogHelper.i(TAG,"-----daxiao--"+autoFileOrFilesSize);//       ---2.38 M
 
                 //压缩文件 KB
-                String imageUrl = BitmapUtils.compressImage(mTempStrURL, mTempStrURL, 60);
+                String imageUrl = BitmapUtils.compressImage(mTempStrURL, mTempStrURL, 90);
 
                 String FilesSize = BitmapUtils.getAutoFileOrFilesSize(imageUrl);
                 String FilesSize1 = BitmapUtils.getAutoFileOrFilesSize(mTempStrURL);
                 LogHelper.i(TAG,"-----daxiao--"+FilesSize+"--"+FilesSize1);//
+                LogHelper.i(TAG,"-----照相--mTempStrURL"+"--"+mTempStrURL);//
 
                 LogHelper.i(TAG, "--------照相返回------" + mTempStrURL + "-----");//string   /storage/emulated/0/ServerHelp/bzbz/img/bzzbz_o29_s114_e4_f1_t1478759682811.jpg
                 switch (curIVSelPic) {
                     case 11:
                         //mTempBitmap = BitmapFactory.decodeFile(imgPath);
 
-
                         thumbnail = BitmapHelper.getThumbnail(getActivity(), mCurFromCamare,
                                 60 * (int) Constants.DENSITY, 60 * (int) Constants.DENSITY);
+
 
                         long bitmapsize = BitmapHelper.getBitmapsize(thumbnail);
                         int byteCount = thumbnail.getByteCount();
@@ -1557,11 +1430,9 @@ public class ProgressFragment extends Fragment {
 
 
 
-    */
-/**
+    /**
      * 创建mProgressDialog
-    *//*
-
+     */
     private void createProgressDialogTitle(String title) {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(getActivity());
@@ -1571,22 +1442,18 @@ public class ProgressFragment extends Fragment {
         mProgressDialog.setCancelable(false);
         mProgressDialog.show();
     }
-    */
-/**
+    /**
      * 隐藏选择图片对话框
-     *//*
-
+     */
     private void dismissmChooseIconDialog() {
         if (mChoosePicDialog != null) {
             mChoosePicDialog.dismiss();
         }
     }
 
-    */
-/**
+    /**
      *  显示Dialog的method
-     *  *//*
-
+     *  */
     private void showDialog(String mess) {
         new AlertDialog.Builder(getActivity()).setTitle("Message").setMessage(mess)
                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
@@ -1595,11 +1462,9 @@ public class ProgressFragment extends Fragment {
                     }
                 }).show();
     }
-    */
-/**
+    /**
      * 隐藏mProgressDialog
-     *//*
-
+     */
     private void dismissProgressDialog() {
         if (mProgressDialog != null) {
             mProgressDialog.dismiss();
@@ -1637,14 +1502,12 @@ public class ProgressFragment extends Fragment {
         }
     }
 
-    */
-/**
+    /**
      * 调用相机拍照
      *
      * @param uri
      * @param requestCode
-     *//*
-
+     */
     private void getPhotoFromCamera(Uri uri, int requestCode) {
         mkdirs(uri);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//action is capture
@@ -1653,13 +1516,11 @@ public class ProgressFragment extends Fragment {
         startActivityForResult(intent, requestCode);//or TAKE_SMALL_PICTURE
     }
 
-    */
-/**
+    /**
      * 创建存储照片的文件夹
      *
      * @param uri
-     *//*
-
+     */
     private void mkdirs(Uri uri) {
         String path = uri.getPath();
         File file = new File(path.substring(0, path.lastIndexOf("/")));
@@ -1671,26 +1532,20 @@ public class ProgressFragment extends Fragment {
     }
 
     private void selectPicFromAlbum() {
-       */
-/* boolean isKitKatO = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+       /* boolean isKitKatO = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
         Intent getAlbum;
         if (isKitKatO) {
             getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
         } else {
             getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
         }
-        getAlbum.setType("image*//*
-*/
-/*");
-        startActivityForResult(getAlbum, 0);*//*
-
+        getAlbum.setType("image*//*");
+        startActivityForResult(getAlbum, 0);*/
 
         Intent intent = new Intent(Intent.ACTION_PICK, null);//从列表中选择某项并返回所有数据
         intent.setDataAndType(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,//得到系统所有的图片
-                "image*/
-/*");//图片的类型,image*/
-/*为所有类型图片
+                "image/*");//图片的类型,image/*为所有类型图片
 
         startActivityForResult(intent, 0);
     }
@@ -1712,28 +1567,20 @@ public class ProgressFragment extends Fragment {
         try {
             URL url = new URL(VolleyHelpApi.BZ_PIC_UPLOAD_Url);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
-          */
-/* 允许Input、Output，不使用Cache *//*
-
+          /* 允许Input、Output，不使用Cache */
             con.setReadTimeout(10 * 1000000);
             con.setConnectTimeout(10 * 1000000);
             con.setDoInput(true);
             con.setDoOutput(true);
             con.setUseCaches(false);
-          */
-/* 设置传送的method=POST *//*
-
+          /* 设置传送的method=POST */
             con.setRequestMethod("POST");
-          */
-/* setRequestProperty *//*
-
+          /* setRequestProperty */
             con.setRequestProperty("Connection", "Keep-Alive");
             con.setRequestProperty("Charset", "UTF-8");
             con.setRequestProperty("Content-Type",
                     "multipart/form-data;boundary=" + boundary);
-          */
-/* 设置DataOutputStream *//*
-
+          /* 设置DataOutputStream */
             DataOutputStream ds =
                     new DataOutputStream(con.getOutputStream());
             ds.writeBytes(twoHyphens + boundary + end);
@@ -1743,51 +1590,35 @@ public class ProgressFragment extends Fragment {
             ds.writeBytes("Content-Type: application/octet-stream; charset=utf-8" + end);
             ds.writeBytes(end);
 
-          */
-/* 取得文件的FileInputStream *//*
-
+          /* 取得文件的FileInputStream */
 
             FileInputStream fStream = new FileInputStream(picPath);
 
-          */
-/* 设置每次写入1024bytes *//*
-
+          /* 设置每次写入1024bytes */
             int bufferSize = 1024 * 1024;
             byte[] buffer = new byte[bufferSize];
             int length = -1;
-          */
-/* 从文件读取数据至缓冲区 *//*
-
+          /* 从文件读取数据至缓冲区 */
             while ((length = fStream.read(buffer)) != -1) {
-            */
-/* 将资料写入DataOutputStream中 *//*
-
+            /* 将资料写入DataOutputStream中 */
                 LogHelper.i(TAG, length + "");
                 ds.write(buffer, 0, length);
             }
             ds.writeBytes(end);
             ds.writeBytes(twoHyphens + boundary + twoHyphens + end);
-          */
-/* close streams *//*
-
+          /* close streams */
             fStream.close();
             ds.flush();
-          */
-/* 取得Response内容 *//*
-
+          /* 取得Response内容 */
             InputStream is = con.getInputStream();
             int ch;
             StringBuffer b = new StringBuffer();
             while ((ch = is.read()) != -1) {
                 b.append((char) ch);
             }
-          */
-/* 将Response显示于Dialog *//*
-
+          /* 将Response显示于Dialog */
             //showDialog("上传成功"+b.toString().trim());
-          */
-/* 关闭DataOutputStream *//*
-
+          /* 关闭DataOutputStream */
             ds.close();
             return true;
         } catch (Exception e) {
@@ -1796,23 +1627,19 @@ public class ProgressFragment extends Fragment {
         }
     }
 
-    */
-/**
+    /**
      * 转换时间
      *
      * @param time
      * @return
-     *//*
-
+     */
     public String getDateTime(long time) {
         Date date = new Date(time);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return sdf.format(date);
     }
 
-
 }
 
 
 
-*/

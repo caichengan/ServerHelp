@@ -1,13 +1,14 @@
 package com.xht.android.serverhelp;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
 import com.xht.android.serverhelp.util.AsyncImageLoader;
+import com.xht.android.serverhelp.util.BitmapUtils;
 import com.xht.android.serverhelp.util.LogHelper;
 
 /**
@@ -38,12 +39,20 @@ public class SpaceImageDetailActivity extends Activity {
         //BitmapUtils.loadImgageUrl(request, imgUrl,imageView);
 
 
-            Bitmap bitmap = imageLoader.loadImage(imageView, imgUrl);
+        if (!TextUtils.isEmpty(imgUrl)) {
+            LogHelper.i(TAG,"----------2");
+
+            BitmapUtils.loadImgageUrl(imgUrl,imageView);
+        }else{
+            imageView.setImageDrawable(null);
+        }
+
+          /*  Bitmap bitmap = imageLoader.loadImage(imageView, imgUrl);
             if (bitmap != null) {
                 imageView.setImageBitmap(bitmap);
             }else{
                 imageView.setImageResource(R.mipmap.ic_action_add);
-            }
+            }*/
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

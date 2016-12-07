@@ -34,9 +34,9 @@ import java.security.NoSuchAlgorithmException;
 public class AsyncImageLoader {
     private Context context;
     // 内存缓存默认 5M
-    static final int MEM_CACHE_DEFAULT_SIZE = 5 * 1024 * 1024;
+    static final int MEM_CACHE_DEFAULT_SIZE = 10 * 1024 * 1024;
     // 文件缓存默认 10M
-    static final int DISK_CACHE_DEFAULT_SIZE = 10 * 1024 * 1024;
+    static final int DISK_CACHE_DEFAULT_SIZE = 20 * 1024 * 1024;
     // 一级内存缓存基于 LruCache
     private LruCache<String, Bitmap> memCache;
     // 二级文件缓存基于 DiskLruCache

@@ -15,7 +15,6 @@
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorGray2"
             android:dividerHeight="4dp"
             android:divider="@color/colorGray2"></ListView>
     </com.baoyz.widget.PullRefreshLayout>

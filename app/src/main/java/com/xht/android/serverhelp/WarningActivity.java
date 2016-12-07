@@ -51,7 +51,7 @@ public class WarningActivity extends Activity{
 
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
-        mCustomView.setText("返回");
+        mCustomView.setText("预警");
         mCustomView.setTextSize(18);
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,
@@ -129,7 +129,8 @@ public class WarningActivity extends Activity{
                             item.setmAddress(countyName);
                             item.setmDaty(fdatediff);
                             item.setmName(contactName);
-                            if (TextUtils.isEmpty(robOrderTime)) {
+                            LogHelper.i(TAG,"-----shijain=----"+robOrderTime);
+                            if (!TextUtils.isEmpty(robOrderTime)) {
                                 long t = Long.parseLong(robOrderTime);
                                 item.setmTime(getDateTime(t));
                             }
@@ -216,16 +217,19 @@ public class WarningActivity extends Activity{
             holder.mTextName.setText(itemBean.getmName());
             holder.mTextCompany.setText(itemBean.getComName());
             int day = itemBean.getmDaty();
-            if (day<2){
-                holder.mTextDay.setBackgroundColor(0Xff99cc00);
+            if (day<5){
+                holder.mTextDay.setBackgroundResource(R.drawable.blue_stroke);
+                LogHelper.i(TAG,"------"+day);
             }
-            if (day>5&&day<9){
-                holder.mTextDay.setBackgroundColor(0Xffff8800);
+            if (day>=5&&day<9){
+                holder.mTextDay.setBackgroundResource(R.drawable.green_stroke);
+                LogHelper.i(TAG,"------"+day);
             }
-            if (day>9){
-                holder.mTextDay.setBackgroundColor(0Xffff4444);
+            if (day>=9){
+                holder.mTextDay.setBackgroundResource(R.drawable.red_stroke);
+                LogHelper.i(TAG,"------"+day);
             }
-            holder.mTextDay.setText(day+"");
+            holder.mTextDay.setText(day+"天");
             holder.mTextAddress.setText(itemBean.getmAddress());
             return convertView;
         }

@@ -54,7 +54,7 @@ public class BZListActivity extends Activity {
 
         TextView mCustomView = new TextView(this);
         mCustomView.setGravity(Gravity.CENTER);
-        mCustomView.setText("返回");
+        mCustomView.setText("办证中");
         mCustomView.setTextSize(18);
         final ActionBar aBar = getActionBar();
         aBar.setCustomView(mCustomView,
@@ -71,6 +71,7 @@ public class BZListActivity extends Activity {
                 int orderId = mBZItems.get(position).getOrdId();
                 intent.putExtra("ordId", orderId);
                 intent.putExtra("mUid",mUid);
+                intent.putExtra("mCompanyName",mBZItems.get(position).getComp());
                 startActivity(intent);
             }
         });
@@ -133,20 +134,14 @@ public class BZListActivity extends Activity {
                     setupAdapter();
                     dismissProgressDialog();
                 }
+
+
             }
 
             @Override
             public void onError(Object e) {
-                JSONObject obj=(JSONObject)e;
-                if (obj.optString("code").equals("0")){
-                    App.getInstance().showToast("办证中暂无数据");
-
-                    dismissProgressDialog();
-                    BZListActivity.this.finish();
-
-                }
-                dismissProgressDialog();
                 App.getInstance().showToast(e.toString());
+                dismissProgressDialog();
             }
         });
     }

@@ -38,15 +38,11 @@ public class VolleyHelpApi extends BaseApi{
 		JsonObjectRequest req = new JsonObjectRequest(urlString, null, new Response.Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
-				LogHelper.i(TAG, response.toString());
-				if (isResponseError(response)) {
-					String errMsg = response.optString("message");
-					apiListener.onError(errMsg);
-				} else {
+				LogHelper.i(TAG,"-----------"+ response.toString());
 
 					JSONObject jsonObject = response.optJSONObject("entity");
-					apiListener.onResult(jsonObject);
-				}
+					apiListener.onResult(response);
+
 			}
 		}, new Response.ErrorListener() {
 			@Override
@@ -117,7 +113,7 @@ public class VolleyHelpApi extends BaseApi{
 					default:
 						LogHelper.i(TAG, "未知错误");
 				}
-				apiListener.onError("获取办证中列表数据出错");
+				apiListener.onError("服务器繁忙，稍后再试...");
 			}
 		});
 		App.getInstance().addToRequestQueue(req, TAG);
