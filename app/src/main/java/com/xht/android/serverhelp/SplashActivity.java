@@ -48,7 +48,6 @@ public class SplashActivity extends Activity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    private File file;
 
     public static UserInfo getInstance() {
         return mUserInfo;
@@ -208,39 +207,41 @@ public class SplashActivity extends Activity {
         builder.setPositiveButton("立刻升级", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
                 App.getInstance().showToast("请稍等片刻...");
                 //开源项目断点下载xUtils
                 HttpUtils http = new HttpUtils();
-                file = new File(Environment.getExternalStorageDirectory(), "xiaokufu.apk");
-
+                final File file=new File(Environment.getExternalStorageDirectory(),"houtai.apk");
                 http.download(downLoadUrl, file.getAbsolutePath(), true, new RequestCallBack<File>() {
                     //下载失败
                     @Override
                     public void onFailure(HttpException arg0, String arg1) {
-
                     }
-
                     //下载成功
                     @Override
                     public void onSuccess(ResponseInfo arg0) {
 
-                        //下载成功，替换安装
-                        App.getInstance().showToast("下载成功");
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.addCategory("android.intent.category.DEFAULT");
-                        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-                        SplashActivity.this.startActivity(intent);
-                        android.os.Process.killProcess(android.os.Process.myPid());
+                                App.getInstance().showToast("下载成功");
+                                Intent intent=new Intent();
+                                intent.setAction("android.intent.action.VIEW");
+                                intent.addCategory("android.intent.category.DEFAULT");
+                                intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+                                startActivity(intent);
+                                LogHelper.i(TAG,"------------======-------");
+                                /*//下载成功，替换安装
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.addCategory("android.intent.category.DEFAULT");
+                                intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "kefu.apk")), "application/vnd.android.package-archive");
+                                SplashActivity.this.startActivity(intent);
+                               // android.os.Process.killProcess(android.os.Process.myPid());
+                                LogHelper.i(TAG,"------------======-------");*/
 
+                            }
 
-                    }
                 });
                 dialog.dismiss();
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 finish();
-
             }
         });
         builder.setNegativeButton("下次再说", new DialogInterface.OnClickListener() {
@@ -256,6 +257,18 @@ public class SplashActivity extends Activity {
         builder.show();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+    //卸载应用程序
+    public void unstallApp(){
+        Intent uninstall_intent = new Intent();
+        uninstall_intent.setAction(Intent.ACTION_DELETE);
+        uninstall_intent.setData(Uri.parse("package:"+"com.xht.android.serverhelp"));
+        startActivity(uninstall_intent);
+    }
     /**
      *  显示Dialog的method
      *  */
@@ -263,14 +276,6 @@ public class SplashActivity extends Activity {
         new AlertDialog.Builder(this).setTitle("Message").setMessage(mess)
                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
-
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.addCategory("android.intent.category.DEFAULT");
-                        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-
-                        startActivity(intent);
                     }
                 }).show();
     }
@@ -279,8 +284,6 @@ public class SplashActivity extends Activity {
         Uri uri = Uri.parse("package:com.xht.android.serverhelp");//获取删除包名的URI
         Intent intent = new Intent(Intent.ACTION_DELETE, uri);
         startActivity(intent);
-
-
 
     }
 

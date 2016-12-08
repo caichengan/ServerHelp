@@ -10,6 +10,10 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
 
+
+    <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
 
     <application
@@ -23,6 +27,7 @@
             android:name=".SplashActivity"
             android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
+
             android:theme="@android:style/Theme.Holo.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +36,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"
+
             android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>
         <activity android:name=".CertificateActivity"
@@ -73,9 +79,6 @@
         <activity android:name=".PicLoadActivity"
             android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>
-
-
-
 
         <provider
             android:name=".provider.DatabaseHelpProvider"

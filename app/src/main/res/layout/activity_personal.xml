@@ -291,6 +291,38 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/mGongShangZCNum"
+                        android:layout_width="50dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@android:color/holo_orange_dark"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="8dip"
+                        android:text="工商注册"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorGray2" />
+
+                <LinearLayout
+                    android:id="@+id/mTabLay05"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
                         android:id="@+id/mSculptureNum"
                         android:layout_width="50dp"
                         android:layout_height="35dp"
@@ -316,12 +348,11 @@
                     android:background="@color/colorGray2" />
 
                 <LinearLayout
-                    android:id="@+id/mTabLay05"
+                    android:id="@+id/mTabLay06"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
-
                     <TextView
                         android:id="@+id/mChapterNum"
                         android:layout_width="50dp"
@@ -342,15 +373,23 @@
                         android:padding="8dip"
                         android:text="公安拿章"
                         android:textSize="18sp" />
+
                 </LinearLayout>
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorGray2" />
+
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorGray2" />
+
+            <TableRow>
 
                 <LinearLayout
-                    android:id="@+id/mTabLay06"
+                    android:id="@+id/mTabLay07"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
@@ -378,25 +417,17 @@
                         android:textSize="18sp" />
                 </LinearLayout>
 
-
-            </TableRow>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/colorGray2" />
-
-            <TableRow>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorGray2" />
 
                 <LinearLayout
-                    android:id="@+id/mTabLay07"
+                    android:id="@+id/mTabLay08"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
-
                     <TextView
                         android:id="@+id/mBankEntrustNum"
                         android:layout_width="50dp"
@@ -415,6 +446,7 @@
                         android:padding="8dip"
                         android:text="银行委托"
                         android:textSize="18sp" />
+
                 </LinearLayout>
 
                 <View
@@ -423,7 +455,7 @@
                     android:background="@color/colorGray2" />
 
                 <LinearLayout
-                    android:id="@+id/mTabLay08"
+                    android:id="@+id/mTabLay09"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
@@ -451,18 +483,24 @@
                         android:textSize="18sp" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorGray2" />
+
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorGray2" />
+
+            <TableRow>
 
                 <LinearLayout
-                    android:id="@+id/mTabLay09"
+                    android:id="@+id/mTabLay10"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
-
                     <TextView
                         android:id="@+id/mDigitalNum"
                         android:layout_width="50dp"
@@ -483,46 +521,7 @@
                         android:padding="8dip"
                         android:text="数字证书"
                         android:textSize="18sp" />
-                </LinearLayout>
 
-
-            </TableRow>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/colorGray2" />
-
-            <TableRow>
-
-                <LinearLayout
-                    android:id="@+id/mTabLay10"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/mGoldPlateNum"
-                        android:layout_width="50dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="15dp"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@android:color/holo_orange_dark"
-                        android:textSize="20sp"
-                       />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
-                        android:text="金税盘"
-                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <View
@@ -536,7 +535,39 @@
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/mGoldPlateNum"
+                        android:layout_width="50dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@android:color/holo_orange_dark"
+                        android:textSize="20sp"
+                        />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="8dip"
+                        android:text="金税盘"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorGray2" />
+
+                <LinearLayout
+                    android:id="@+id/mTabLay12"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
                     <TextView
                         android:id="@+id/mElectronicInvoiceNum"
                         android:layout_width="50dp"
@@ -557,20 +588,25 @@
                         android:padding="8dip"
                         android:text="电子发票"
                         android:textSize="18sp" />
+
                 </LinearLayout>
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorGray2" />
+
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorGray2" />
+            <TableRow>
 
                 <LinearLayout
-                    android:id="@+id/mTabLay12"
+                    android:id="@+id/mTabLay13"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
-
                     <TextView
                         android:id="@+id/mLocalTaxNum"
                         android:layout_width="50dp"
@@ -591,20 +627,16 @@
                         android:padding="8dip"
                         android:text="地税核税"
                         android:textSize="18sp" />
+
                 </LinearLayout>
 
-
-            </TableRow>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/colorGray2" />
-            <TableRow>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorGray2" />
 
                 <LinearLayout
-                    android:id="@+id/mTabLay13"
+                    android:id="@+id/mTabLay14"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
@@ -636,7 +668,7 @@
                     android:background="@color/colorGray2" />
 
                 <LinearLayout
-                    android:id="@+id/mTabLay14"
+                    android:id="@+id/mTabLay15"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
@@ -664,13 +696,18 @@
                         android:textSize="18sp" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorGray2" />
+
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorGray2" />
+            <TableRow>
 
                 <LinearLayout
-                    android:id="@+id/mTabLay15"
+                    android:id="@+id/mTabLay16"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
@@ -698,18 +735,13 @@
                         android:textSize="18sp" />
                 </LinearLayout>
 
-
-            </TableRow>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/colorGray2" />
-            <TableRow>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorGray2" />
 
                 <LinearLayout
-                    android:id="@+id/mTabLay16"
+                    android:id="@+id/mTabLay17"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
@@ -733,6 +765,7 @@
                         android:padding="8dip"
                         android:text="办证回访"
                         android:textSize="18sp" />
+
                 </LinearLayout>
 
                 <View
@@ -741,12 +774,11 @@
                     android:background="@color/colorGray2" />
 
                 <LinearLayout
-                    android:id="@+id/mTabLay17"
+                    android:id="@+id/mTabLay18"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
-
                     <TextView
                         android:id="@+id/mSendPeopleNum"
                         android:layout_width="50dp"
@@ -768,18 +800,21 @@
                         android:text="发朋友圈"
                         android:textSize="18sp" />
                 </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorGray2" />
-
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorGray2" />
+            <TableRow>
                 <LinearLayout
-                    android:id="@+id/mTabLay18"
+                    android:id="@+id/mTabLay19"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/mBackLecturingNum"
                         android:layout_width="50dp"
@@ -799,16 +834,12 @@
                         android:text="后台开讲"
                         android:textSize="18sp" />
                 </LinearLayout>
-            </TableRow>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/colorGray2" />
-            <TableRow>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorGray2" />
                 <LinearLayout
-                    android:id="@+id/mTabLay19"
+                    android:id="@+id/mTabLay20"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_weight="1"
@@ -829,34 +860,6 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="口碑传播"
-                        android:textSize="18sp" />
-                </LinearLayout>
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorGray2" />
-                <LinearLayout
-                    android:id="@+id/mTabLay20"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="50dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="15dp"
-                        android:gravity="center"
-                        android:text=""
-                        android:textColor="@android:color/holo_orange_dark"
-                        android:textSize="20sp"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
-                        android:text=""
                         android:textSize="18sp" />
                 </LinearLayout>
                 <View

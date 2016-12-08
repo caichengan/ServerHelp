@@ -92,9 +92,11 @@ public class RwxqActivity extends Activity {
         mLLayout = (LinearLayout) findViewById(R.id.containLLayout);
         mHorizontalSV = (HorizontalScrollView) findViewById(R.id.chengyuan);
         //-----------------------------测试-----------------------------------------------
-        View view = this.getLayoutInflater().inflate(R.layout.item_bz_chengyuan, null);
+        View view = this.getLayoutInflater().inflate(R.layout.item_bz_chengyuan, null);//TODO 添加头像
         textName = (TextView) view.findViewById(R.id.chengyuanName);
         textImg = (ImageView) view.findViewById(R.id.touxiang);
+
+        //TODO 加到滑动标签 中去
         mLLayout.addView(view);
         //-----------------------------测试end-----------------------------------------------
         FragmentManager fm = getFragmentManager();

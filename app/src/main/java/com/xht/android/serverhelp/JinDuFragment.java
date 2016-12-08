@@ -20,6 +20,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -48,6 +50,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static android.content.Context.MODE_APPEND;
+
 /**
  * UJinDuFragment
  * <p>
@@ -83,12 +88,13 @@ public class JinDuFragment extends Fragment {
     RwxqActivity mRwxqActivity;
 
     private ListView mProgressListView;
-
+    private SharedPreferences mSharedPreferences;
     private ProgressAdapter progressAdapter;
     private int uid;
     private List<TaskPeople> mListTask;
     private String orderId;
     private int loadNum=0;
+    private int curItem=1;
 
 
     public JinDuFragment() {
@@ -96,6 +102,7 @@ public class JinDuFragment extends Fragment {
     }
 
     private BroadcastReceiver mudateReceiver = new BroadcastReceiver() {
+
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -107,9 +114,12 @@ public class JinDuFragment extends Fragment {
             orderId = intent.getStringExtra("ordId");
             ((RwxqActivity) getActivity()).mOrderId=Integer.parseInt(orderId);
             LogHelper.i(TAG,"------------"+uid+"---"+((RwxqActivity) getActivity()).mOrderId);
+
             getDataInit();
 
-
+            int position = mSharedPreferences.getInt("position", 0);
+            LogHelper.i(TAG,"-----------====----"+position);
+            LogHelper.i(TAG,"----------刷新------"+position);
 
         }
     };
@@ -147,6 +157,7 @@ public class JinDuFragment extends Fragment {
         UserInfo mUserInfo = mMainActivity1.mUserInfo;
         uid = mUserInfo.getUid();*/
 
+        mSharedPreferences=getActivity().getSharedPreferences("tou",MODE_APPEND);
         IntentFilter intentFilter2 = new IntentFilter(BRO_ACT);
         getActivity().registerReceiver(mudateReceiver, intentFilter2);
 
@@ -165,6 +176,7 @@ public class JinDuFragment extends Fragment {
         super.onAttach(activity);
         LogHelper.i(TAG, "---------onAttach---uid------" + uid);
 
+
     }
 
     @Override
@@ -177,6 +189,42 @@ public class JinDuFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
         mProgressListView = (ListView) view.findViewById(R.id.mProgressListView);
+
+
+        mProgressListView.setOnScrollListener(new AbsListView.OnScrollListener(){
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                //滚动时一直回调，直到停止滚动时才停止回调。单击时回调一次。
+                //firstVisibleItem：当前能看见的第一个列表项ID（从0开始）
+                //visibleItemCount：当前能看见的列表项个数（小半个也算）
+                //totalItemCount：列表项共数
+                curItem = firstVisibleItem;
+
+                SharedPreferences.Editor edit = mSharedPreferences.edit();
+                edit.putInt("position",firstVisibleItem);
+                edit.commit();
+                LogHelper.i(TAG,"---------33--===="+firstVisibleItem);
+            }
+            @Override
+            public void onScrollStateChanged(AbsListView view , int scrollState){
+                //正在滚动时回调，回调2-3次，手指没抛则回调2次。scrollState = 2的这次不回调
+                //回调顺序如下
+                //第1次：scrollState = SCROLL_STATE_TOUCH_SCROLL(1) 正在滚动
+                //第2次：scrollState = SCROLL_STATE_FLING(2) 手指做了抛的动作（手指离开屏幕前，用力滑了一下）
+                //第3次：scrollState = SCROLL_STATE_IDLE(0) 停止滚动
+            }
+        });
+
+
+        mProgressListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                // 于对选中的项进行处理
+                //将上一次滚动时的第一条信息，重新展示为第一条信息，即：实现点击后点击条目的位置不变；
+                mProgressListView.setSelection(curItem);
+            }
+        });
         getDataInit();
         return view;
     }
@@ -325,13 +373,18 @@ public class JinDuFragment extends Fragment {
             final String status =item.getProgressStatus();
             final String flowId = item.getFlowId();
             LogHelper.i(TAG, "------------------" + flowId + "-==========");
+
             final String imgFile1 = item.getImgFile1();
             final String imgFile2 = item.getImgFile2();
             final String imgFile3 = item.getImgFile3();
             final String imgFile4 = item.getImgFile4();
+
             final String imgResFile1 = item.getImgResFile1();
             final String imgResFile2 = item.getImgResFile2();
             final String imgResFile3 = item.getImgResFile3();
+
+
+
             final String orderId = item.getOrderId();//订单id
             final String serviceId = item.getServiceId();//服务id
             holder.mSubmitgx1.setOnClickListener(new View.OnClickListener() {
@@ -872,19 +925,10 @@ public class JinDuFragment extends Fragment {
 
     private String replaceUrl(String fileUrl) {
         return fileUrl.replace("\\/", "/");
-
     }//http://baidu.com/
-
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
-
     }
-
-
 
     /**
      * 创建mProgressDialog
@@ -1099,6 +1143,10 @@ public class JinDuFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return sdf.format(date);
     }
+
+
+
+
 
 }
 

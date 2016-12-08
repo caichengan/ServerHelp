@@ -118,6 +118,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 		mSHaredPreference=getActivity().getSharedPreferences("tou",MODE_APPEND);
 
 
+		url = mSHaredPreference.getString("url", "null");
+
 
 
 		imageLoader = new AsyncImageLoader(getActivity());
@@ -144,14 +146,16 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
 		banben.setText("版本："+AppInfoUtils.getAppInfoName(getActivity()));
 
-		url = mSHaredPreference.getString("url", "null");
 
-		LogHelper.i(TAG,"------"+ url);
 		if (!url.equals("null")){
-			LogHelper.i(TAG,"----11--"+ url);
+			LogHelper.i(TAG,"----11--"+url);
 			Bitmap smallBitmap = BitmapUtils.getSmallBitmap(url);
 			headimg.setImageBitmap(smallBitmap);
 			// BitmapUtils.loadImgageUrl(url,mPersonImg);
+		}else{
+			LogHelper.i(TAG,"----11--"+mUserInfo.getmContactUrl());
+			Bitmap smallBitmap = BitmapUtils.getSmallBitmap(mUserInfo.getmContactUrl());
+			headimg.setImageBitmap(smallBitmap);
 		}
 
 
@@ -171,10 +175,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 			headimg.setImageBitmap(smallBitmap);
 			// BitmapUtils.loadImgageUrl(url,mPersonImg);
 		}else{
-			if (mUserInfo.getmContactUrl()!=null||mUserInfo.getmContactUrl()!=""||mUserInfo.getmContactUrl().equals("null")) {
-				Bitmap smallBitmap = BitmapUtils.getSmallBitmap(mUserInfo.getmContactUrl());
-				headimg.setImageBitmap(smallBitmap);
-			}
+			LogHelper.i(TAG,"----11--"+mUserInfo.getmContactUrl());
+			Bitmap smallBitmap = BitmapUtils.getSmallBitmap(mUserInfo.getmContactUrl());
+			headimg.setImageBitmap(smallBitmap);
 		}
 	}
 	
