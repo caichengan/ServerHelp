@@ -25,8 +25,6 @@ import com.xht.android.serverhelp.util.LogHelper;
 
 import org.json.JSONObject;
 
-import java.util.List;
-
 /**
  * Created by Administrator on 2016-10-13.
  *  安个人绩效
@@ -96,91 +94,47 @@ public class PersonalActivity extends Activity implements View.OnClickListener {
     private TextView mMoney;//本月收入
     private TextView mTotalMoney;//累计总收入
     private TextView mServiceNum;//服务积分
-    /*
-
-       private TextView mReferenceNum;//资料交接
-       private LinearLayout mTabLay01;
-       private TextView mNuansNum;//工商核名
-       private LinearLayout mTabLay02;
-       private TextView mRegisterNum;//注册文件
-       private LinearLayout mTabLay03;
-       private TextView mSculptureNum;//雕刻印章
-       private LinearLayout mTabLay04;
-       private TextView mChapterNum;//公安拿章
-       private LinearLayout mTabLay05;
-       private TextView mBankOpenNum;//银行开户  6
-       private LinearLayout mTabLay06;
-       private TextView mBankEntrustNum;//银行委托
-       private LinearLayout mTabLay07;
-       private TextView mNationalTaxNum;//国税核税
-       private LinearLayout mTabLay08;
-       private TextView mDigitalNum;//数字证书
-       private LinearLayout mTabLay09;
-       private TextView mGoldPlateNum;//金税盘 10
-       private LinearLayout mTabLay10;
-       private TextView mElectronicInvoiceNum;//电子发票
-       private LinearLayout mTabLay11;
-       private TextView mLocalTaxNum;//地税核税
-       private LinearLayout mTabLay12;
-       private TextView mRentNum;//租苈备案
-       private LinearLayout mTabLay13;
-       private TextView mAcountingNum;//移交会记
-       private LinearLayout mTabLay14;
-       private TextView mCustomerNum;//移交客户  15
-       private LinearLayout mTabLay15;
-       private TextView mCallbackNum;//办证回访
-       private LinearLayout mTabLay16;
-       private TextView mSendPeopleNum;//发送朋友圈
-       private LinearLayout mTabLay17;
-       private TextView mBackLecturingNum;//后台开讲
-       private LinearLayout mTabLay18;
-
-       private TextView mPublicPraiseNum;//口碑传播
-       private LinearLayout mTabLay19;
-
-       private LinearLayout mTabLay20;*/
     private int mCurrentStep;
 
-
-    private TextView mReferenceNum;
+    private TextView mReferenceNum;//资料交接
     private LinearLayout mTabLay01;
-    private TextView mNuansNum;
+    private TextView mNuansNum;//工商核名
     private LinearLayout mTabLay02;
-    private TextView mRegisterNum;
+    private TextView mRegisterNum;//注册文件
     private LinearLayout mTabLay03;
-    private TextView mGongShangZCNum;
+    private TextView mGongShangZCNum;//工商注册
     private LinearLayout mTabLay04;
-    private TextView mSculptureNum;
+    private TextView mSculptureNum;//雕刻印章
     private LinearLayout mTabLay05;
-    private TextView mChapterNum;
+    private TextView mChapterNum;//公安拿章
     private LinearLayout mTabLay06;
-    private TextView mBankOpenNum;
+    private TextView mBankOpenNum;//银行开户
     private LinearLayout mTabLay07;
-    private TextView mBankEntrustNum;
+    private TextView mBankEntrustNum;//银行委托
     private LinearLayout mTabLay08;
-    private TextView mNationalTaxNum;
+    private TextView mNationalTaxNum;//国税核税
     private LinearLayout mTabLay09;
-    private TextView mDigitalNum;
+    private TextView mDigitalNum;//数字证书
     private LinearLayout mTabLay10;
-    private TextView mGoldPlateNum;
+    private TextView mGoldPlateNum;//金税盘
     private LinearLayout mTabLay11;
-    private TextView mElectronicInvoiceNum;
+    private TextView mElectronicInvoiceNum;//电子发票
     private LinearLayout mTabLay12;
-    private TextView mLocalTaxNum;
+    private TextView mLocalTaxNum;//地税核税
     private LinearLayout mTabLay13;
-    private TextView mRentNum;
+    private TextView mRentNum;//租苈备案
     private LinearLayout mTabLay14;
-    private TextView mAcountingNum;
+    private TextView mAcountingNum;//移交会记
     private LinearLayout mTabLay15;
-    private TextView mCustomerNum;
+    private TextView mCustomerNum;//移交客户
     private LinearLayout mTabLay16;
-    private TextView mCallbackNum;
+    private TextView mCallbackNum;//办证回访
     private LinearLayout mTabLay17;
-    private TextView mSendPeopleNum;
+    private TextView mSendPeopleNum;//发送朋友圈
     private LinearLayout mTabLay18;
-    private TextView mBackLecturingNum;
+    private TextView mBackLecturingNum;//后台开讲
     private LinearLayout mTabLay19;
-    private TextView mPublicPraiseNum;
+    private TextView mPublicPraiseNum;//口碑传播
     private LinearLayout mTabLay20;
     private LinearLayout mTabLay21;
 
@@ -204,17 +158,11 @@ public class PersonalActivity extends Activity implements View.OnClickListener {
         aBar.setDisplayOptions(change);
 
         mSHaredPreference = getSharedPreferences("tou",MODE_APPEND);
-
         //初始化控件
         initialize();
-
         //访问数据
         getPersonData(mUId);
-
-
-
     }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -225,18 +173,13 @@ public class PersonalActivity extends Activity implements View.OnClickListener {
         persomnalImg = instance.getmContactUrl();
 
         LogHelper.i(TAG,"-----PersonalActivity---"+mUId+ userName + phoneNum);
-
-
-
     }
 
 
 
     //访问数据显示数量
     private void getPersonData(int uid) {
-
         VolleyHelpApi.getInstance().getPersonalData(uid,new APIListener() {
-
             @Override
             public void onResult(Object result) {
                 LogHelper.i(TAG, "----个人绩效所有信息--" + result.toString());
@@ -301,12 +244,9 @@ public class PersonalActivity extends Activity implements View.OnClickListener {
         mReferenceNum.setText(step1);
         mNuansNum.setText(step2);
         mRegisterNum.setText(step3);
-
         mGongShangZCNum.setText(step4);
-
         mSculptureNum.setText(step5);
         mChapterNum.setText(step6);
-
         mBankOpenNum.setText(step7);
         mBankEntrustNum.setText(step8);
         mNationalTaxNum.setText(step9);
@@ -323,116 +263,83 @@ public class PersonalActivity extends Activity implements View.OnClickListener {
         mBackLecturingNum .setText(step19);
         mPublicPraiseNum .setText(step20);
 
-
         mMoney.setText(mYMoney+"元");
         mTotalMoney.setText(mTMoney+"元");
         mServiceNum.setText(0+"");
     }
 
-
     @Override
     public void onClick(View v) {
-
         switch(v.getId()){
-
             case R.id.mTabLay01://资料交接
                 mCurrentStep = 1;
-
                 break;
             case R.id.mTabLay02://工商核名
                 mCurrentStep = 2;
                 break;
             case R.id.mTabLay03://注册文件
-
                 mCurrentStep = 3;
                 break;
             case R.id.mTabLay04://工商注册
-
                 mCurrentStep = 4;
                 break;
             case R.id.mTabLay05://雕刻印章
-
                 mCurrentStep = 5;
-
                 break;
             case R.id.mTabLay06://公安拿章
                 mCurrentStep = 6;
                 break;
             case R.id.mTabLay07://银行开户
-
                 mCurrentStep = 7;
                 break;
-            case R.id.mTabLay08://银行委托
-
+            case R.id.mTabLay08://银行委
                 mCurrentStep = 8;
                 break;
             case R.id.mTabLay09://国税核税
-
                 mCurrentStep = 9;
                 break;
             case R.id.mTabLay10://数字证书
-
                 mCurrentStep = 10;
                 break;
             case R.id.mTabLay11://购金税盘
-
                 mCurrentStep = 11;
                 break;
             case R.id.mTabLay12://电子发票
-
                 mCurrentStep = 12;
                 break;
-
             case R.id.mTabLay13://地税核税
-
                 mCurrentStep = 13;
                 break;
             case R.id.mTabLay14://租苈备案
-
                 mCurrentStep = 14;
                 break;
             case R.id.mTabLay15://移交会记
-
                 mCurrentStep = 15;
                 break;
             case R.id.mTabLay16://移交客户
-
                 mCurrentStep = 16;
                 break;
             case R.id.mTabLay17://办证回访
-
                 mCurrentStep = 17;
                 break;
             case R.id.mTabLay18://发朋友圈
-
                 mCurrentStep = 18;
                 break;
             case R.id.mTabLay19://后台开讲
-
                 mCurrentStep = 19;
                 break;
             case R.id.mTabLay20://口碑传播
-
                 mCurrentStep = 20;
                 break;
-
         }
-
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        DialogFragment newFragment = CompNDialogFragment.newInstance(mCurrentStep);
-        newFragment.show(ft, "cn_dialog");
-
-
-
-
+        if (mUId==-1){
+            App.getInstance().showToast("服务器繁忙，请稍后再试...");
+        }else {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            DialogFragment newFragment = CompNDialogFragment.newInstance(mCurrentStep, mUId);
+            newFragment.show(ft, "cn_dialog");
+        }
     }
-
-    private void showDialogForStep(List<String> mStepList) {
-
-
-
-    }
-
 
     private void initialize() {
 
@@ -494,7 +401,6 @@ public class PersonalActivity extends Activity implements View.OnClickListener {
         mTabLay04.setOnClickListener(this);
         mTabLay05.setOnClickListener(this);
         mTabLay06.setOnClickListener(this);
-
         mTabLay07.setOnClickListener(this);
         mTabLay08.setOnClickListener(this);
         mTabLay09.setOnClickListener(this);
@@ -510,11 +416,8 @@ public class PersonalActivity extends Activity implements View.OnClickListener {
         mTabLay19.setOnClickListener(this);
         mTabLay20.setOnClickListener(this);
 
-
         mPersonImg.setOnClickListener(this);
-
         String url = mSHaredPreference.getString("url", "null");
-
         LogHelper.i(TAG,"------"+url);
         if (!url.equals("null")){
             LogHelper.i(TAG,"----11--"+url);
@@ -522,8 +425,5 @@ public class PersonalActivity extends Activity implements View.OnClickListener {
             mPersonImg.setImageBitmap(smallBitmap);
             // BitmapUtils.loadImgageUrl(url,mPersonImg);
         }
-
     }
-
-
 }

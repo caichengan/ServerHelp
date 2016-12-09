@@ -12,6 +12,16 @@ public class WaringItemBean {
     private String mAddress;//地区
     private int mDaty;//天数
 
+    private String orderId;
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
     public String getTaskName() {
         return taskName;
     }

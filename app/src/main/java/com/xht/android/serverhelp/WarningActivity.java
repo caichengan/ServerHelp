@@ -61,6 +61,18 @@ public class WarningActivity extends Activity{
 
         mListWaring = (ListView) findViewById(R.id.list_view_waring);
 
+       /* mListWaring.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(WarningActivity.this, RwxqActivity.class);
+                String orderId = mListItem.get(position).getOrderId();
+                intent.putExtra("ordId", orderId);
+                intent.putExtra("mUid",mUId);
+                intent.putExtra("mCompanyName",mListItem.get(position).getComName());
+                startActivity(intent);
+            }
+        });*/
+
         /**
          * 下拉刷新
          */

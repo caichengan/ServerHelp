@@ -12,10 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,12 +37,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -277,10 +268,20 @@ public class JinDuFragment extends Fragment {
                         tempPI.setImgFile2(tempJO.optString("file1"));
                         tempPI.setImgFile3(tempJO.optString("file2"));
                         tempPI.setImgFile4(tempJO.optString("file3"));
-                        tempPI.setImgResFile1(tempJO.optString("file4"));
-                        tempPI.setImgResFile2(tempJO.optString("file5"));
-                        tempPI.setImgResFile3(tempJO.optString("file6"));
-                        tempPI.setImgResFile4(tempJO.optString("file7"));
+                        tempPI.setImgFile5(tempJO.optString("file4"));
+                        tempPI.setImgFile6(tempJO.optString("file5"));
+                        tempPI.setImgFile7(tempJO.optString("file6"));
+                        tempPI.setImgFile8(tempJO.optString("file7"));
+
+                        tempPI.setImgResFile1(tempJO.optString("file8"));
+                        tempPI.setImgResFile2(tempJO.optString("file9"));
+                        tempPI.setImgResFile3(tempJO.optString("file10"));
+                        tempPI.setImgResFile4(tempJO.optString("file11"));
+                        tempPI.setImgResFile5(tempJO.optString("file12"));
+                        tempPI.setImgResFile6(tempJO.optString("file13"));
+                        tempPI.setImgResFile7(tempJO.optString("file14"));
+                        tempPI.setImgResFile8(tempJO.optString("file15"));
+
                         mProsItems.add(tempPI);
 
                         LogHelper.i(TAG, "------0" + tempPI.getFlowName());
@@ -378,10 +379,19 @@ public class JinDuFragment extends Fragment {
             final String imgFile2 = item.getImgFile2();
             final String imgFile3 = item.getImgFile3();
             final String imgFile4 = item.getImgFile4();
+            final String imgFile5 = item.getImgFile5();
+            final String imgFile6 = item.getImgFile6();
+            final String imgFile7 = item.getImgFile7();
+            final String imgFile8 = item.getImgFile8();
 
             final String imgResFile1 = item.getImgResFile1();
             final String imgResFile2 = item.getImgResFile2();
             final String imgResFile3 = item.getImgResFile3();
+            final String imgResFile4 = item.getImgResFile4();
+            final String imgResFile5 = item.getImgResFile5();
+            final String imgResFile6 = item.getImgResFile6();
+            final String imgResFile7 = item.getImgResFile7();
+            final String imgResFile8 = item.getImgResFile8();
 
 
 
@@ -427,6 +437,11 @@ public class JinDuFragment extends Fragment {
                     bundle.putString("imgFile1",imgFile1);
                     bundle.putString("imgFile2",imgFile2);
                     bundle.putString("imgFile3",imgFile3);
+                    bundle.putString("imgFile4",imgFile4);
+                    bundle.putString("imgFile5",imgFile5);
+                    bundle.putString("imgFile6",imgFile6);
+                    bundle.putString("imgFile7",imgFile7);
+                    bundle.putString("imgFile8",imgFile8);
                     IntentUtils.startActivityNumberForResult(40,bundle,getActivity(),PicLoadActivity.class);
 
                 }
@@ -435,8 +450,6 @@ public class JinDuFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     //跳转上传结果图片
-
-
                     Bundle bundle=new Bundle();
                     bundle.putInt("uid",uid);
                     bundle.putString("status",status);
@@ -448,6 +461,11 @@ public class JinDuFragment extends Fragment {
                     bundle.putString("imgFile1",imgResFile1);
                     bundle.putString("imgFile2",imgResFile2);
                     bundle.putString("imgFile3",imgResFile3);
+                    bundle.putString("imgFile4",imgResFile4);
+                    bundle.putString("imgFile5",imgResFile5);
+                    bundle.putString("imgFile6",imgResFile6);
+                    bundle.putString("imgFile7",imgResFile7);
+                    bundle.putString("imgFile8",imgResFile8);
 
                     Intent intent=new Intent(getActivity(),PicLoadActivity.class);
                     intent.putExtra("bundle",bundle);
@@ -676,8 +694,6 @@ public class JinDuFragment extends Fragment {
 
     }
 
-
-
     // TODO 转交任务
     private void forwardTaskMethod() {
         ProsItem prosItem = mProsItems.get(mProsItems.size() - 1);
@@ -687,14 +703,6 @@ public class JinDuFragment extends Fragment {
         VolleyHelpApi.getInstance().getForwardTask(new APIListener() {
             @Override
             public void onResult(Object result) {
-            /*  Bundle bundle=new Bundle();
-
-              bundle.putInt("uid",uid);
-              bundle.putInt("orderId",mRwxqActivity.mOrderId);
-              bundle.putString("result",result.toString());
-
-              IntentUtils.startActivityNumber(getActivity(),bundle,ForwardTask.class);
-*/
                 mListTask = new ArrayList<TaskPeople>();
                 JSONArray obj = null;
                 try {
@@ -721,26 +729,17 @@ public class JinDuFragment extends Fragment {
                     e.printStackTrace();
                 }
                 DialogDanyi(mListTask);
-               // dismissProgressDialog();
             }
-
             @Override
             public void onError(Object e) {
-
             }
         });
-
     }
-
     //2、点击按钮弹出单选对话框
-
     private void DialogDanyi(final List<TaskPeople> mTask) {
-
         //通过builder构造器gouzao
         final JSONObject json = new JSONObject();
-
         AlertDialog.Builder builder = new AlertDialog.Builder(mRwxqActivity);
-
         builder.setTitle("选择你要转交任务的人员");
         int size = mTask.size();
         final String items[] = new String[size];
@@ -748,17 +747,13 @@ public class JinDuFragment extends Fragment {
             String name = mTask.get(i).geteName();
             items[i] = name;
         }
-
         //-1代表默认没有条目被选中
-
         builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
 
             @Override
 
             public void onClick(DialogInterface dialog, int which) {
-
                 //把选择到的条目取出来
-
                 String item = items[which];
                 TaskPeople taskPeople = mTask.get(which);
                 LogHelper.i(TAG, "----" + taskPeople.geteId() + taskPeople.geteName());
@@ -766,17 +761,11 @@ public class JinDuFragment extends Fragment {
                     json.put("fromEId", uid + "");
                     json.put("orderId", mRwxqActivity.mOrderId);
                     json.put("toEId", taskPeople.geteId());
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
                 LogHelper.i(TAG, "------json---" + json.toString());
                 App.getInstance().showToast(taskPeople.geteId() + taskPeople.geteName());
-
-                //关闭对话框
-                //dialog.dismiss();
 
             }
         });
@@ -820,7 +809,6 @@ public class JinDuFragment extends Fragment {
                     }
                     getActivity().finish();
                 }
-
                 @Override
                 public void onError(Object e) {
                     App.getInstance().showToast(e.toString());
@@ -828,13 +816,10 @@ public class JinDuFragment extends Fragment {
                 }
             });
         }
-
     }
-
 
     // TODO 继续任务
     private void continueTaskMethod() {
-
         ProsItem prosItem = mProsItems.get(mProsItems.size() - 1);
         String employeeId = prosItem.getEmployeeId();
         String orderId = prosItem.getOrderId();
@@ -842,9 +827,7 @@ public class JinDuFragment extends Fragment {
         JSONObject jsonObject = new JSONObject();
         //"employeeId":4,"orderId":95
         try {
-
             jsonObject.put("employeeId", uid);
-
             if (!TextUtils.isEmpty(orderId)) {
                 jsonObject.put("orderId", orderId);
             }
@@ -876,44 +859,8 @@ public class JinDuFragment extends Fragment {
 
                         getDataInit();
                         //mRwxqActivity.finish();
-
                     }
-
-
-               /* ProsItem item=new ProsItem();
-                String employeeId = jsonObject.optString("employeeId");
-
-                String endTime = jsonObject.optString("endTime");
-                String employeeName = jsonObject.optString("employeeName");
-                LogHelper.i(TAG,"-----"+employeeName);
-                String progressStatus = jsonObject.optString("progressStatus");
-                String startTime = jsonObject.optString("startTime");
-                String serviceId = jsonObject.optString("serviceId");
-                String flowName = jsonObject.optString("flowName");
-                String orderId = jsonObject.optString("orderId");
-                String flowId = jsonObject.optString("flowId");
-                LogHelper.i(TAG,"-----"+employeeName+"---"+endTime+"---"+employeeId+"---"+progressStatus+"---"+startTime+"---"+flowName+"---"+orderId);
-                item.setEmployeeId(employeeId);
-                item.setGengjinP(employeeName);
-                item.setFlowName(flowName);
-                item.setFlowId(flowId);
-                item.setProgressStatus(progressStatus);
-                item.setServiceId(serviceId);
-                item.setOrderId(orderId);
-
-
-
-                item.setStartTime(startTime);
-                item.setEndTime(endTime);
-
-                mProsItems.add(item);
-
-                //继续任务更新
-                continusAdd();*/
-
-
                 }
-
                 @Override
                 public void onError(Object e) {
                     App.getInstance().showToast(e.toString());
@@ -922,7 +869,6 @@ public class JinDuFragment extends Fragment {
         }
 
     }
-
     private String replaceUrl(String fileUrl) {
         return fileUrl.replace("\\/", "/");
     }//http://baidu.com/
@@ -943,26 +889,6 @@ public class JinDuFragment extends Fragment {
         mProgressDialog.show();
     }
     /**
-     * 隐藏选择图片对话框
-     */
-    private void dismissmChooseIconDialog() {
-        if (mChoosePicDialog != null) {
-            mChoosePicDialog.dismiss();
-        }
-    }
-
-    /**
-     *  显示Dialog的method
-     *  */
-    private void showDialog(String mess) {
-        new AlertDialog.Builder(getActivity()).setTitle("Message").setMessage(mess)
-                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                }).show();
-    }
-    /**
      * 隐藏mProgressDialog
      */
     private void dismissProgressDialog() {
@@ -971,167 +897,6 @@ public class JinDuFragment extends Fragment {
             mProgressDialog = null;
         }
     }
-
-
-
-    private class UploadPicTask extends AsyncTask<String, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(String... params) {
-            //   boolean temp = uploadPicFile(mTempStrURL);
-            String url = params[0];
-            boolean temp = uploadPicFile(url);
-            LogHelper.i(TAG, "------temp-------" + url);
-            LogHelper.i(TAG, "------temp" + url);
-
-
-
-
-
-            return temp;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean param) {
-            LogHelper.i(TAG, "-----正在上传照片");
-            LogHelper.i(TAG, "------temp" + param);
-           /* if (param) {
-                dismissProgressDialog();//取消
-                showDialog("上传成功");
-                App.getInstance().showToast("上传成功");
-                LogHelper.i(TAG, "------上传成功");
-            } else {
-                dismissProgressDialog();//取消
-                showDialog("上传失败");
-                LogHelper.i(TAG, "------上传失败");
-            }*/
-        }
-    }
-
-    /**
-     * 调用相机拍照
-     *
-     * @param uri
-     * @param requestCode
-     */
-    private void getPhotoFromCamera(Uri uri, int requestCode) {
-        mkdirs(uri);
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//action is capture
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        LogHelper.i(TAG, "-------调用相机拍照-----------");
-        startActivityForResult(intent, requestCode);//or TAKE_SMALL_PICTURE
-    }
-
-    /**
-     * 创建存储照片的文件夹
-     *
-     * @param uri
-     */
-    private void mkdirs(Uri uri) {
-        String path = uri.getPath();
-        File file = new File(path.substring(0, path.lastIndexOf("/")));
-        if (!file.exists()) {
-            boolean success = file.mkdirs();
-            LogHelper.i(TAG,"---创建存储照片的文件夹success = " + success);
-        }
-
-    }
-
-    private void selectPicFromAlbum() {
-       /* boolean isKitKatO = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-        Intent getAlbum;
-        if (isKitKatO) {
-            getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
-        } else {
-            getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
-        }
-        getAlbum.setType("image*//*");
-        startActivityForResult(getAlbum, 0);*/
-
-        Intent intent = new Intent(Intent.ACTION_PICK, null);//从列表中选择某项并返回所有数据
-        intent.setDataAndType(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,//得到系统所有的图片
-                "image/*");//图片的类型,image/*为所有类型图片
-
-        startActivityForResult(intent, 0);
-    }
-
-
-
-    //上传照片至Server的方法picPath 图片真实路径
-    private boolean uploadPicFile(String picPath) {
-
-        String fName = picPath.trim();
-        String newName = fName.substring(fName.lastIndexOf("/") + 1);
-        LogHelper.i(TAG, "---" + newName);
-        if (!newName.substring(0, 6).equals("bzzbz_")) {
-            newName = mTempStrT;
-        }
-        String end = "\r\n";
-        String twoHyphens = "--";
-        String boundary = "*****";
-        try {
-            URL url = new URL(VolleyHelpApi.BZ_PIC_UPLOAD_Url);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-          /* 允许Input、Output，不使用Cache */
-            con.setReadTimeout(10 * 1000000);
-            con.setConnectTimeout(10 * 1000000);
-            con.setDoInput(true);
-            con.setDoOutput(true);
-            con.setUseCaches(false);
-          /* 设置传送的method=POST */
-            con.setRequestMethod("POST");
-          /* setRequestProperty */
-            con.setRequestProperty("Connection", "Keep-Alive");
-            con.setRequestProperty("Charset", "UTF-8");
-            con.setRequestProperty("Content-Type",
-                    "multipart/form-data;boundary=" + boundary);
-          /* 设置DataOutputStream */
-            DataOutputStream ds =
-                    new DataOutputStream(con.getOutputStream());
-            ds.writeBytes(twoHyphens + boundary + end);
-            ds.writeBytes("Content-Disposition: form-data; " +
-                    "name=\"img\";filename=\"" +
-                    newName + "\"" + end);
-            ds.writeBytes("Content-Type: application/octet-stream; charset=utf-8" + end);
-            ds.writeBytes(end);
-
-          /* 取得文件的FileInputStream */
-
-            FileInputStream fStream = new FileInputStream(picPath);
-
-          /* 设置每次写入1024bytes */
-            int bufferSize = 1024 * 1024;
-            byte[] buffer = new byte[bufferSize];
-            int length = -1;
-          /* 从文件读取数据至缓冲区 */
-            while ((length = fStream.read(buffer)) != -1) {
-            /* 将资料写入DataOutputStream中 */
-                LogHelper.i(TAG, length + "");
-                ds.write(buffer, 0, length);
-            }
-            ds.writeBytes(end);
-            ds.writeBytes(twoHyphens + boundary + twoHyphens + end);
-          /* close streams */
-            fStream.close();
-            ds.flush();
-          /* 取得Response内容 */
-            InputStream is = con.getInputStream();
-            int ch;
-            StringBuffer b = new StringBuffer();
-            while ((ch = is.read()) != -1) {
-                b.append((char) ch);
-            }
-          /* 将Response显示于Dialog */
-            //showDialog("上传成功"+b.toString().trim());
-          /* 关闭DataOutputStream */
-            ds.close();
-            return true;
-        } catch (Exception e) {
-            LogHelper.e(TAG, e.toString());
-            return false;
-        }
-    }
-
     /**
      * 转换时间
      *
@@ -1143,11 +908,6 @@ public class JinDuFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return sdf.format(date);
     }
-
-
-
-
-
 }
 
 

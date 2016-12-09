@@ -45,7 +45,7 @@ public class BaseApi {
     //访问个人绩效
     public static final String PERSONAL_GET_URL ="http://www.xiaohoutai.com.cn:8888/XHT/employeeController/loadAchievementsByUser";
     //获取当前步骤的客户信息
-    public static final String STEPDATA_GET_URL ="";
+    public static final String STEPDATA_GET_URL ="http://www.xiaohoutai.com.cn:8888/XHT/employeeController/getDetailOfServiceStepFlow";
     //访问预警数据
     public static final String WARNING_POST_URL = "http://www.xiaohoutai.com.cn:8888/XHT/homeOrderDetailController/LoadWarmingDetail";
     //通讯录客户

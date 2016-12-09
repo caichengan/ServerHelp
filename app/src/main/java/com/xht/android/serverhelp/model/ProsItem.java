@@ -104,11 +104,19 @@ public class ProsItem {
     private String imgFile2;
     private String imgFile3;
     private String imgFile4;
+    private String imgFile5;
+    private String imgFile6;
+    private String imgFile7;
+    private String imgFile8;
 
     private String imgResFile1;
     private String imgResFile2;
     private String imgResFile3;
     private String imgResFile4;
+    private String imgResFile5;
+    private String imgResFile6;
+    private String imgResFile7;
+    private String imgResFile8;
 
     public String getImgFile1() {
         return imgFile1;
@@ -190,7 +198,69 @@ public class ProsItem {
         this.orderId = orderId;
     }
 
+    public String getImgFile5() {
+        return imgFile5;
+    }
 
+    public void setImgFile5(String imgFile5) {
+        this.imgFile5 = imgFile5;
+    }
+
+    public String getImgFile6() {
+        return imgFile6;
+    }
+
+    public void setImgFile6(String imgFile6) {
+        this.imgFile6 = imgFile6;
+    }
+
+    public String getImgFile7() {
+        return imgFile7;
+    }
+
+    public void setImgFile7(String imgFile7) {
+        this.imgFile7 = imgFile7;
+    }
+
+    public String getImgFile8() {
+        return imgFile8;
+    }
+
+    public void setImgFile8(String imgFile8) {
+        this.imgFile8 = imgFile8;
+    }
+
+    public String getImgResFile5() {
+        return imgResFile5;
+    }
+
+    public void setImgResFile5(String imgResFile5) {
+        this.imgResFile5 = imgResFile5;
+    }
+
+    public String getImgResFile6() {
+        return imgResFile6;
+    }
+
+    public void setImgResFile6(String imgResFile6) {
+        this.imgResFile6 = imgResFile6;
+    }
+
+    public String getImgResFile7() {
+        return imgResFile7;
+    }
+
+    public void setImgResFile7(String imgResFile7) {
+        this.imgResFile7 = imgResFile7;
+    }
+
+    public String getImgResFile8() {
+        return imgResFile8;
+    }
+
+    public void setImgResFile8(String imgResFile8) {
+        this.imgResFile8 = imgResFile8;
+    }
 
     public String getStartTime() {
         return startTime;
