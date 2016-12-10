@@ -564,7 +564,6 @@ public class JinDuFragment extends Fragment {
             holder.mHeMing.setText(name);
             holder.mFollowName.setText(gengjinP);
 
-
             return convertView;
         }
 
