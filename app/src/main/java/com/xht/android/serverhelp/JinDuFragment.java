@@ -536,7 +536,7 @@ public class JinDuFragment extends Fragment {
                        /* holder.mUploadfile.setVisibility(View.VISIBLE);
                         holder.mResultLoad.setVisibility(View.VISIBLE);*/
                         String flowId1 = mProsItems.get(position).getFlowId();
-                        if (flowId1.equals("19")) {
+                        if (flowId1.equals("20")) {
                             holder.mSubmitgx1.setVisibility(View.VISIBLE);
                             holder.aftersub1.setVisibility(View.GONE);
                             holder.mSubmitgx1.setText("已完成");

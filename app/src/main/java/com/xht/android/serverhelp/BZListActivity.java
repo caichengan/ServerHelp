@@ -210,22 +210,64 @@ public class BZListActivity extends Activity {
             String flowId = item.getFlowId();
             switch (flowId){
                 case "1":
-                    flowName = "企业核名";
+                    flowName = "资料交接";
                     break;
                 case "2":
-                    flowName = "工商注册";
+                    flowName = "工商核名";
                     break;
                 case "3":
-                    flowName = "雕刻印章";
+                    flowName = "注册文件";
                     break;
                 case "4":
-                    flowName = "银行开户";
+                    flowName = "工商注册";
                     break;
                 case "5":
-                    flowName = "国税报道";
+                    flowName = "雕刻印章";
                     break;
                 case "6":
-                    flowName = "地税报到";
+                    flowName = "公安拿章";
+                    break;
+                case "7":
+                    flowName = "银行开户";
+                    break;
+                case "8":
+                    flowName = "银行委托";
+                    break;
+                case "9":
+                    flowName = "国税核税";
+                    break;
+                case "10":
+                    flowName = "数字证书";
+                    break;
+                case "11":
+                    flowName = "购金税盘";
+                    break;
+                case "12":
+                    flowName = "电子发票";
+                    break;
+                case "13":
+                    flowName = "地税核税";
+                    break;
+                case "14":
+                    flowName = "租苈备案";
+                    break;
+                case "15":
+                    flowName = "移交会记";
+                    break;
+                case "16":
+                    flowName = "移交客户";
+                    break;
+                case "17":
+                    flowName = "办证回访";
+                    break;
+                case "18":
+                    flowName = "发送朋友圈";
+                    break;
+                case "19":
+                    flowName = "后台开讲";
+                    break;
+                case "20":
+                    flowName = "口碑传播";
                     break;
 
             }
