@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/bzz_str"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:padding="8dip"
                     />
             </LinearLayout>
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/rwc_str"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:padding="8dip"
                     />
             </LinearLayout>
@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/yj_str"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:padding="8dip"
                     />
             </LinearLayout>
@@ -120,7 +120,7 @@
                     android:gravity="center"
                     android:text="@string/grjx_str"
                     android:padding="8dip"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:id="@+id/textView" />
             </LinearLayout>
         </TableRow>
@@ -146,7 +146,7 @@
                     android:padding="8dip"
 
                     android:textColor="@android:color/darker_gray"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     />
             </LinearLayout>
 
@@ -164,7 +164,7 @@
                     android:gravity="center"
                     android:text=""
                     android:padding="8dip"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     />
             </LinearLayout>
         </TableRow>

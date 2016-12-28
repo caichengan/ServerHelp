@@ -20,13 +20,15 @@
                 android:layout_width="match_parent"
                 android:src="@mipmap/my_switch"
                 android:layout_gravity="center"
+
                 android:layout_height="30dp" />
             <TextView
                 android:layout_marginTop="10dp"
                 android:id="@+id/mCallName"
                 android:layout_below="@id/head"
                 android:layout_width="match_parent"
-                android:text="名字"
+                android:text="名字"  android:textSize="15sp"
+
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_height="wrap_content" />

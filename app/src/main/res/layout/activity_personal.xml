@@ -83,7 +83,7 @@
             android:layout_marginLeft="20dp"
             android:padding="3dp"
             android:text="本月收入"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/mMoney"
@@ -114,7 +114,7 @@
                     android:padding="5dp"
 
                     android:text="累计收入："
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/mTotalMoney"
@@ -140,7 +140,7 @@
                     android:layout_marginLeft="30dp"
                     android:padding="5dp"
                     android:text="服务积分："
-                    android:textSize="18sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/mServiceNum"
@@ -150,7 +150,7 @@
                     android:padding="5dp"
                     android:text="0分"
                     android:textColor="@android:color/holo_orange_light"
-                    android:textSize="18sp" />
+                    android:textSize="15sp" />
 
             </LinearLayout>
 
@@ -201,7 +201,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="资料交接"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <View
@@ -235,7 +235,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="工商核名"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <View
@@ -269,7 +269,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="注册文件"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
             </TableRow>
@@ -307,7 +307,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="工商注册"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <View
@@ -339,7 +339,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="雕刻印章"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <View
@@ -372,7 +372,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="公安拿章"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -414,7 +414,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="银行开户"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <View
@@ -445,7 +445,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="银行委托"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -480,7 +480,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="国税核税"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
 
@@ -520,7 +520,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="数字证书"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -553,7 +553,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="金税盘"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -587,7 +587,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="电子发票"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -626,7 +626,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="地税核税"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -659,7 +659,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="租苈备案"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <View
@@ -693,7 +693,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="移交会计"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
 
@@ -732,7 +732,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="移交客户"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <View
@@ -764,7 +764,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="办证回访"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -798,7 +798,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="发朋友圈"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
             </TableRow>
             <View
@@ -832,7 +832,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="后台开讲"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
                 <View
                     android:layout_width="1dp"
@@ -860,7 +860,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text="口碑传播"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
                 <View
                     android:layout_width="1dp"
@@ -890,7 +890,7 @@
                         android:gravity="center"
                         android:padding="8dip"
                         android:text=""
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
             </TableRow>
         </TableLayout>

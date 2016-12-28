@@ -1,7 +1,6 @@
 package com.xht.android.serverhelp.model;
 
 import android.content.Context;
-import android.util.EventLogTags;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,6 @@ import com.xht.android.serverhelp.util.LogHelper;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static android.view.View.Z;
 
 
 public class SortAdapter extends BaseAdapter implements SectionIndexer {
@@ -80,6 +77,9 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
 		if(position == getPositionForSection(section)){
 			viewHolder.tvLetter.setVisibility(View.VISIBLE);
 			viewHolder.tvLetter.setText(mContent.getSortLetters());
+			//viewHolder.tvLetter.setText(mContent.getName());
+
+
 		}else{
 			viewHolder.tvLetter.setVisibility(View.GONE);
 		}

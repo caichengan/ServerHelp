@@ -60,7 +60,7 @@
             android:layout_marginLeft="12dp"
         android:gravity="center_vertical"
             android:text="修改密码"
-            android:textSize="18sp"
+            android:textSize="15sp"
 
             />
 

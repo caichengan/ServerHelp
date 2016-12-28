@@ -12,6 +12,7 @@
         android:background="@android:color/white"
         android:layout_marginTop="1dp"
         android:padding="10dp"
+        android:visibility="gone"
         android:layout_height="wrap_content">
         <Button
             android:id="@+id/editButton"
@@ -32,148 +33,232 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:padding="3dp"
         android:background="@android:color/white"
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:text="公司名称： "
             android:layout_height="wrap_content" />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+      />
         <TextView
             android:id="@+id/textComName"
-            android:layout_width="wrap_content"
+
             android:text=" 破天之恋"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/editName"
-            android:layout_width="wrap_content"
-            android:hint="破天之恋"
-            android:visibility="gone"
-            android:layout_height="wrap_content" />
+            style="@style/detialTextMessage" />
+
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:visibility="gone"
+        android:background="@color/colorGray2"
+        android:layout_height="0.0001dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:padding="3dp"
         android:background="@android:color/white"
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:text="客户名称： "
             android:layout_height="wrap_content" />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
         <TextView
             android:id="@+id/textClientName"
-            android:layout_width="wrap_content"
             android:text=" 破天之恋"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/editClientName"
-            android:layout_width="wrap_content"
-            android:hint="破天之恋"
-            android:visibility="gone"
-            android:layout_height="wrap_content" />
+            style="@style/detialTextMessage" />
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:background="@android:color/white"
         android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:padding="3dp"
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:text="客户手机： "
             android:layout_height="wrap_content" />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
         <TextView
             android:id="@+id/textPhone"
-            android:layout_width="wrap_content"
             android:text=" 13531829360"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/editPhone"
-            android:layout_width="wrap_content"
-            android:hint="13531829360"
-            android:phoneNumber="true"
-            android:visibility="gone"
-            android:layout_height="wrap_content" />
+            style="@style/detialTextMessage" />
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_marginTop="1dp"
         android:background="@android:color/white"
-        android:padding="10dp"
+        android:padding="3dp"
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:text="性别： "
             android:layout_height="wrap_content" />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+        />
         <TextView
             android:id="@+id/textSex"
-            android:layout_width="wrap_content"
             android:text=" 男"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/editSex"
-            android:layout_width="wrap_content"
-            android:hint="男"
-            android:visibility="gone"
-            android:layout_height="wrap_content" />
+            style="@style/detialTextMessage" />
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:background="@android:color/white"
         android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:padding="3dp"
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:text="注册资金： "
             android:layout_height="wrap_content" />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            />
         <TextView
             android:id="@+id/textMoney"
             android:layout_width="wrap_content"
             android:text="   "
             android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/editMoney"
-            android:layout_width="wrap_content"
-            android:hint="万"
-            android:visibility="gone"
-            android:layout_height="wrap_content" />
+
         <TextView
-            android:layout_width="wrap_content"
             android:text="     万"
-            android:layout_height="wrap_content" />
+            style="@style/detialTextMessage" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:padding="3dp"
+        android:visibility="gone"
         android:background="@android:color/white"
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:text="股份比例： "
             android:layout_height="wrap_content" />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            />
         <TextView
             android:id="@+id/textGufeng"
-
             android:layout_width="wrap_content"
             android:text=" 0"
             android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/editGufeng"
-            android:layout_width="50dp"
-            android:hint="0"
-            android:visibility="gone"
-            android:layout_height="wrap_content" />
+
         <TextView
             android:layout_width="wrap_content"
             android:text="    %"
+            android:layout_marginRight="5dp"
+
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        android:layout_marginTop="1dp"
+        android:padding="3dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="公司类型： "
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/textStyle"
+            android:text="自然独资"
+            style="@style/detialTextMessage" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        android:layout_marginTop="1dp"
+        android:padding="3dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="经营范围： "
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/textRange"
+            android:text="自然独资"
+           style="@style/detialTextMessage" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        android:layout_marginTop="1dp"
+        android:padding="3dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="经营地址： "
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/textAddress"
+            android:text="自然独资"
+            style="@style/detialTextMessage" />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:text="员工信息"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="4dp"
+        android:layout_height="wrap_content" />
+
+    <ListView
+        android:id="@+id/mEmployee"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
 </LinearLayout>

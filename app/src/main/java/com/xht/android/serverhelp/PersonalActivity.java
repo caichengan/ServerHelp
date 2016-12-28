@@ -31,11 +31,6 @@ import org.json.JSONObject;
  */
 public class PersonalActivity extends Activity implements View.OnClickListener {
 
-
-
-
-
-
     private ProgressDialog mProgressDialog;
     private ChoosePicDialog mChoosePicDialog;
     private Uri mCurFromCamare;
@@ -416,7 +411,7 @@ public class PersonalActivity extends Activity implements View.OnClickListener {
         mTabLay19.setOnClickListener(this);
         mTabLay20.setOnClickListener(this);
 
-        mPersonImg.setOnClickListener(this);
+       // mPersonImg.setOnClickListener(this);
         String url = mSHaredPreference.getString("url", "null");
         LogHelper.i(TAG,"------"+url);
         if (!url.equals("null")){

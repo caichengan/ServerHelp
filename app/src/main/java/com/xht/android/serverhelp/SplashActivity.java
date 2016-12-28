@@ -84,7 +84,7 @@ public class SplashActivity extends Activity {
                     public void run() {
                         checkVersion();
                     }
-                },2000);
+                },1000);
             }
             @Override
             public void onAnimationRepeat(Animation animation) {
@@ -135,16 +135,17 @@ public class SplashActivity extends Activity {
 
 
                 String versionNum = mJsonVersion.optString("version");
+                String updateDescribe = mJsonVersion.optString("updateDescribe");
                 //服务器中的版本号
                 Double versionNew = Double.parseDouble(versionNum);
                 String downloadurl = mJsonVersion.optString("downloadurl");
                 LogHelper.i(TAG, "-----前versionNum：=" + versionNew + "---" + downloadurl);
                 LogHelper.i(TAG, "-----appInfoNumber：=" + appInfoNumber + "---" );
                 if (versionNew > appInfoNumber) {
-                    versionNew = versionNew / 10.0;
+                    versionNew = versionNew / 100.00;
                     LogHelper.i(TAG, "-------后--versionNum：=" + versionNew + "---" + downloadurl);
                     LogHelper.i(TAG, "---有新版本，下载更新");
-                    showDialogUpdate(versionNew + "", "新的版本，修复文章bug", downloadurl);
+                    showDialogUpdate(versionNew + "", updateDescribe, downloadurl);
                 } else {
 
                     if (isUserLogin()) {

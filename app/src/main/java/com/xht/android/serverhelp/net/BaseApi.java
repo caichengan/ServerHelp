@@ -14,6 +14,7 @@ public class BaseApi {
     //上传图片
 	//public static final String BZ_PIC_UPLOAD_Url ="http://www.xiaohoutai.com.cn:8888/XHT/servicefileController/receiveServiceFile";
 	public static final String BZ_PIC_UPLOAD_Url ="http://www.xiaohoutai.com.cn:8888/XHT/servicefileController/receiveServiceFile";
+    //上传头像图片
 	public static final String BZ_TOU_UPLOAD_Url ="http://www.xiaohoutai.com.cn:8888/XHT/employeeController/uploadHeadPortrait";
 	//public static final String BZ_PIC_UPLOAD_Url ="http://1173492292.tunnel.2bdata.com/javaEELog/XUtilsFileReceive";
     //更新进度提交数据
@@ -52,10 +53,14 @@ public class BaseApi {
     public static final String CONTACTSPOST_URL = "http://www.xiaohoutai.com.cn:8888/XHT/homeOrderDetailController/AddressBookCustomerDetail";
     //通讯录内部员工
     public static final String CONTACTS_GONGSI_URL = "http://www.xiaohoutai.com.cn:8888/XHT/homeOrderDetailController/AddressBookEmployeeDetail";
+
     public static final String COMPANY_GONGSI_URL = "http://www.xiaohoutai.com.cn:8888/XHT/ordercontactController/loadCompanyinfoByUserId";
 
     //登录提交验证
     public static final String LOGIN_URL="http://www.xiaohoutai.com.cn:8888/XHT/employeeController/employeeLogin";
+
+    //访问公司人员信息
+    public static final String COMPLETE_NAME_URL="";
 
 
 }

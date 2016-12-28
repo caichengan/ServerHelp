@@ -30,7 +30,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="8dp"
                     android:text="插插插插"
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="40dp"
@@ -39,7 +39,7 @@
                     android:layout_below="@id/btmz1"
                     android:layout_marginLeft="8dp"
                     android:text="开始时间："
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -47,7 +47,7 @@
                     android:layout_alignTop="@id/kssj1"
                     android:layout_toRightOf="@id/kssj1"
                     android:text="开始时间"
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:layout_width="100dp"
@@ -57,7 +57,7 @@
                     android:layout_below="@id/kssj1"
                     android:layout_marginLeft="8dp"
                     android:text="结束时间："
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -65,7 +65,7 @@
                     android:layout_alignTop="@id/jssj1"
                     android:layout_toRightOf="@id/jssj1"
                     android:text="结束时间"
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
                     android:clickable="true"
                     android:layout_marginLeft="8dp"
                     android:text="文件上传"
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                     android:layout_marginLeft="8dp"
                     android:text="结果上传"
                     android:clickable="true"
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                     android:layout_toRightOf="@id/scwj_btn1"
                     android:layout_marginLeft="20dp"
                     android:text="工商局"
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <com.android.volley.toolbox.NetworkImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -152,7 +152,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="8dp"
                     android:text="跟进人员："
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="40dp"
@@ -160,7 +160,7 @@
                     android:layout_alignTop="@id/mFollowPeople"
                     android:layout_toRightOf="@id/mFollowPeople"
                     android:text=""
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <TextView
                     android:id="@+id/submit_gx1"
                     android:layout_width="wrap_content"
@@ -171,7 +171,7 @@
                     android:paddingRight="16dp"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:text=""
                     android:gravity="center"
                     android:visibility="gone"
@@ -189,7 +189,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="取消任务"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
                         android:background="@drawable/btn1_sel"/>
@@ -199,7 +199,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:text="继续任务"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
                         android:background="@drawable/btn1_sel"/>
@@ -209,7 +209,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:text="转交任务"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
                         android:background="@drawable/btn1_sel"/>
@@ -228,7 +228,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="8dp"
                     android:text="插插插插"
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="40dp"
@@ -237,7 +237,7 @@
                     android:layout_below="@id/btmz2"
                     android:layout_marginLeft="8dp"
                     android:text="开始时间："
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="40dp"
@@ -245,7 +245,7 @@
                     android:layout_alignTop="@id/kssj2"
                     android:layout_toRightOf="@id/kssj2"
                     android:text="开始时间"
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:layout_width="100dp"
@@ -255,7 +255,7 @@
                     android:layout_below="@id/kssj2"
                     android:layout_marginLeft="8dp"
                     android:text="结束时间："
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="40dp"
@@ -263,7 +263,7 @@
                     android:layout_alignTop="@id/jssj2"
                     android:layout_toRightOf="@id/jssj2"
                     android:text="结束时间"
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -273,7 +273,7 @@
                     android:layout_marginLeft="8dp"
                     android:text="文件上传"
                     android:clickable="true"
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -283,7 +283,7 @@
                     android:layout_marginLeft="8dp"
                     android:text="结果上传"
                     android:clickable="true"
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -292,7 +292,7 @@
                     android:layout_toRightOf="@id/scwj_btn2"
                     android:layout_marginLeft="20dp"
                     android:text="工商局"
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <com.android.volley.toolbox.NetworkImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -349,7 +349,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="8dp"
                     android:text="跟进人员："
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="40dp"
@@ -357,7 +357,7 @@
                     android:layout_alignTop="@id/gjry2"
                     android:layout_toRightOf="@id/gjry2"
                     android:text="大卫"
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
                 <TextView
                     android:id="@+id/submit_gx2"
                     android:layout_width="wrap_content"
@@ -368,7 +368,7 @@
                     android:paddingRight="16dp"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:gravity="center"
                     android:visibility="gone"
                     android:background="@drawable/btn1_sel"/>
@@ -385,7 +385,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="取消任务"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
                         android:background="@drawable/btn1_sel"/>
@@ -395,7 +395,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:text="继续任务"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
                         android:background="@drawable/btn1_sel"/>
@@ -405,7 +405,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:text="转交任务"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
                         android:background="@drawable/btn1_sel"/>

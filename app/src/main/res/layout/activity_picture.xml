@@ -33,6 +33,7 @@
             android:id="@+id/loadImg"
             android:layout_width="100dp"
             android:text="上传"
+            android:textSize="15sp"
             android:layout_marginTop="10dp"
             android:textColor="@android:color/white"
             android:background="@drawable/btn_background_circle"
