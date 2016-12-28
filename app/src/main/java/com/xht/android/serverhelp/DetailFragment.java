@@ -115,16 +115,9 @@ public class DetailFragment extends Fragment {
         textRange = (TextView) view.findViewById(R.id.textRange);
         textAddress = (TextView) view.findViewById(R.id.textAddress);
         mEmployee = (ListView) view.findViewById(R.id.mEmployee);
-
-
-
+        
         completeDatas();
-
-
     }
-
-
-
     //获取公司人员的信息
     private void getCompanyDetial() {
 
