@@ -123,6 +123,8 @@ public class DetailFragment extends Fragment {
 
     }
 
+
+
     //获取公司人员的信息
     private void getCompanyDetial() {
 
