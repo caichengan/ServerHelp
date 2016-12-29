@@ -86,6 +86,7 @@ public class JinDuFragment extends Fragment {
     private String orderId;
     private int loadNum=0;
     private int curItem=1;
+    private String companyId;
 
 
     public JinDuFragment() {
@@ -138,7 +139,9 @@ public class JinDuFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            companyId = getArguments().getString(ARG_PARAM1);
+
+            LogHelper.i(TAG,"------companyId-onCreate--"+companyId);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         /*sharedPreferences = getActivity().getSharedPreferences("progress", Context.MODE_APPEND);

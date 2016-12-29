@@ -69,8 +69,14 @@ public class BZListActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(BZListActivity.this, RwxqActivity.class);
                 int orderId = mBZItems.get(position).getOrdId();
+                String companyId = mBZItems.get(position).getCompanyId();
+                String phone = mBZItems.get(position).getPhone();
+                String contactName = mBZItems.get(position).getKehu();
                 intent.putExtra("ordId", orderId);
                 intent.putExtra("mUid",mUid);
+                intent.putExtra("companyId",companyId);
+                intent.putExtra("phone",phone);
+                intent.putExtra("contactName",contactName);
                 intent.putExtra("mCompanyName",mBZItems.get(position).getComp());
                 startActivity(intent);
             }
@@ -162,8 +168,10 @@ public class BZListActivity extends Activity {
                 bZItem.setKehu(jO.getString("contactName"));
                 bZItem.setComp(jO.getString("companyName"));
                 bZItem.setCompArea(jO.getString("countyName"));
+                bZItem.setPhone(jO.getString("telephone"));
                 bZItem.setOrdId(jO.getInt("orderId"));
                 bZItem.setFlowId(jO.getString("flowId"));
+                bZItem.setCompanyId(jO.getString("companyId"));
                 mBZItems.add(bZItem);
                 //mBZItems.add(bZItem);
             } catch (JSONException e) {

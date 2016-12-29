@@ -198,9 +198,9 @@ public class VolleyHelpApi extends BaseApi{
 	 * @param
 	 * @param apiListener
 	 */
-	public void getDataBZChengYuan(final int mUid, final APIListener apiListener) {
+	public void getDataBZChengYuan(final int orderid, final APIListener apiListener) {
 		String urlS = MakeURL(BZ_ChengYuan_URL, new LinkedHashMap<String, Object>() {
-			{put("employeeId", mUid);}
+			{put("orderid", orderid);}
 
 			//"entity":{"employeeName":"蔡成安"},"code":"1"}
 		});
@@ -956,12 +956,12 @@ public class VolleyHelpApi extends BaseApi{
 
 	/**
 	 * 获取公司信息和人员信息
-	 * @param uid
+	 * @param companyid
 	 * @param apiListener
      */
-	public void getCompamyDatas(final int uid, final APIListener apiListener) {
+	public void getCompamyDatas(final String companyid, final APIListener apiListener) {
 		String urlString = MakeURL(COMPLETE_NAME_URL, new LinkedHashMap<String, Object>() {{
-			put("userid", uid);
+			put("companyid", companyid);
 		}});
 		JsonObjectRequest req = new JsonObjectRequest(urlString, null, new Response.Listener<JSONObject>() {
 			@Override

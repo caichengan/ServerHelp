@@ -15,13 +15,13 @@ import java.util.List;
  */
 
 public class EmployeeAdapter extends BaseAdapter {
-    private List<CompleteCompanyBean> completeCompanyBeanList;
+    private List<CompleteCompanyBean.EntityBean.PersonsBean> completeCompanyBeanList;
     private Context mContext;
 
 
-    public EmployeeAdapter(Context mContext,List<CompleteCompanyBean> completeCompanyList) {
+    public EmployeeAdapter(Context mContext, List<CompleteCompanyBean.EntityBean.PersonsBean> completeCompanyBeanList) {
         this.mContext=mContext;
-        this.completeCompanyBeanList=completeCompanyList;
+        this.completeCompanyBeanList=completeCompanyBeanList;
     }
 
     @Override
@@ -61,8 +61,13 @@ public class EmployeeAdapter extends BaseAdapter {
 
         }
 
+        CompleteCompanyBean.EntityBean.PersonsBean personsBean = completeCompanyBeanList.get(position);
 
-
+        holder.itemname.setText(personsBean.getPersonname());
+        holder.itemrange.setText(personsBean.getShareRatio());
+        holder.itemaddress.setText(personsBean.getIdcardaddress());
+        holder.itemnumber.setText(personsBean.getIdcardcode());
+        holder.itemworker.setText(personsBean.getPostname());
 
 
         return convertView;

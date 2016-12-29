@@ -8,7 +8,6 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -28,6 +27,8 @@ import com.xht.android.serverhelp.net.VolleyHelpApi;
 import com.xht.android.serverhelp.util.BitmapUtils;
 import com.xht.android.serverhelp.util.LogHelper;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -47,12 +48,14 @@ public class RwxqActivity extends Activity {
     LinearLayout mLLayout;
     private ArrayList<PersonBzzxq> mPBArrayList;
     private int mUid;
-    private String employeeName;
+    public String contactName;
     private TextView textName;
 
     private SharedPreferences mSHaredPreference;
     private ImageView textImg;
     private String companyName;
+    private String companyId;
+    public String phone;
 
     @Override
     protected void onResume() {
@@ -60,16 +63,25 @@ public class RwxqActivity extends Activity {
 
         mUid=MainActivity.mUserInfo.getUid();
         mOrderId = getIntent().getIntExtra("ordId", 0);
-        LogHelper.i(TAG,"-----mUid----------"+mUid+"----mOrderId"+mOrderId);
-        new JinDuFragment().newInstance("",null);
+        companyId = getIntent().getStringExtra("companyId");
+        phone = getIntent().getStringExtra("phone");
+        contactName = getIntent().getStringExtra("contactName");
+        LogHelper.i(TAG,"-----mUid----------"+mUid+"----mOrderId"+phone+"---"+phone);
+        new JinDuFragment().newInstance(companyId,null);
     }
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mOrderId = getIntent().getIntExtra("ordId", 0);
         mUid = getIntent().getIntExtra("mUid", 0);
+        companyId = getIntent().getStringExtra("companyId");
         companyName = getIntent().getStringExtra("mCompanyName");
+        phone = getIntent().getStringExtra("phone");
+        contactName = getIntent().getStringExtra("contactName");
         LogHelper.i(TAG,"-----mUid"+mUid+"----mOrderId"+mOrderId);
 
         TextView mCustomView = new TextView(this);
@@ -92,18 +104,18 @@ public class RwxqActivity extends Activity {
         mLLayout = (LinearLayout) findViewById(R.id.containLLayout);
         mHorizontalSV = (HorizontalScrollView) findViewById(R.id.chengyuan);
         //-----------------------------测试-----------------------------------------------
-        View view = this.getLayoutInflater().inflate(R.layout.item_bz_chengyuan, null);//TODO 添加头像
+      /*  View view = this.getLayoutInflater().inflate(R.layout.item_bz_chengyuan, null);//TODO 添加头像
         textName = (TextView) view.findViewById(R.id.chengyuanName);
         textImg = (ImageView) view.findViewById(R.id.touxiang);
 
         //TODO 加到滑动标签 中去
-        mLLayout.addView(view);
+        mLLayout.addView(view);*/
         //-----------------------------测试end-----------------------------------------------
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         mFragment1 = fm.findFragmentByTag("f1");
         if (mFragment1 == null) {
-            mFragment1 = JinDuFragment.newInstance("", null);
+            mFragment1 = JinDuFragment.newInstance(companyId, null);
             //mFragment1 = ProgressFragment.newInstance("", null);
         }
 
@@ -111,12 +123,12 @@ public class RwxqActivity extends Activity {
 
         String url = mSHaredPreference.getString("url", "null");
         LogHelper.i(TAG,"------"+url);
-        if (!url.equals("null")){
+      /*  if (!url.equals("null")){
             LogHelper.i(TAG,"----11--"+url);
             Bitmap smallBitmap = BitmapUtils.getSmallBitmap(url);
             textImg.setImageBitmap(smallBitmap);
             // BitmapUtils.loadImgageUrl(url,mPersonImg);
-        }
+        }*/
 
         ft.add(R.id.fragment_contain, mFragment1, "f1");
         mFragment2 = fm.findFragmentByTag("f2");
@@ -127,7 +139,7 @@ public class RwxqActivity extends Activity {
         ft.add(R.id.fragment_contain, mFragment2, "f2");
         mFragment3 = fm.findFragmentByTag("f3");
         if (mFragment3 == null) {
-            mFragment3 = DetailFragment.newInstance("", null);
+            mFragment3 = DetailFragment.newInstance(companyId, null);
         }
         ft.add(R.id.fragment_contain, mFragment3, "f3");
         ft.commit();
@@ -181,15 +193,37 @@ public class RwxqActivity extends Activity {
      * 办证中获取成员数据
      */
     private void loadDataPs() {
-        VolleyHelpApi.getInstance().getDataBZChengYuan(mUid, new APIListener() {
+        VolleyHelpApi.getInstance().getDataBZChengYuan(mOrderId, new APIListener() {
             @Override
             public void onResult(Object result) {
 
-                JSONObject jsonObj = ((JSONObject) result).optJSONObject("entity");
-                //"entity":{"employeeName":"蔡成安"},"code":"1"}
-                employeeName = jsonObj.optString("employeeName");
+                JSONArray jsonObj = ((JSONObject) result).optJSONArray("entity");
+               //[{"employeeId":2,"headportrait":null,"employeeName":"安仔"}]
                 LogHelper.i(TAG,"------result----"+result);
-                textName.setText(employeeName);
+                for (int i=0;i<jsonObj.length();i++) {
+                    try {
+                       JSONObject obj= (JSONObject) jsonObj.get(i);
+                        String headportrait = obj.optString("headportrait");
+                        String employeeName = obj.optString("employeeName");
+                        LogHelper.i(TAG,"-----headportrait-"+headportrait);
+
+                        View view = View.inflate(RwxqActivity.this,R.layout.item_bz_chengyuan,null);//TODO 添加头像
+                        textName = (TextView) view.findViewById(R.id.chengyuanName);
+                        textImg = (ImageView) view.findViewById(R.id.touxiang);
+
+
+
+                        textName.setText(employeeName);
+                        BitmapUtils.loadImgageUrl(headportrait,textImg);
+
+                        //TODO 加到滑动标签 中去
+                        mLLayout.addView(view);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
             }
             @Override
             public void onError(Object e) {

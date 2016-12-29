@@ -15,6 +15,38 @@ public class BZItem {
     private int ordId;      //订单ID
     private String flowId;      //ID
 
+    private String phone;
+    private String contactName;//客户名称
+
+
+
+    private String companyId;//公司id
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
+
     public String getFlowId() {
         return flowId;
     }

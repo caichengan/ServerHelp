@@ -7,14 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.xht.android.serverhelp.model.CompleteCompanyBean;
 import com.xht.android.serverhelp.model.EmployeeAdapter;
 import com.xht.android.serverhelp.model.UserInfo;
 import com.xht.android.serverhelp.net.APIListener;
 import com.xht.android.serverhelp.net.VolleyHelpApi;
+import com.xht.android.serverhelp.util.LogHelper;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +41,10 @@ public class DetailFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Button editButton;
-    private Button saveButton;
+    private Button btnChange;
 
     private TextView textComName;//公司名
+    private TextView editComName;//公司名
     private TextView textClientName;//客户名
     private TextView textPhone;//电话号码
     private TextView textSex;//性别
@@ -52,8 +57,16 @@ public class DetailFragment extends Fragment {
     private EmployeeAdapter employeeAdapter;
     private UserInfo userInfo;
     private int uid;
+    private RwxqActivity mRwxqActivity;
 
     private List<CompleteCompanyBean> completeCompanyList;
+    private boolean number=false;
+    private String companyId;
+
+    private static final String TAG = "DetailFragment";
+    private CompleteCompanyBean completeCompanyBean;
+    private String phone;
+    private String contactName;
 
     public DetailFragment() {
         // Required empty public constructor
@@ -81,14 +94,21 @@ public class DetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            companyId = getArguments().getString(ARG_PARAM1);
+            LogHelper.i(TAG,"------companyId-onCreate--"+ companyId);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
+        mRwxqActivity= (RwxqActivity) getActivity();
+        phone = ((RwxqActivity) getActivity()).phone;
+        contactName = ((RwxqActivity) getActivity()).contactName;
         userInfo = MainActivity.getInstance();
         uid = userInfo.getUid();
+        LogHelper.i(TAG,"------companyId-onCreate--"+ companyId);
         completeCompanyList=new ArrayList<>();
-        getCompanyDetial();
+        if (companyId!=null) {
+            LogHelper.i(TAG,"------companyId-onCreate--"+ companyId+"---phone"+ phone);
+            getCompanyDetial();
+        }
 
     }
 
@@ -102,10 +122,9 @@ public class DetailFragment extends Fragment {
 
     private void initialize(View view) {
 
-        editButton = (Button) view.findViewById(R.id.editButton);
-        saveButton = (Button) view.findViewById(R.id.saveButton);
-
+        btnChange = (Button) view.findViewById(R.id.btnChange);
         textComName = (TextView) view.findViewById(R.id.textComName);
+        editComName = (EditText) view.findViewById(R.id.editComName);
         textClientName = (TextView) view.findViewById(R.id.textClientName);
         textPhone = (TextView) view.findViewById(R.id.textPhone);
         textSex = (TextView) view.findViewById(R.id.textSex);
@@ -115,15 +134,49 @@ public class DetailFragment extends Fragment {
         textRange = (TextView) view.findViewById(R.id.textRange);
         textAddress = (TextView) view.findViewById(R.id.textAddress);
         mEmployee = (ListView) view.findViewById(R.id.mEmployee);
-        
-        completeDatas();
+
+        btnChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogHelper.i(TAG,"------companyId-onCreate--"+ companyId);
+                String companyName = editComName.getText().toString();
+                if (!number){
+                    textComName.setVisibility(View.GONE);
+                    editComName.setVisibility(View.VISIBLE);
+                    btnChange.setText("确认");
+
+                    ChangeCompanyName();
+                    number=true;
+                }else{
+                    textComName.setVisibility(View.VISIBLE);
+                    textComName.setText(companyName);
+                    editComName.setVisibility(View.GONE);
+                    btnChange.setText("完成");
+
+                }
+            }
+        });
+
     }
+
+    //提交保存的公司名
+    private void ChangeCompanyName() {
+
+    }
+
     //获取公司人员的信息
     private void getCompanyDetial() {
 
-        VolleyHelpApi.getInstance().getCompamyDatas(uid, new APIListener() {
+        LogHelper.i(TAG,"-----getCompanyDetial-------1111----");
+       VolleyHelpApi.getInstance().getCompamyDatas(companyId, new APIListener() {
             @Override
             public void onResult(Object result) {
+                JSONObject object= (JSONObject) result;
+
+                LogHelper.i(TAG,"-----getCompanyDetial------22222222-----");
+                LogHelper.i(TAG,"----onResult---"+result.toString());
+
+                analysisMethod(result.toString());
 
             }
 
@@ -135,9 +188,49 @@ public class DetailFragment extends Fragment {
 
     }
 
-    private void completeDatas() {
+    //解析数据
+    private void analysisMethod(String object) {
+       // JSONObject obj = object.optJSONObject("entity");
 
-        employeeAdapter = new EmployeeAdapter(getActivity(),completeCompanyList);
+        LogHelper.i(TAG,"-----getCompanyDetial-----3333-----");
+        Gson gson=new Gson();
+        CompleteCompanyBean completeCompanyBean = gson.fromJson(object, CompleteCompanyBean.class);
+
+        int size = completeCompanyBean.getEntity().getCompany().size();
+        if (size>0) {
+            CompleteCompanyBean.EntityBean.CompanyBean companyBean = completeCompanyBean.getEntity().getCompany().get(0);
+
+
+            String companyName = companyBean.getCompanyName();
+            String addressDetail = companyBean.getAddressDetail();
+            String businessScope = companyBean.getBusinessScope();
+
+            String compTypeName = companyBean.getCompTypeName();
+            String registCapital = companyBean.getRegistCapital();
+
+            textComName.setText(companyName);
+            textPhone.setText(phone);
+            textClientName.setText(contactName);
+            textStyle.setText(compTypeName);
+            textAddress.setText(addressDetail);
+            textMoney.setText(registCapital);
+            textRange.setText(businessScope);
+
+
+            LogHelper.i(TAG, "-----registCapital--"+registCapital+"-----companyName---tel-" + companyName + "----contactName--"+contactName+"--compTypeName-"+compTypeName);
+            // completeCompanyList.add(completeCompanyBean);
+
+            List<CompleteCompanyBean.EntityBean.PersonsBean> persons = completeCompanyBean.getEntity().getPersons();
+            completeDatas(persons);
+        }
+
+    }
+
+    private void completeDatas(List<CompleteCompanyBean.EntityBean.PersonsBean> companyBean) {
+
+
+
+        employeeAdapter = new EmployeeAdapter(getActivity(),companyBean);
         mEmployee.setAdapter(employeeAdapter);
 
     }
