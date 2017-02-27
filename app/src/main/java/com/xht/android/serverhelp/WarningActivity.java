@@ -230,14 +230,14 @@ public class WarningActivity extends Activity{
             holder.mTextCompany.setText(itemBean.getComName());
             int day = itemBean.getmDaty();
             if (day<5){
-                holder.mTextDay.setBackgroundResource(R.drawable.blue_stroke);
-                LogHelper.i(TAG,"------"+day);
-            }
-            if (day>=5&&day<9){
                 holder.mTextDay.setBackgroundResource(R.drawable.green_stroke);
                 LogHelper.i(TAG,"------"+day);
             }
-            if (day>=9){
+            if (day>=5&&day<10){
+                holder.mTextDay.setBackgroundResource(R.drawable.yellow_stroke);
+                LogHelper.i(TAG,"------"+day);
+            }
+            if (day>=10){
                 holder.mTextDay.setBackgroundResource(R.drawable.red_stroke);
                 LogHelper.i(TAG,"------"+day);
             }

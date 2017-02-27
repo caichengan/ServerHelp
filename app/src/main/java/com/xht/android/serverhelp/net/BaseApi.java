@@ -64,4 +64,16 @@ public class BaseApi {
     public static final String COMPLETE_NAME_URL="http://www.xiaohoutai.com.cn:8888/XHT/appCompanyController/getCompanyDataDetail";
 
 
+    //保存公司修改的公司名称
+    public static final String SAVE_COPANY_URL="http://www.xiaohoutai.com.cn:8888/XHT/appCompanyController/modifyCompanyName";
+
+    //获取订单数据
+    public static final String DATAS_ORDER_URL="http://www.xiaohoutai.com.cn:8888/XHT/companyregistorderController/getOrderDetails";
+
+    /**
+     * 提交过程结果审核
+     */
+    public static final String POST_SUBMIT_URL="http://www.xiaohoutai.com.cn:8888/XHT/companyServiceController/toExamineApply";
+
+
 }

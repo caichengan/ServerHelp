@@ -642,6 +642,8 @@ public class PicLoadActivity extends Activity implements View.OnClickListener {
      */
     private void MethodUdLoad() {
 
+        LogHelper.i(TAG,"--------status---"+status);
+
         if (status.equals("4") || status.equals("5")) {
             App.getInstance().showToast("已经上传过照片");
             return;

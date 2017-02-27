@@ -258,8 +258,8 @@ public class PersonalActivity extends Activity implements View.OnClickListener {
         mBackLecturingNum .setText(step19);
         mPublicPraiseNum .setText(step20);
 
-        mMoney.setText(mYMoney+"元");
-        mTotalMoney.setText(mTMoney+"元");
+        mMoney.setText(mYMoney+"  元");
+        mTotalMoney.setText(mTMoney+"  元");
         mServiceNum.setText(0+"");
     }
 

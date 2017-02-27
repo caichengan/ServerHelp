@@ -115,7 +115,8 @@
             android:textColor="@android:color/white"
             android:background="@drawable/btn_background_circle"
            />
-        <Button
+
+                <Button
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:id="@+id/mImgResult"
@@ -129,6 +130,21 @@
             android:background="@drawable/btn_background_circle"
             android:scaleType="fitXY"
            />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:id="@+id/mImgResultSubmit"
+                    android:layout_alignTop="@id/mResultLoad"
+                    android:layout_toRightOf="@id/mImgResult"
+                    android:layout_marginLeft="30dp"
+                    android:text="提交审核"
+                    android:padding="5dp"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/btn_background_circle"
+                    />
 
         <TextView
             android:layout_width="wrap_content"
@@ -147,15 +163,40 @@
             android:layout_toRightOf="@id/mFollowPeople"
             android:text=""
             android:textSize="15sp"/>
+
+        <LinearLayout
+            android:id="@+id/linpraise"
+            android:layout_below="@id/mFollowName"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="评分："
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/tvApprise"
+                    android:layout_width="wrap_content"
+                    android:text="好的一次"
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="15sp"/>
+        </LinearLayout>
         <Button
             android:id="@+id/mSubmit_gx1"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_below="@id/mFollowPeople"
+            android:layout_below="@id/linpraise"
             android:layout_centerHorizontal="true"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingTop="8dp"
+            android:visibility="gone"
             android:paddingBottom="8dp"
             android:textSize="15sp"
             android:text="提交审核"
@@ -167,9 +208,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginTop="15dp"
             android:visibility="gone"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/mFollowPeople"
+            android:layout_below="@id/linpraise"
           >
             <TextView
                 android:id="@+id/mCancel_rw1"
@@ -204,6 +246,21 @@
                 android:paddingRight="8dp"
                 android:background="@drawable/btn_background_circle"/>
         </LinearLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:id="@+id/mImgFileSubmit"
+                    android:text="提交审核"
+                    android:padding="5dp"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/btn_background_circle"
+                    android:layout_alignBaseline="@+id/mImgFile"
+                    android:layout_alignBottom="@+id/mImgFile"
+                    android:layout_alignLeft="@+id/mImgResultSubmit"
+                    android:layout_alignStart="@+id/mImgResultSubmit" />
 
 
         </RelativeLayout>

@@ -3,7 +3,10 @@ package com.xht.android.serverhelp;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -42,6 +45,8 @@ public class BZListActivity extends Activity {
     private int mUid;
     private BanZAdapter bzAdapter;
     private String flowName;
+    private PullRefreshLayout layout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,8 @@ public class BZListActivity extends Activity {
         int change = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM;
         aBar.setDisplayOptions(change);
 
+        IntentFilter intentFilter = new IntentFilter("com.xht.android.serverhelp.bzl");
+        registerReceiver(mReceiver, intentFilter);
 
         mListView = (ListView) findViewById(R.id.listView);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,7 +92,7 @@ public class BZListActivity extends Activity {
         fetchItemTask(mUid);
 
 
-        final PullRefreshLayout layout = (PullRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        layout = (PullRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -106,7 +113,16 @@ public class BZListActivity extends Activity {
 
         layout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
     }
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            mBZItems.clear();
+            LogHelper.i(TAG,"------mReceiver--uid-"+ mUid);
+            fetchItemTask(mUid);
+        }
+    };
     @Override
     protected void onResume() {
         super.onResume();
@@ -116,6 +132,13 @@ public class BZListActivity extends Activity {
 
         LogHelper.i(TAG,"------onResume--fetchItemTaskuid-"+ mUid);
 
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
     }
 
     /**

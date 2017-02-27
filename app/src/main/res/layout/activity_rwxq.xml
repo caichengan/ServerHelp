@@ -39,6 +39,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:background="@drawable/radio_outline2_sel"
+            android:textColor="@drawable/btn_background_group"
             android:button="@null"
             android:text="进度"
             android:textSize="18sp"/>
@@ -48,8 +49,9 @@
             android:layout_weight="1"
             android:gravity="center"
             android:background="@drawable/radio_outline2_sel"
+            android:textColor="@drawable/btn_background_group"
             android:button="@null"
-            android:clickable="true"
+            android:clickable="false"
             android:text="跟进"
             android:textSize="18sp"/>
         <RadioButton android:id="@+id/tab3"
@@ -57,10 +59,23 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:textColor="@drawable/btn_background_group"
             android:background="@drawable/radio_outline2_sel"
             android:button="@null"
             android:clickable="true"
             android:text="详细"
+            android:textSize="18sp"/>
+        <RadioButton android:id="@+id/tab4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@drawable/btn_background_group"
+
+            android:background="@drawable/radio_outline2_sel"
+            android:button="@null"
+            android:clickable="true"
+            android:text="订单"
             android:textSize="18sp"/>
     </RadioGroup>
     <FrameLayout

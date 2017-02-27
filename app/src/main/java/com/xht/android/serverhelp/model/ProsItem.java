@@ -17,12 +17,55 @@ public class ProsItem {
     private String orderId;//订单编号
     private String employeeId;//客服编号
 
+    private String apprise;//评价
+    private String serviceType;//过程结果
+
+
     private  String mImgTag1;
     private  String mImgTag2;
     private  String mImgTag3;
     private  String mImgTag4;
     private  String mImgTag5;
     private  String mImgTag6;
+
+
+    private String process_progressStatus;
+    private String result_progressStatus;
+
+  //  "process_progressStatus":5,"result_progressStatus":4
+
+
+    public String getProcess_progressStatus() {
+        return process_progressStatus;
+    }
+
+    public void setProcess_progressStatus(String process_progressStatus) {
+        this.process_progressStatus = process_progressStatus;
+    }
+
+    public String getResult_progressStatus() {
+        return result_progressStatus;
+    }
+
+    public void setResult_progressStatus(String result_progressStatus) {
+        this.result_progressStatus = result_progressStatus;
+    }
+
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
+    }
+
+    public String getApprise() {
+        return apprise;
+    }
+
+    public void setApprise(String apprise) {
+        this.apprise = apprise;
+    }
 
     public String getmImgTag1() {
         return mImgTag1;

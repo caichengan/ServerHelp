@@ -2,7 +2,9 @@ package com.xht.android.serverhelp;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.xht.android.serverhelp.net.APIListener;
 import com.xht.android.serverhelp.net.VolleyHelpApi;
 import com.xht.android.serverhelp.util.LogHelper;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -60,13 +63,15 @@ public class DetailFragment extends Fragment {
     private RwxqActivity mRwxqActivity;
 
     private List<CompleteCompanyBean> completeCompanyList;
-    private boolean number=false;
     private String companyId;
 
     private static final String TAG = "DetailFragment";
     private CompleteCompanyBean completeCompanyBean;
     private String phone;
     private String contactName;
+    private String orderId;
+    private String companyName;
+    private int number=0;
 
     public DetailFragment() {
         // Required empty public constructor
@@ -96,7 +101,9 @@ public class DetailFragment extends Fragment {
         if (getArguments() != null) {
             companyId = getArguments().getString(ARG_PARAM1);
             LogHelper.i(TAG,"------companyId-onCreate--"+ companyId);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            orderId = getArguments().getString(ARG_PARAM2);
+
+            LogHelper.i(TAG,"------orderId-onCreate--"+ orderId);
         }
         mRwxqActivity= (RwxqActivity) getActivity();
         phone = ((RwxqActivity) getActivity()).phone;
@@ -139,19 +146,23 @@ public class DetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 LogHelper.i(TAG,"------companyId-onCreate--"+ companyId);
-                String companyName = editComName.getText().toString();
-                if (!number){
+                companyName = editComName.getText().toString();
+                number++;
+                number=number%2;
+                if (number==1){
                     textComName.setVisibility(View.GONE);
                     editComName.setVisibility(View.VISIBLE);
+                    editComName.setText(textComName.getText().toString());
                     btnChange.setText("确认");
 
-                    ChangeCompanyName();
-                    number=true;
+
+
                 }else{
                     textComName.setVisibility(View.VISIBLE);
                     textComName.setText(companyName);
                     editComName.setVisibility(View.GONE);
                     btnChange.setText("完成");
+                    ChangeCompanyName();
 
                 }
             }
@@ -161,6 +172,45 @@ public class DetailFragment extends Fragment {
 
     //提交保存的公司名
     private void ChangeCompanyName() {
+
+        final JSONObject obj=new JSONObject();
+        if (TextUtils.isEmpty(orderId)){
+            App.getInstance().showToast("服务器繁忙,请稍后再试..");
+            return;
+        }
+        if (TextUtils.isEmpty(companyName)){
+            App.getInstance().showToast("服务器繁忙,请稍后再试..");
+            return;
+        }
+        try {
+            obj.put("orderid",orderId);
+
+            obj.put("newCompanyName",companyName);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        LogHelper.i(TAG,"----object--"+obj.toString());
+
+
+
+        VolleyHelpApi.getInstance().postSaveCompanyName(obj, new APIListener() {
+            @Override
+            public void onResult(Object result) {
+
+                JSONObject object= (JSONObject) result;
+                LogHelper.i(TAG,"----object--"+object.toString());
+
+                Intent intent = new Intent("com.xht.android.serverhelp.bzl");
+                getActivity().sendBroadcast(intent);
+                getActivity().finish();
+            }
+
+
+            @Override
+            public void onError(Object e) {
+
+            }
+        });
 
     }
 

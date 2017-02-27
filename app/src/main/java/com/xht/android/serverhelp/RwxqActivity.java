@@ -8,6 +8,7 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -39,8 +40,8 @@ import java.util.ArrayList;
  */
 public class RwxqActivity extends Activity {
     private static final String TAG = "RwxqActivity";
-    private Fragment mFragment1, mFragment2, mFragment3;
-    private RadioButton mRBtn1, mRBtn2, mRBtn3;
+    private Fragment mFragment1, mFragment2, mFragment3,mFragment4;
+    private RadioButton mRBtn1, mRBtn2, mRBtn3,mRBtn4;
     private RadioGroup rg;
     public int mOrderId;
     private ProgressDialog mProgDoal;
@@ -101,6 +102,7 @@ public class RwxqActivity extends Activity {
         mRBtn1 = (RadioButton) findViewById(R.id.tab1);
         mRBtn2 = (RadioButton) findViewById(R.id.tab2);
         mRBtn3 = (RadioButton) findViewById(R.id.tab3);
+        mRBtn4 = (RadioButton) findViewById(R.id.tab4);
         mLLayout = (LinearLayout) findViewById(R.id.containLLayout);
         mHorizontalSV = (HorizontalScrollView) findViewById(R.id.chengyuan);
         //-----------------------------测试-----------------------------------------------
@@ -139,12 +141,19 @@ public class RwxqActivity extends Activity {
         ft.add(R.id.fragment_contain, mFragment2, "f2");
         mFragment3 = fm.findFragmentByTag("f3");
         if (mFragment3 == null) {
-            mFragment3 = DetailFragment.newInstance(companyId, null);
+            mFragment3 = DetailFragment.newInstance(companyId, mOrderId+"");
         }
         ft.add(R.id.fragment_contain, mFragment3, "f3");
+
+        mFragment4 = fm.findFragmentByTag("f4");
+        if (mFragment4 == null) {
+            mFragment4 = OrderFragment.newInstance(mOrderId+"", null);
+        }
+        ft.add(R.id.fragment_contain, mFragment4, "f4");
+
         ft.commit();
 
-
+        mRBtn2.setTextColor(Color.GRAY);
 
 
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -174,8 +183,10 @@ public class RwxqActivity extends Activity {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         if (mRBtn1.isChecked()) {
             ft.show(mFragment1);
+            mRBtn1.setTextColor(Color.RED);
         } else {
             ft.hide(mFragment1);
+            mRBtn1.setTextColor(Color.GRAY);
         }
         if (mRBtn2.isChecked()) {
             ft.show(mFragment2);
@@ -186,6 +197,11 @@ public class RwxqActivity extends Activity {
             ft.show(mFragment3);
         } else {
             ft.hide(mFragment3);
+        }
+        if (mRBtn4.isChecked()) {
+            ft.show(mFragment4);
+        } else {
+            ft.hide(mFragment4);
         }
         ft.commit();
     }

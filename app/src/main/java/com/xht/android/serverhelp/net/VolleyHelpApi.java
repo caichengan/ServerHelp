@@ -144,7 +144,7 @@ public class VolleyHelpApi extends BaseApi{
 					default:
 						LogHelper.i(TAG, "未知错误");
 				}
-				apiListener.onError("获取办证进度标签下的数据出错");
+				apiListener.onError("服务器繁忙，请稍后再试...");
 			}
 		});
 		App.getInstance().addToRequestQueue(req, TAG);
@@ -186,12 +186,54 @@ public class VolleyHelpApi extends BaseApi{
 					default:
 						LogHelper.i(TAG, "未知错误");
 				}
-				apiListener.onError("更新进度提交数据出错");
+				apiListener.onError("服务器繁忙，请稍后再试...");
 			}
 		});
 		App.getInstance().addToRequestQueue(req, TAG);
 	}
 
+
+	/**
+	 * 更新进度提交数据
+	 * @param jsonObject
+	 * @param apiListener
+	 */
+	public void postSubmit(JSONObject jsonObject, final APIListener apiListener) {
+		JsonObjectRequest req = new JsonObjectRequest(POST_SUBMIT_URL, jsonObject, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+
+					apiListener.onResult(response);
+				}
+			}
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("服务器繁忙，请稍后再试...");
+			}
+		});
+		App.getInstance().addToRequestQueue(req, TAG);
+	}
 
 	/**
 	 * 办证中获取成员数据
@@ -236,7 +278,7 @@ public class VolleyHelpApi extends BaseApi{
 					default:
 						LogHelper.i(TAG, "未知错误");
 				}
-				apiListener.onError("办证中获取成员数据错误");
+				apiListener.onError("服务器繁忙，请稍后再试...");
 			}
 		});
 		App.getInstance().addToRequestQueue(req, TAG);
@@ -272,7 +314,7 @@ public class VolleyHelpApi extends BaseApi{
 						default:
 							LogHelper.i(TAG, "未知错误");
 					}
-					apiListener.onError("提交订单出错");
+					apiListener.onError("服务器繁忙，请稍后再试...");
 				}
 			}) {
 
@@ -315,7 +357,7 @@ public class VolleyHelpApi extends BaseApi{
 					default:
 						LogHelper.i(TAG, "未知错误");
 				}
-				apiListener.onError("提交订单出错");
+				apiListener.onError("服务器繁忙，请稍后再试...");
 			}
 		}) {
 
@@ -360,7 +402,7 @@ public class VolleyHelpApi extends BaseApi{
 					default:
 						LogHelper.i(TAG, "未知错误");
 				}
-				apiListener.onError("继续任务出错");
+				apiListener.onError("服务器繁忙，请稍后再试...");
 			}
 		}) {
 
@@ -411,7 +453,7 @@ public class VolleyHelpApi extends BaseApi{
 					default:
 						LogHelper.i(TAG, "未知错误");
 				}
-				apiListener.onError("获取办证进度标签下的数据出错");
+				apiListener.onError("服务器繁忙，请稍后再试...");
 			}
 		});
 		App.getInstance().addToRequestQueue(req, TAG);
@@ -454,7 +496,7 @@ public class VolleyHelpApi extends BaseApi{
 					default:
 						LogHelper.i(TAG, "未知错误");
 				}
-				apiListener.onError("继续任务出错");
+				apiListener.onError("服务器繁忙，请稍后再试...");
 			}
 		}) {
 
@@ -992,4 +1034,86 @@ public class VolleyHelpApi extends BaseApi{
 		});
 		App.getInstance().addToRequestQueue(req, TAG);
 	}
+
+	/**
+	 * 保存修改的公司名字
+	 * @param jsonObject
+	 * @param apiListener
+     */
+	public void postSaveCompanyName(JSONObject jsonObject, final APIListener apiListener) {
+
+		JsonObjectRequest req = new JsonObjectRequest(SAVE_COPANY_URL, jsonObject, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				if (isResponseError(response)) {
+					String errMsg = response.optString("message");
+					apiListener.onError(errMsg);
+				} else {
+
+					apiListener.onResult(response);
+				}
+			}
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("服务器繁忙，请稍后再试...");
+
+			}
+		});
+		App.getInstance().addToRequestQueue(req, TAG);
+	}
+
+	/**
+	 * 获取订单数据
+	 */
+	public void getOrderMethods(final String orderid, final APIListener apiListener) {
+		String urlString = MakeURL(DATAS_ORDER_URL, new LinkedHashMap<String, Object>() {{
+			put("orderid", orderid);
+		}});
+		JsonObjectRequest req = new JsonObjectRequest(urlString, null, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				LogHelper.i(TAG, response.toString());
+				LogHelper.i(TAG, "----的所有信息--" + response.toString());
+				apiListener.onResult(response);
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				int type = VolleyErrorHelper.getErrType(error);
+				switch (type) {
+					case 1:
+						LogHelper.i(TAG, "超时");
+						break;
+					case 2:
+						LogHelper.i(TAG, "服务器问题");
+						break;
+					case 3:
+						LogHelper.i(TAG, "网络问题");
+						break;
+					default:
+						LogHelper.i(TAG, "未知错误");
+				}
+				apiListener.onError("服务器繁忙，稍后再试...");
+			}
+		});
+		App.getInstance().addToRequestQueue(req, TAG);
+	}
+
 }

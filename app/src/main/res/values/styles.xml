@@ -43,4 +43,21 @@
         <item name="android:layout_marginRight">5dp</item>
     </style>
 
+
+   <!-- android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="8dip"
+    android:text="资料交接"
+    android:textSize="15sp"-->
+
+    <style name="textpersonalstyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">8dip</item>
+        <item name="android:textColor">@color/colorGray</item>
+        <item name="android:textSize">15dp</item>
+    </style>
+
 </resources>

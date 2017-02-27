@@ -49,8 +49,10 @@
         android:layout_width="fill_parent"
         android:layout_height="30dp"
         android:background="@drawable/while_stroke"
-        android:drawableLeft="@drawable/sorlistview_search_bar_icon_normal"
+        android:drawableLeft="@drawable/search1"
         android:hint="请输入关键字"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="4dp"
         android:singleLine="true"
         android:textSize="15.0dip" />
 

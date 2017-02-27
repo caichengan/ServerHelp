@@ -11,7 +11,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -27,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xht.android.serverhelp.model.ProsItem;
+import com.xht.android.serverhelp.model.TaskPeople;
 import com.xht.android.serverhelp.net.APIListener;
 import com.xht.android.serverhelp.net.VolleyHelpApi;
 import com.xht.android.serverhelp.util.AsyncImageLoader;
@@ -47,7 +47,7 @@ import static android.content.Context.MODE_APPEND;
 /**
  * UJinDuFragment
  * <p>
- * 办证中列表项的详细
+ * 办证中进度
  */
 public class JinDuFragment extends Fragment {
 
@@ -87,6 +87,8 @@ public class JinDuFragment extends Fragment {
     private int loadNum=0;
     private int curItem=1;
     private String companyId;
+    private String serviceType;
+    private String status;
 
 
     public JinDuFragment() {
@@ -234,17 +236,14 @@ public class JinDuFragment extends Fragment {
         VolleyHelpApi.getInstance().getBZProcs(((RwxqActivity) getActivity()).mOrderId, new APIListener() {
             @Override
             public void onResult(Object result) {
-
                 int len = result.toString().length();
-
-                LogHelper.i(TAG, "-----Fragment----" + result.toString());
-
-
+                LogHelper.i(TAG, "========Fragment----" + result.toString());
                 // TODO
                 // [{"employeeId":4,"file2":null,"file3":null,"progressStatus":4,"file0":null,"file1":null,"file6":null,"file7":null,
-                // "file4":null,"file5":null,"endTime":null,
+                // "file4":null,"file5":n
+                //
+                // ll,"endTime":null,
                 // "employeeName":"蔡成安","startTime":"1478231803612","serviceId":106,"flowName":"企业核名","orderId":37,"flowId":1}]
-
                 JSONObject tempJO;
                 JSONArray tempJA = (JSONArray) result;
                 ProsItem tempPI;
@@ -253,6 +252,8 @@ public class JinDuFragment extends Fragment {
                 for (int i = 0; i < lenghtJA; i++) {
                     try {
                         tempJO = tempJA.getJSONObject(i);
+
+
                         tempPI = new ProsItem();
                         tempPI.setFlowName(tempJO.optString("flowName"));//类型
                         tempPI.setStartTime(tempJO.optString("startTime"));
@@ -262,9 +263,15 @@ public class JinDuFragment extends Fragment {
                         tempPI.setServiceId(tempJO.optString("serviceId"));
                         tempPI.setOrderId(tempJO.optString("orderId"));
                         tempPI.setFlowId(tempJO.optString("flowId"));
-                        String employeeId = tempJO.optString("employeeId");
-                        //tempPI.setEmployeeId(tempJO.optString("employeeId"));
+                        tempPI.setApprise(tempJO.optString("commentContent"));//评价  TODO
+                        tempPI.setServiceType(tempJO.optString("serviceType"));//  TODO
+                        tempPI.setProcess_progressStatus(tempJO.optString("process_progressStatus"));//  TODO
+                        tempPI.setResult_progressStatus(tempJO.optString("result_progressStatus"));//  TODO
+                        //"process_progressStatus":5,"result_progressStatus":4
+                        //"serviceType":"process"
 
+                        String employeeId = tempJO.optString("employeeId");
+                        tempPI.setEmployeeId(tempJO.optString("employeeId"));
                         LogHelper.i(TAG, "-----------" + employeeId);
                         LogHelper.i(TAG, "----" + tempJO.optString("employeeId"));
                         tempPI.setImgFile1(tempJO.optString("file0"));
@@ -275,7 +282,6 @@ public class JinDuFragment extends Fragment {
                         tempPI.setImgFile6(tempJO.optString("file5"));
                         tempPI.setImgFile7(tempJO.optString("file6"));
                         tempPI.setImgFile8(tempJO.optString("file7"));
-
                         tempPI.setImgResFile1(tempJO.optString("file8"));
                         tempPI.setImgResFile2(tempJO.optString("file9"));
                         tempPI.setImgResFile3(tempJO.optString("file10"));
@@ -284,23 +290,19 @@ public class JinDuFragment extends Fragment {
                         tempPI.setImgResFile6(tempJO.optString("file13"));
                         tempPI.setImgResFile7(tempJO.optString("file14"));
                         tempPI.setImgResFile8(tempJO.optString("file15"));
-
                         mProsItems.add(tempPI);
-
                         LogHelper.i(TAG, "------0" + tempPI.getFlowName());
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
                 progressAdapter = new ProgressAdapter(mRwxqActivity, mProsItems);
                 mProgressListView.setAdapter(progressAdapter);
+
                 dismissProgressDialog();
             }
-
             @Override
             public void onError(Object e) {
-                App.getInstance().showToast(e.toString());
                 dismissProgressDialog();
                 //Activity com.xht.android.serverhelp.RwxqActivity has leaked window com.android.internal.policy.impl.PhoneWindow$DecorView{36ebcc7d V.E..... R......D 0,0-1026,486} that was originally added here
                 getActivity().finish();
@@ -311,13 +313,10 @@ public class JinDuFragment extends Fragment {
 
     public class ProgressAdapter extends BaseAdapter  {
 
-        private List<ProsItem> mProsItem = new ArrayList<>();
+        private List<ProsItem> mProsItem ;
         public RwxqActivity mContext;
         private ProgressDialog mProgressDialog;
-
         private AsyncImageLoader imageLoader;
-
-
         public ProgressAdapter(RwxqActivity mContext, List<ProsItem> Item) {
             this.mProsItem = Item;
             this.mContext = mContext;
@@ -355,6 +354,10 @@ public class JinDuFragment extends Fragment {
                 holder.mUploadfile = (TextView) convertView.findViewById(R.id.mUploadfile);
                 holder.mResultLoad = (TextView) convertView.findViewById(R.id.mResultLoad);
                 holder.mOfficeStyle = (TextView) convertView.findViewById(R.id.mOfficeStyle);
+                holder.tvApprise = (TextView) convertView.findViewById(R.id.tvApprise);
+
+                holder.mImgFileSubmit = (Button) convertView.findViewById(R.id.mImgFileSubmit);
+                holder.mImgResultSubmit = (Button) convertView.findViewById(R.id.mImgResultSubmit);
 
                 holder.mFile = (Button) convertView.findViewById(R.id.mImgFile);
                 holder.mResult = (Button) convertView.findViewById(R.id.mImgResult);
@@ -373,8 +376,8 @@ public class JinDuFragment extends Fragment {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            ProsItem item = mProsItem.get(position);
-            final String status =item.getProgressStatus();
+            final ProsItem item = mProsItem.get(position);
+            status =  mProsItem.get(mProsItem.size()-1).getProgressStatus();
             final String flowId = item.getFlowId();
             LogHelper.i(TAG, "------------------" + flowId + "-==========");
 
@@ -397,13 +400,185 @@ public class JinDuFragment extends Fragment {
             final String imgResFile8 = item.getImgResFile8();
 
 
-
             final String orderId = item.getOrderId();//订单id
             final String serviceId = item.getServiceId();//服务id
+            String apprise = item.getApprise();
+
+
+            if (!apprise.equals("null")){
+                holder.tvApprise.setText(apprise+"");
+            }else{
+                holder.tvApprise.setText("");
+            }
+
+
+            final String employeeId = item.getEmployeeId();
+
+            serviceType = mProsItem.get(mProsItem.size()-1).getServiceType();
+
+            final String itemOrderId = item.getOrderId();
+           LogHelper.i(TAG,"----itemOrderId--"+itemOrderId);
+
+            LogHelper.i(TAG,"1111111111111---"+serviceType+status);
+            holder.mImgFileSubmit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //过程图片提交审核 TODO
+                    LogHelper.i(TAG, "-------position-----" + position+mProsItem.get(position).getServiceType()+mProsItem.get(position).getProgressStatus());//3process5
+
+                    if (serviceType.equals("result")) {
+                        App.getInstance().showToast("已完成");
+                        return;
+                    }
+
+                    if (status.equals("4")) {
+                        holder.mImgFileSubmit.setText("审核中");
+                        holder.mImgResultSubmit.setText("提交审核");
+                        App.getInstance().showToast("请先等审核通过再继续下一步");
+                        return;
+                    }
+
+                    if (status.equals("5")&& serviceType.equals("result")) {
+                        holder.mImgFileSubmit.setText("已审核");
+                        holder.mImgResultSubmit.setText("已审核");
+                        holder.mImgFileSubmit.setBackgroundResource(R.drawable.gray_stroke);
+                        holder.mImgResultSubmit.setBackgroundResource(R.drawable.gray_stroke);
+                        App.getInstance().showToast("已完成");
+                        return;
+                    }
+
+                    JSONObject object=new JSONObject();
+                    try {
+                        object.put("employeeId",employeeId);
+                        object.put("orderId",orderId);
+                        object.put("type","process");
+
+                        LogHelper.i(TAG,"------"+object.toString());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    LogHelper.i(TAG,"========"+serviceType+status);
+                    //"process_progressStatus":5,"result_progressStatus":4
+                    createProgressDialogTitle("正在提交...");
+                    if (uid==0){
+                        App.getInstance().showToast("服务器繁忙,请稍后再试...");
+                        dismissProgressDialog();
+
+                    }else {
+
+
+                        VolleyHelpApi.getInstance().postSubmit(object
+                                , new APIListener() {//"employeeId":4,"serviceId":95
+                                    @Override
+                                    public void onResult(Object result) {
+                                        LogHelper.i(TAG, "------提交审核------" + result.toString());
+                                        //   holder.mSubmitgx1.setVisibility(View.VISIBLE);
+                                            holder.mImgFileSubmit.setText("审核中");
+                                        getDataInit();
+
+                                        dismissProgressDialog();
+                                    }
+
+                                    @Override
+                                    public void onError(Object e) {
+                                        dismissProgressDialog();
+                                        //App.getInstance().showToast(e.toString());
+                                        holder.mImgFileSubmit.setText("提交审核");
+                                    }
+                                });
+
+                    }
+
+
+                   // MethodSubmit(serviceType,status,object);
+
+                }
+            });
+
+            holder.mImgResultSubmit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //结果图片提交审核 TODO
+                    if (serviceType.equals("process")) {
+                        App.getInstance().showToast("先完成过程文件的审核");
+                        return;
+                    }
+                    if (status.equals("4")) {
+                        holder.mImgFileSubmit.setText("已审核");
+                        holder.mImgResultSubmit.setText("审核中");
+                        App.getInstance().showToast("请先等审核通过再继续下一步");
+                        return;
+                    }
+
+                    if (status.equals("4")&& serviceType.equals("result")) {
+                        holder.mImgFileSubmit.setText("已审核");
+                        holder.mImgResultSubmit.setText("审核中");
+                        App.getInstance().showToast("请先等审核通过再继续下一步");
+                        return;
+                    }
+
+                    if (status.equals("5")&& serviceType.equals("result")) {
+                        holder.mImgFileSubmit.setText("已审核");
+                        holder.mImgResultSubmit.setText("已审核");
+                        holder.mImgFileSubmit.setBackgroundResource(R.drawable.gray_stroke);
+                        holder.mImgResultSubmit.setBackgroundResource(R.drawable.gray_stroke);
+                        App.getInstance().showToast("已完成");
+                        return;
+                    }
+
+
+
+                    JSONObject object=new JSONObject();
+                    try {
+                        object.put("employeeId",employeeId);
+                        object.put("orderId",orderId);
+                        object.put("type","result");
+
+                        LogHelper.i(TAG,"------"+object.toString());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    LogHelper.i(TAG,"========"+serviceType+status);
+                    //"process_progressStatus":5,"result_progressStatus":4
+                    createProgressDialogTitle("正在提交...");
+                    if (uid==0){
+                        App.getInstance().showToast("服务器繁忙,请稍后再试...");
+                        dismissProgressDialog();
+
+                    }else {
+
+
+                        VolleyHelpApi.getInstance().postSubmit(object
+                                , new APIListener() {//"employeeId":4,"serviceId":95
+                                    @Override
+                                    public void onResult(Object result) {
+                                        LogHelper.i(TAG, "------提交审核------" + result.toString());
+                                        //   holder.mSubmitgx1.setVisibility(View.VISIBLE);
+                                        holder.mImgResultSubmit.setText("审核中");
+                                        getDataInit();
+
+                                        dismissProgressDialog();
+                                    }
+
+                                    @Override
+                                    public void onError(Object e) {
+                                        dismissProgressDialog();
+                                        //App.getInstance().showToast(e.toString());
+                                        holder.mImgResultSubmit.setText("提交审核");
+                                    }
+                                });
+                    }
+                }
+            });
+
             holder.mSubmitgx1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MethodLoadSubmit(status);
+                    //MethodLoadSubmit(status);
                 }
             });
 
@@ -426,13 +601,18 @@ public class JinDuFragment extends Fragment {
                 }
 
             });
+
+
+            final String progressStatus = item.getProgressStatus();// TODO
+
+
             holder.mFile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //跳转上传过程图片
                     Bundle bundle=new Bundle();
                     bundle.putInt("uid",uid);
-                    bundle.putString("status",status);
+                    bundle.putString("status", progressStatus);//mProsItems.get(mProsItems.size()-1).getProgressStatus());
                     bundle.putString("style","process");
                     bundle.putString("flowId",flowId);
                     bundle.putString("orderId",orderId);
@@ -452,10 +632,17 @@ public class JinDuFragment extends Fragment {
             holder.mResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+
+                    if (serviceType.equals("process")) {
+                        App.getInstance().showToast("先完成过程文件的审核");
+                        return;
+                    }
+
                     //跳转上传结果图片
                     Bundle bundle=new Bundle();
                     bundle.putInt("uid",uid);
-                    bundle.putString("status",status);
+                    bundle.putString("status", progressStatus);
                     bundle.putString("style","result");
                     bundle.putString("flowId",flowId);
                     bundle.putString("orderId",orderId);
@@ -475,8 +662,8 @@ public class JinDuFragment extends Fragment {
                     startActivityForResult(intent,45);
                 }
             });
-
-            LogHelper.i(TAG, "-------position-----" + position);
+            LogHelper.i(TAG,"1111111111111---"+serviceType+status);
+            LogHelper.i(TAG, "-------position-----" + position+serviceType+status);
 
    /*  case "1"://审核中
         case "2":// 驳回
@@ -486,8 +673,106 @@ public class JinDuFragment extends Fragment {
 
             String name = item.getFlowName();//步骤流程名称 如企业核名
             String startTime = item.getStartTime();//当前步骤开始时间
-            LogHelper.i(TAG, "------" + startTime);
+            LogHelper.i(TAG, "---startTime---" + startTime);
             String endTime = item.getEndTime();//当前步骤结束的时间
+
+            LogHelper.i(TAG, "---endTime---" + endTime);
+
+            LogHelper.i(TAG, "-------position-----" + position);
+            if (position==(mProsItems.size()-1)){
+                holder.mImgFileSubmit.setClickable(true);
+                holder.mImgResultSubmit.setClickable(true);
+                holder.mImgFileSubmit.setBackgroundResource(R.drawable.btn_background_circle);
+                holder.mImgResultSubmit.setBackgroundResource(R.drawable.btn_background_circle);
+                if (serviceType.equals("process")){
+
+                    switch (status){
+                        case "1":
+                            holder.mImgFileSubmit.setText("审核提交");
+                            holder.mImgResultSubmit.setText("审核提交");
+                            holder.mFile.setText("上传图片");
+                            holder.mResult.setText("上传图片");
+
+                            break;
+                        case "4":
+                            holder.mImgFileSubmit.setText("审核中");
+                            holder.mImgResultSubmit.setText("审核提交");
+                            holder.mFile.setText("查看图片");
+                            holder.mResult.setText("上传图片");
+
+                            break;
+                        case "5":
+                            holder.mImgFileSubmit.setClickable(false);
+                            holder.mImgFileSubmit.setText("已审核");
+                            holder.mImgFileSubmit.setBackgroundResource(R.drawable.gray_stroke);
+                            holder.mImgResultSubmit.setText("审核提交");
+                            holder.mFile.setText("查看图片");
+                            holder.mResult.setText("上传图片");
+
+                            break;
+                    }
+                }else{
+
+                    switch (status){
+                        case "1":
+                            holder.mImgFileSubmit.setText("已审核");
+                            holder.mImgFileSubmit.setClickable(false);
+                            holder.mImgFileSubmit.setBackgroundResource(R.drawable.gray_stroke);
+                            holder.mImgResultSubmit.setText("审核提交");
+                            holder.mFile.setText("查看图片");
+                            holder.mResult.setText("上传图片");
+
+                            break;
+                        case "4":
+                            holder.mImgFileSubmit.setText("已审核");
+                            holder.mImgFileSubmit.setClickable(false);
+                            holder.mImgFileSubmit.setBackgroundResource(R.drawable.gray_stroke);
+                            holder.mImgResultSubmit.setText("审核中");
+                            holder.mFile.setText("查看图片");
+                            holder.mResult.setText("查看图片");
+
+                            break;
+                        case "5":
+                            holder.mImgFileSubmit.setText("已审核");
+                            holder.mImgResultSubmit.setText("已审核");
+                            holder.mImgFileSubmit.setBackgroundResource(R.drawable.gray_stroke);
+                            holder.mImgResultSubmit.setBackgroundResource(R.drawable.gray_stroke);
+                            holder.mFile.setText("查看图片");
+                            holder.mResult.setText("查看图片");
+                            String flowId1 = mProsItem.get(mProsItem.size()-1).getFlowId();
+                            holder.mImgFileSubmit.setClickable(false);
+                            holder.mImgResultSubmit.setClickable(false);
+
+                            if (flowId1.equals("20")) {
+                                holder.aftersub1.setVisibility(View.GONE);
+
+                            }else{
+                                holder.aftersub1.setVisibility(View.VISIBLE);
+                            }
+
+
+                            break;
+                    }
+
+                }
+
+
+
+            }else{
+
+                holder.aftersub1.setVisibility(View.GONE);
+                holder.mImgFileSubmit.setClickable(false);
+                holder.mImgResultSubmit.setClickable(false);
+                holder.mImgFileSubmit.setText("已审核");
+                holder.mImgResultSubmit.setText("已审核");
+                holder.mImgFileSubmit.setBackgroundResource(R.drawable.gray_stroke);
+                holder.mImgResultSubmit.setBackgroundResource(R.drawable.gray_stroke);
+                holder.mFile.setText("查看图片");
+                holder.mResult.setText("查看图片");
+
+            }
+
+
 
             if (!startTime.equals("null")) {
                 long mStartTime = Long.valueOf(startTime);
@@ -497,6 +782,8 @@ public class JinDuFragment extends Fragment {
             if (!endTime.equals("null")) {
                 long mEndTime = Long.parseLong(endTime);
                 holder.mEndTime.setText(getDateTime(mEndTime));
+            }else{
+                holder.mEndTime.setText("");
             }
             String gengjinP = item.getGengjinP();//跟进任务的人名
             LogHelper.i(TAG, "-------imgFile1-----" );
@@ -505,39 +792,16 @@ public class JinDuFragment extends Fragment {
             // holder.mImgFile11.setTag(imgFile1);
             // 预设一个图片
             setTrue();
-            switch (status) {
-                case "1":
-                    holder.mUploadfile.setText("过程文件");
-                    holder.mResultLoad.setText("结果文件");
-                    holder.mSubmitgx1.setVisibility(View.VISIBLE);
-                    holder.aftersub1.setVisibility(View.GONE);
-                    holder.mSubmitgx1.setText("审核提交");
-                    holder.mUploadfile.setTextColor(Color.BLACK);
-                    holder.mResultLoad.setTextColor(Color.BLACK);
-                    holder.mSubmitgx1.setTextColor(Color.WHITE);
-                    holder.mSubmitgx1.setBackgroundResource(R.drawable.btn_background_circle);
-                    holder.mFile.setText("上传图片");
-                    holder.mResult.setText("上传图片");
-                    break;
-                case "4":
-                    holder.mUploadfile.setText("过程文件");
-                    holder.mResultLoad.setText("结果文件");
-                    holder.mSubmitgx1.setVisibility(View.VISIBLE);
-                    holder.aftersub1.setVisibility(View.GONE);
-                    holder.mSubmitgx1.setText("审核中");
-                    holder.mFile.setText("查看图片");
-                    holder.mSubmitgx1.setBackgroundResource(R.drawable.btn_background_circle);
-                    holder.mResult.setText("查看图片");
 
-                    break;
-                case "5":
-                    holder.mUploadfile.setText("过程文件");
-                    holder.mResultLoad.setText("结果文件");
-                    holder.mFile.setText("查看图片");
-                    holder.mResult.setText("查看图片");
-                    if (position == (mProsItems.size() - 1)) {
-                       /* holder.mUploadfile.setVisibility(View.VISIBLE);
-                        holder.mResultLoad.setVisibility(View.VISIBLE);*/
+
+
+
+
+
+
+                    /*if (position == (mProsItems.size() - 1)) {
+                        holder.mUploadfile.setVisibility(View.VISIBLE);
+                        holder.mResultLoad.setVisibility(View.VISIBLE);
                         String flowId1 = mProsItems.get(position).getFlowId();
                         if (flowId1.equals("20")) {
                             holder.mSubmitgx1.setVisibility(View.VISIBLE);
@@ -555,15 +819,15 @@ public class JinDuFragment extends Fragment {
                     } else {
                         holder.mSubmitgx1.setVisibility(View.VISIBLE);
                         holder.aftersub1.setVisibility(View.GONE);
-                     /*   holder.mUploadfile.setVisibility(View.INVISIBLE);
-                        holder.mResultLoad.setVisibility(View.INVISIBLE);*/
+                        holder.mUploadfile.setVisibility(View.INVISIBLE);
+                        holder.mResultLoad.setVisibility(View.INVISIBLE);
                         holder.mSubmitgx1.setText("已完成");
                         holder.mSubmitgx1.setTextColor(Color.WHITE);
                         holder.mSubmitgx1.setBackgroundResource(R.drawable.gray_stroke);
                         holder.mSubmitgx1.setClickable(false);
-                    }
-                    break;
-            }
+                    }*/
+
+
             holder.mHeMing.setText(name);
             holder.mFollowName.setText(gengjinP);
 
@@ -630,9 +894,12 @@ public class JinDuFragment extends Fragment {
             TextView mUploadfile;//上传图片文件
             TextView mResultLoad;//上传图片结果
             TextView mOfficeStyle;//类似于工商局的业务类型
+            TextView tvApprise;//评价
 
             Button mFile;
             Button mResult;
+            Button mImgFileSubmit;//审核过程
+            Button mImgResultSubmit;//审核结果
 
             TextView mFollowPeople;//跟进人
             TextView mFollowName;//跟进人姓名
@@ -645,6 +912,19 @@ public class JinDuFragment extends Fragment {
         }
 
     }
+
+    private void MethodSubmit(final String serviceType, String status, JSONObject obj) {
+
+
+
+
+
+
+    }
+
+
+
+
     private void setTrue() {
 
         holder.mSubmitgx1.setClickable(true);

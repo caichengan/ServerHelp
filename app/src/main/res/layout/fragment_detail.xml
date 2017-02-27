@@ -41,7 +41,7 @@
 
         <TextView
             android:id="@+id/textComName"
-            android:text=" 破天之恋"
+            android:text=""
             android:textSize="18sp"
             android:layout_centerInParent="true"
             style="@style/detialTextMessage" />
@@ -59,6 +59,7 @@
             android:text="修改"
             android:layout_alignParentRight="true"
             android:textSize="13sp"
+            android:textColor="@android:color/white"
             android:background="@drawable/btn_background_circle"
             android:layout_width="wrap_content"
             android:padding="5dp"

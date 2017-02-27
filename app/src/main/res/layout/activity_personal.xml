@@ -113,7 +113,7 @@
                     android:layout_marginLeft="20dp"
                     android:padding="5dp"
 
-                    android:text="累计收入："
+                    android:text="累计收入 "
                     android:textSize="15sp" />
 
                 <TextView
@@ -122,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:padding="5dp"
-                    android:text="0.00元"
+                    android:text="0元"
                     android:textColor="@android:color/holo_orange_light"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -196,12 +196,9 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+                      style="@style/textpersonalstyle"
                         android:text="资料交接"
-                        android:textSize="15sp" />
+                        />
                 </LinearLayout>
 
                 <View
@@ -230,12 +227,9 @@
                         />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+                        style="@style/textpersonalstyle"
                         android:text="工商核名"
-                        android:textSize="15sp" />
+                       />
                 </LinearLayout>
 
                 <View
@@ -264,12 +258,9 @@
                         />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+                        style="@style/textpersonalstyle"
                         android:text="注册文件"
-                        android:textSize="15sp" />
+                        />
                 </LinearLayout>
 
             </TableRow>
@@ -302,12 +293,9 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="工商注册"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle"/>
                 </LinearLayout>
 
                 <View
@@ -334,12 +322,9 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="雕刻印章"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle" />
                 </LinearLayout>
 
                 <View
@@ -367,12 +352,9 @@
                         />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="公安拿章"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle"/>
 
                 </LinearLayout>
 
@@ -409,12 +391,9 @@
                         />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="银行开户"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle"/>
                 </LinearLayout>
 
                 <View
@@ -440,12 +419,9 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="银行委托"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle" />
 
                 </LinearLayout>
 
@@ -475,12 +451,9 @@
                         />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="国税核税"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle" />
                 </LinearLayout>
 
 
@@ -515,12 +488,9 @@
                         />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="数字证书"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle" />
 
                 </LinearLayout>
 
@@ -548,12 +518,10 @@
                         />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="金税盘"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle"
+                         />
 
                 </LinearLayout>
 
@@ -582,12 +550,9 @@
                         />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="电子发票"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle" />
 
                 </LinearLayout>
 
@@ -621,12 +586,9 @@
                         />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="地税核税"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle" />
 
                 </LinearLayout>
 
@@ -654,12 +616,9 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="租苈备案"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle" />
                 </LinearLayout>
 
                 <View
@@ -688,12 +647,9 @@
                         />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="移交会计"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle" />
                 </LinearLayout>
 
 
@@ -727,12 +683,9 @@
                         />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="移交客户"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle" />
                 </LinearLayout>
 
                 <View
@@ -759,12 +712,9 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="办证回访"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle" />
 
                 </LinearLayout>
 
@@ -793,12 +743,9 @@
                         />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="发朋友圈"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle" />
                 </LinearLayout>
             </TableRow>
             <View
@@ -827,12 +774,9 @@
                         android:textSize="20sp"
                         />
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
+
                         android:text="后台开讲"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle" />
                 </LinearLayout>
                 <View
                     android:layout_width="1dp"
@@ -855,12 +799,8 @@
                         android:textColor="@android:color/holo_orange_dark"
                         android:textSize="20sp" />
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dip"
                         android:text="口碑传播"
-                        android:textSize="15sp" />
+                        style="@style/textpersonalstyle" />
                 </LinearLayout>
                 <View
                     android:layout_width="1dp"

@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.xht.android.serverhelp.model.TaskPeople;
 import com.xht.android.serverhelp.util.LogHelper;
 
 import org.json.JSONArray;
